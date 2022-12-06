@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex02</title>
+</head>
+<body>
+<h1>연산자 - 산술연산자</h1>
+<script>
+"use strict"
+
+console.log(100 + 200);
+console.log(100 - 200);
+console.log(100 * 200);
+console.log(100 / 200);
+console.log(100 % 200);
+console.log(2 ** 4);
+
+console.log('----------------');
+
+let a =100;
+a++;
+console.log(a);
+
+a = 100;
+a--;
+console.log(a);
+
+a = 3.14;
+a++;
+console.log(a.toFixed(2));
+
+a = 100;
+++a;
+console.log(a);
+// 전위 연산자
+
+a = 100;
+--a;
+console.log(a);
+
+let x = 100;
+let y = 100;
+
+console.log(x++);
+// console.long(x);
+// x = x + 1;
+
+console.log(++y);
+// y = y + 1;
+// console.long(y);
+console.log('------------');
+a = 100;
+x = a++ + a++ + a++;
+console.log(a, x);
+
+a = 100;
+x = ++a + ++a + ++a;
+console.log(a, x);
+console.log('------------');
+
+x = 100;
+x = ++x;
+console.log(x);
+
+y = 100;
+y = y++;
+console.log(y);
+// temp = y;  임시변수에 담아둠
+// y = y + 1; y를 하나 증가시킴
+// y = temp; 임시 변수 값을 y에 적용함
+
+a = 3;
+x = a++ + a++ * a++;
+console.log(x);
+// ++, / 연산자는 *, /, % 연산자보다 우선한다.
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

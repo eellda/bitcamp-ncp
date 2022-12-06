@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex02</title>
+</head>
+<body>
+<h1>리터럴(literal) - 숫자 진수 표현법</h1>
+<script>
+"use strict";
+
+console.log(100); // 10진수
+console.log(0x64); //16진수(기본)
+console.log(0x64); 
+// console.log(0144); // 8진수 표현 <- ECMA script 5의 strict 모드에서는 8진수 표현 불가
+
+console.log(0o144); // ECMA script 5에서는 0o, 0O 표현 가능
+console.log(0O144);
+console.log(0b01100100);
+console.log(0B01100100);
+
+let a = 100;
+console.log('--------------');
+console.log(a.toString(10));
+console.log(a.toString(8));
+console.log(a.toString(16));
+console.log(a.toString(2));
+console.log('--------------');
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
