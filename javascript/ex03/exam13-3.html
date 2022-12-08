@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex03</title>
+</head>
+<body>
+<h1>함수 - 애로우(arrow) 함수를 아규먼트로 전달하기</h1>
+<script>
+"use strict"
+
+// 배열에 forEach 사용하기
+
+let arr = [100, '아이유', 3.14, 'winter', true];
+
+// 배열에서 값 꺼내기
+
+for (let i = 0; i < arr.length; i++) {
+	console.log(arr[i]);
+}
+console.log('----------------------');
+
+// 방법 2
+arr.forEach(myFun);
+
+function myFun() {
+	console.log('ko');
+}
+console.log('----------------------');
+
+arr.forEach(myFun2);
+
+function myFun2(index, index2, array1) {
+	console.log('=>', index, index2, array1);
+}
+console.log('----------------------');
+
+
+arr.forEach((index, index2, array1) => console.log('=>', index, index2, array1));
+
+
+
+
+document.querySelector('.restart').addEventListener('click', rollback);
+
+function rollback() {
+  document.querySelector('.game-over').classList.remove('visible');
+  document.querySelectorAll('.grid-cell').forEach(roll);
+	function roll(cell) { 
+		cell.classList.remove('disabled', 'x', 'o');
+	};
+
+	game.xTurn = true
+  game.xState = []
+  game.oState = []
+
+};
+
+// document.querySelector('.restart').addEventListener('click', function (event)
+  // {
+  //   document.querySelector('.game-over').classList.remove('visible');
+
+  //   document.querySelectorAll('.grid-cell').forEach(cell => {cell.classList.remove('disabled', 'x', 'o')});
+  
+  //   game.xTurn = true;
+  //   game.xState = [];
+  //   game.oState = [];
+  //   //초깃값
+  // });
+</script>
+
+</body>
+</html>
