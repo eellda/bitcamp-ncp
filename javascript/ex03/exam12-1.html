@@ -15,12 +15,13 @@
 //
 //
 
+// 일반 함수 정의
 function f0() {
 	 return "안녕";
 }
 console.log(f0());
 
-
+// 익명 함수 정의
 var f1 = function() {
 	return "안녕";
 };
@@ -29,6 +30,7 @@ console.log(f1());
 // 애로우(arrow ) 함수 : 초간단 함수 정의 문법
 // 1) function 키워드를 제거한다.
 // 2) 대신 파라미터 블록과 코드 블록 사이에 화살표를 추가한다.
+// 다른 언어에서는 람다 라고 한다. lambda
 var f2 = () => {
 	return "안녕";
 };
@@ -40,9 +42,81 @@ console.log(f2());
 // (한 문장 밖에 없으니까 가능한 한 줄로 표현하라!)
 var f3 = () => "안녕";
 console.log(f3());
+console.log('-----------------------');
 
+// 익명함수 정의 후 바로 호출하는 방법
+var f4 = function() {
+	return '안녕';
+}
+console.log(f4());
+console.log((function() {
+	return '안녕';
+})());
+
+// 일반 함수 ==> arrow function
+// arrow function을 정의하는 즉시 바로 호출하는 방법
+var f5 = () => '안녕';
 console.log((() => "안녕")());
-</script>
+console.log((f5)());
 
+console.log('-----------------------');
+
+
+console.log((function(a, b) {
+	return a + b;
+})(100, 200));
+
+console.log(((a, b) => a + b)(111, 222));
+console.log('-----------------------');
+
+function print(name) {
+	console.log(name + '님 반갑');
+}
+print('아이유');
+console.log('-----------------------');
+
+((name) => console.log(name + '님 반갑'))('아잉유');
+
+((name) => {
+	console.log(name + '님 반갑');
+})('아잉유');
+
+(function(name) {
+	console.log(name + '님 반갑');
+})('아잉유');
+
+var x = function(name) {
+	console.log(name + '님 반갑');
+};
+x('아잉유');
+
+function x2(name) {
+	console.log(name + '님 반갑');
+};
+x2('아잉유'); 
+
+
+console.log('-----------------------');
+console.log('-----------------------');
+
+function divide(a, b) {
+	console.log((a / b).toFixed(2));
+}
+divide(8, 3);
+
+var divide = function(a, b) {
+	console.log((a / b).toFixed(2));
+}
+divide(8, 3);
+
+(function(a, b) {
+	console.log((a / b).toFixed(2));
+})(8, 3);
+
+((a, b) => console.log((a / b).toFixed(2)))(8, 3);
+
+
+
+</script>
 </body>
 </html>

@@ -15,12 +15,12 @@ function f2() {
   obj.age = 20;
   obj.tel = "1111-1111";
   obj.working = true;
-  return obj;
+  return obj; // 객체의 주소를 리턴 하는거임
 } 
 
 // 보통 다음과 같이 함수가 리턴한 객체를 통째로 받는다.
 // 실제 객체 주소를 받는다.
-var r2 = f2();
+var r2 = f2(); // 객체의 주소를 v2에 저장
 console.log(r2);
 console.log("------------------------");
 

@@ -38,6 +38,127 @@ play((a, b) => {
 	}
 	return sum;
 });
+console.log('----------------------');
+
+let arr = [100, '홍길동', 3.14, '아이유', true];
+function forEach(a, cb) {
+	for (let i = 0; i < a.length; i++) {
+		cb(i, a[i]);
+	}
+}
+forEach(arr, f);
+function f(a, b) {
+	console.log(a, b);
+}
+// // 함수 삽입
+// forEach(arr, function f(index, value) {
+// 	console.log(index, value);
+// })
+// // 익명함수
+// forEach(arr, function(index, value) {
+// 	console.log(index, value);
+// })
+// // 함수 단축
+// forEach(arr, (index, value) => {
+// 	console.log(index, value);
+// })
+
+// forEach(arr, (index, value) => console.log(index, value));
+
+// forEach([100, '홍길동', 3.14, '아이유', true], (index, value) => console.log(index, value));
+
+// forEach(
+// 	[100, '홍길동', 3.14, '아이유', true], 
+// 	(index, value) => console.log(index, value));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var c = Document.getElementById('bt');
+// c.addEventListener('click', f1);S
+
+// function f1() {
+// 	console.log('im event');
+// }
+
+// // ------------------------------
+
+// var c = Document.getElementById('bt');
+// c.addEventListener('click', function f1() {
+// 	console.log('im event');
+// });
+
+// // ------------------------------
+
+// var c = Document.getElementById('bt');
+// c.addEventListener('click', function() {
+// 	console.log('im event');
+// });
+
+// // ------------------------------
+
+// var c = Document.getElementById('bt');
+// c.addEventListener('click', () => {
+// 	console.log('im event');
+// });
+
+// // ------------------------------
+
+// var c = Document.getElementById('bt');
+// c.addEventListener('click', () => console.log('im event'));
+
+
+
+
+// forEach(cell => cell.classList.add('disabled'))
+// forEach(cell => {
+// 	cell.classList.add('disabled');
+// })
+// forEach(function(cell) {
+// 	cell.classList.add('disabled');
+// })
+// function forEach (cell) {
+// 	cell.classList.add('disabled');
+// }
+
+
+
+
+
+
+
+
+
+// 실행 결과 :
+// 0 - 100
+// 1 - 홍길동
+// 2 - 3.14
+// 3 - 아이유
+// 4 - true
 
 </script>
 
