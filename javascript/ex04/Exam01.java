@@ -12,6 +12,7 @@ class Exam01 {
     
     // 설계도에 따라 객체 생성 (메모리 준비)
     Student obj = new Student();
+    java.util.HashMap obj2 = new java.util.HashMap();
 
     // 객체 프로퍼티에 값 저장
     obj.name = "아이유";
@@ -24,5 +25,14 @@ class Exam01 {
     System.out.println(obj.name);
     System.out.println(obj.age);
     System.out.println(obj.working);
+
+    
+    obj2.put("name", "Ash");
+    obj2.put("age", 20);
+    obj2.put("working", true);
+
+    System.out.println(obj2.get("name"));
+    System.out.println(obj2.get("age"));
+    System.out.println(obj2.get("working"));
   }
 }
