@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="jami.css">
     <title>실험용</title>
 </head>
 <body>
@@ -12,7 +13,36 @@
     </header>
     <section>
         <button id="bt">나는 버튼</button>
-        <input type="text" name="" id="ip"  placeholder="입력 해보셈">입력
+        <form action="">
+            <input type="text" name="" id="ip"  placeholder="입력 해보셈" >아무거나 입력 가능
+            <div id="ip-result"></div>
+            <!-- <button id="ip-bt">입력</button> -->
+            <p>
+                <strong>비밀</strong>
+                <input id="password" type="password" value="">
+            </p>
+            <p>
+                <strong>나는?</strong>
+                <input type="radio" name="me" value="N">답이 없다
+                <input type="radio" name="me" value="Y">닶이 있나?
+            </p>
+            
+            <p>
+                <strong>좋아하는 language</strong>
+                <input type="checkbox" name="language" id="Java">Java
+                <input type="checkbox" name="language" id="Python">Python
+                <input type="checkbox" name="language" id="C++">C++    
+            </p>
+            <p>
+                <strong>파일 첨부</strong>
+                <input type="file" name="file" id="file">
+            </p>
+            
+            <input id="submit" type="submit" value="확정">
+            <input id="ip-reset" type="reset" value="다시">
+        </form>
+
+        
     </section>
     <footer></footer>
     <script src="jami.js"></script>
