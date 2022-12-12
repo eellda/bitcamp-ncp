@@ -21,8 +21,8 @@ var obj = {
 	sum: () => this.kor + this.eng + this.math,
 	aver: () => this.sum() / 3,
 	test1: function() {console.log(this);},
-	test2() {console.log(this);},
-	test3: () => console.log(this)
+	// test2() {console.log(this);},
+	// test3: () => console.log(this)
 };
 
 //console.log(obj.sum()); // this 즉 window 객체에 kor, eng, math라는 변수가 없기 때문에
@@ -32,12 +32,13 @@ var obj = {
 
 
 obj.test1();
-obj.test2();
-obj.test3();
+// obj.test2();
+// obj.test3();
 
 // 결론!
 // => 객체의 멤버 함수로 등록할 때는 arrow function을 사용하지 말라!
 // => 물론 객체의 다른 멤버를 사용하지 않는다면 arrow function을 사용해도 된다.
+
 
 
 </script>

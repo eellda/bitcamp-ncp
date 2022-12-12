@@ -9,11 +9,13 @@
 <script>
 "use strict"
 // {}은 기본 객체를 생성할 뿐만 아니라 프로퍼티도 바로 추가할 수 있다.
+// -> Object literal
+// 현업 방식
 
 var obj = {
-	"name": "홍길동",
+	"name": "홍길동", // JSON 방식
 	'kor': 100,
-	eng: 90,
+	eng: 90, // js는 그냥 적는거 추천
 	math:80,
 	sum: function() {
 	    return this.kor + this.eng + this.math;

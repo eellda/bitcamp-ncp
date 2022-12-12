@@ -13,7 +13,7 @@
 
 // 함수를 이용하여 객체를 초기화시키기
 function createScore(name, kor, eng, math) {
-	var obj = new Object();
+	const obj = new Object();
 	obj.name = name;
 	obj.kor = kor;
 	obj.eng = eng;
@@ -22,6 +22,11 @@ function createScore(name, kor, eng, math) {
 	obj.aver = obj.sum / 3;
 	return obj;
 }
+// 배열을 만들어 주는 함수
+// 참고 Factory method design patterns
+// 이렇게 함수를 통해 객체를 생성하는 기법을 '팩토리 메서드 패턴' 이라고 함
+// -> 객체 생성 과정이 복잡할 경우 직접 객체를 생성하고 초기화 시키기 보단
+// 		함수를 통해 객체를 생성하고 초기화 시키는 것이 코드를 더 간결하게 만듬
 
 var scores = []; // new Array();
 scores[0] = createScore("홍길동", 100, 100, 100);
@@ -43,6 +48,7 @@ scores[2].aver = scores[2].sum / 3;
 for (var score of scores) {
     console.log(score.name, score.kor, score.eng, score.math, score.sum, score.aver);
 }
+
 </script>
 </body>
 </html>

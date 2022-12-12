@@ -18,12 +18,18 @@ obj.kor = 100;
 obj.eng = 90;
 obj.math = 80;
 
+window.name = 'UI'; // name 변수 
+
 // toString()은 이미 객체에 들어 있는 함수이다.
 // 다음은 기존 함수를 덮어 쓴다.
 obj.toString = function() {
+	// var name = 'IU'; // name 변수
 	// 자바와 달리 객체의 프로퍼티 변수를 사용할 때는 반드시 this를 붙여야 한다.생략하면 안된다.
 	return this.name + "," + this.kor + "," + this.eng + "," + this.math;
 };
+// name 이라는 프로퍼티가 이미 window 안에 있어서 this를 안 붙여도 에러가 안뜸
+// this - 이 함수가 소속된 객체의 주소
+
 
 console.log(obj.toString());
 
