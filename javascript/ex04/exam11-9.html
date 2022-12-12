@@ -18,7 +18,7 @@ function Engine( valve, cylinder, cc) {
 
 function Car(valve, cylinder, cc, capacity, auto) {
   // 상위 생성자를 명시적으로 호출한다.
-  Engine.call(this, valve, cylinder, cc);
+  Engine.call(this, valve, cylinder, cc); // 이친구는 무조건 해줘야 댐
 
   this.light = fasle;
   this.capacity = capacity; 
