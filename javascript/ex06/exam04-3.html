@@ -47,7 +47,7 @@ document.getElementById("btn1").addEventListener("click", function(e) {
 //
 document.getElementById("btn2").addEventListener("click", function(e) {
     console.log("버튼2...1");
-    e.stopImmediatePropagation(); // 이 리스너까지만 실행한다.
+    e.stopImmediatePropagation(); // 이 리스너까지만 실행한다. 버블링 멈춤 + 이 리스너 까지만
 });
 document.getElementById("btn2").addEventListener("click", function(e) {
     console.log("버튼2...2");
