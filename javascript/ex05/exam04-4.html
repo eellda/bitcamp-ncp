@@ -17,6 +17,7 @@
     <a href='http://www.spring.io'>스프링 프레임워크</a>는 자바 백-엔드 개발 프레임워크입니다.</p>
   </article>
 </section>
+<button id="btn1">바꿔봐</button>
 <script>
 "use strict"
 
@@ -25,15 +26,19 @@
 
 // 방법2) 부모 태그를 모른다면 찾은 태그에서 부모 태그를 알아낸다.
 // => 삭제할 태그를 찾는다.
-var e = document.querySelector("article:first-child");
+document.querySelector('#btn1').onclick = function() {
+  var e = document.querySelector("article:first-child");
 
-// => 부모 태그를 알아낸다.
-// => Node.parentElement 또는 Node.parentNode를 사용한다.
-var parent = e.parentElement;
+  // => 부모 태그를 알아낸다.
+  // => Node.parentElement 또는 Node.parentNode를 사용한다. 둘이
+  var parent = e.parentElement;
 
-// => 부모 태그에서 자식 태그를 제거한다.
-parent.removeChild(e);
+  // => 부모 태그에서 자식 태그를 제거한다.
+  parent.removeChild(e);
 
+  // => e.parentElement.removeChild(e);
+
+};
 </script>
 </body>
 </html>
