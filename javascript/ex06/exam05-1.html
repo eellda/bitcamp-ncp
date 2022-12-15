@@ -31,7 +31,7 @@ document.getElementById("btn1").addEventListener("click", function(e) {
 	var myEvent = new MouseEvent("click"); // 마우스 이벤트의 객체 = 마우스 이벤트의 인스턴스  // 생성자를 통해서 초기화한 객체
 
 	// 2) 위에서 생성한 이벤트 객체를 #btn2에 보낸다.
-	document.getElementById("btn2").dispatchEvent(myEvent); // myEvent를 배달하다 
+	document.getElementById("btn2").dispatchEvent(myEvent); // btn2의 id 를 가진 태그에게 myEvent를 배달하다 
 });
 
 document.getElementById("btn2").addEventListener("click", function(e) {
