@@ -21,22 +21,24 @@
 // 버튼을 클릭할 때 서버에 HTTP 요청하여 응답 결과를 textarea 태그에 출력한다.
 var ta = document.querySelector("#ta");
 
+// var xhr = new XMLHttpRequest(); 그릇을 닦아서 쓴다 대신에 속도가 느리다
+
 document.querySelector("#btn1").onclick = () => {
 
     //1) AJAX 객체 준비 
-    var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest(); // 요즘 메모리가 넉넉하니 그릇을 새거 쓰겠다
     
     //2) 서버에 소켓 연결(동기 방식으로 요청)
     // => 1번 파라미터: HTTP 요청 method. ex) GET, POST, HEAD ...
     // => 2번 파라미터: 요청 URL
     // => 3번 파라미터: 비동기 여부
-    xhr.open("GET", "http://localhost:3000/exam01-1", false);
+    xhr.open("GET", "http://localhost:3000/exam01-1", false); // 서버에 연결까진 해
     
     //3) 서버에 HTTP 요청을 보낸다. -> HTTP 규칙에 따라 요청을 보낸다.
     // => 동기 방식으로 연결되었을 경우 서버에서 응답할 때까지 리턴하지 않는다.
-    xhr.send(); 
+    xhr.send();                                               // 이때가 되서야 요청을 보냄
     
-    //4) 서버가 응답한 콘텐트를 꺼낸다.
+    //4) 서버가 응답한 콘텐트를 꺼낸다. -> payload = mesage-body
     ta.value = xhr.responseText;
 };
 

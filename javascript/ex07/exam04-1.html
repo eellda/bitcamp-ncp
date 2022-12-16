@@ -20,14 +20,23 @@ div {
 <script>
 "use strict"
 // 웹페이지를 만들 때 AJAX를 이용하여 여러 조각을 붙여서 만들 수 있다.
-//       
+
+
+
 var header = document.querySelector("#header"),
     footer = document.querySelector("#footer");
 
-document.getElementById("btn1").onclick = () => {
-  prepareHeader();
-  prepareFooter();
-};
+// document.getElementById("btn1").onclick = () => {
+//   prepareHeader();
+//   prepareFooter();
+// };
+
+// 서버에서 html 을 받는 즉시 ajax로 header에 들어갈 html과
+// footer 에 들어갈 html을 요청하여 html을 받은 후
+// header와 footer에 넣는다.
+prepareHeader();
+prepareFooter();
+
 
 function prepareHeader() {
     var xhr = new XMLHttpRequest();
@@ -38,7 +47,7 @@ function prepareHeader() {
             }
         }
     };
-    xhr.open("GET", "test5.jsp", true);
+    xhr.open("GET", "http://localhost:3000/header", true);
     xhr.send();
 };
 
@@ -51,7 +60,7 @@ function prepareFooter() {
             }
         }
     };
-    xhr.open("GET", "footer.html", true);
+    xhr.open("GET", "http://localhost:3000/footer", true);
     xhr.send();
 };
 
