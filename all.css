@@ -1,0 +1,74 @@
+/* 기본 */
+html body {
+    margin: 0; /* 바깥쪽 */
+    padding: 0; /* 안쪽 */
+    width: auto;
+    height: auto;
+}
+
+/* 
+.이름 - class
+#이름 - id
+
+
+
+border
+border: 1px solid black;
+border-radius: 5px;
+
+선 스타일
+border-style: solid; 실선
+border-style: dashed; 파선
+border-style: double; 이중선
+border-style: dotted; 점선
+
+backgorund
+backgorund-image
+background-size: cover; 이미지 쵀대한 늘이기
+background-size: contain; 컨텐트 area 내에서 최대한 늘이기
+background-repeat 배경 이미지 반복
+background-color
+background position: x, y; 가로 세로 위치
+background position: initial; 기본
+background position: inherit; 부모 요소의 속성값 그대로
+
+
+box-sizing 박스 크기 기준
+box-sizing: content-box (기본) 콘텐트 영역 기준
+box-sizing: border-box 테두리 영역 기준
+
+
+clear float 한 이후의 문장, 레이아웃을 제어
+(태그와 레이아웃)
+clear: left;
+clear: right;
+clear: both; 양쪽 모두 제거
+
+
+display
+display: none; 랜더링 안함
+display: block; 가로영역 모두 차지
+display: inline; 가로 세로 지정불가 대신 줄바꿈 안됨
+display: inline-block; 지정한 영역 만큼 차지
+
+
+float 공간을 위로 띄워줌
+(태그와 레이아웃)
+float:left; 띄워서 왼쪽
+float:rifgt;
+float:initial;
+
+font 
+font-style: 글꼴 스타일 지정
+font-family: 글꼴 선택
+font-weigh: bold; 폰트 굵기
+
+
+position 태그의 위치 정의
+position: static; 기본값
+position: absolute; 절대 좌표
+position: relative; 원래 있던 위치 기준
+position: fixed; 스크롤 상관 없이 좌측 상단 기준
+position: inherit; 부모 태그 속성값
+*/
+
