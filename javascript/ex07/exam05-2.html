@@ -5,7 +5,11 @@
 <title>ex07</title>
 </head>
 <body>
+<<<<<<< HEAD
 <h1>JQUARY 만들기 - 1 태그 만들기</h1>
+=======
+<h1>JQuery 태그 만들기</h1>
+>>>>>>> bbced93e0408264cfd21d4620958a6c97cd58b29
 <table border="1">
 <thead>
     <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -15,11 +19,26 @@
 </table>
 <button id="btn1">데이터 가져오기!</button>
 <script src="jquery-02.js"></script>
+<<<<<<< HEAD
 <script>
 "use strict"
 // 웹페이지를 만들 때 AJAX를 이용하여 여러 조각을 붙여서 만들 수 있다.
 //       
 //var tbody = document.querySelector("tbody");
+=======
+
+<script>
+
+    // var str = '<table>';
+    // console.log(str.startsWith('<'));
+    // console.log(str.substring(1, str.length - 1));
+
+</script>
+
+<script>
+"use strict"
+
+>>>>>>> bbced93e0408264cfd21d4620958a6c97cd58b29
 var tbody = $("tbody")[0];
 
 document.querySelector("#btn1").onclick = () => {
@@ -29,6 +48,10 @@ document.querySelector("#btn1").onclick = () => {
             if (xhr.status == 200) {
 
                 console.log(xhr.responseText);
+<<<<<<< HEAD
+=======
+
+>>>>>>> bbced93e0408264cfd21d4620958a6c97cd58b29
                 var arr = JSON.parse(xhr.responseText);
                 console.log(arr);
 
