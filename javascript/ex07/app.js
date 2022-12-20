@@ -122,12 +122,20 @@ app.get('/proxy2', (req, res) => {
 });
 
 
+app.post('/login', (req, res) => {                                   // post 요청이 들어왔을때 실행할 함수를 등록 하는것임                                                    
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Content-Type', 'text/plain; charset=UTF-8');
+    
+    res.send(`email: ${req.body.email} \
+password: ${req.body.password}`);
+});
+
 
 
 
 // 웹서버 실행하기
 app.listen(
-    3000,                                                                               // 포트 번호 지정
+    4000,                                                                               // 포트 번호 지정
     () => {                                                                  
         console.log(`${port}번 포트에서 서버 구동 시작`);                               // 서버가 시작 되었을때 호출될 함수 = 리스너 = 핸들러
     }                                                     

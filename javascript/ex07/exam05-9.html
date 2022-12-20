@@ -5,7 +5,7 @@
 <title>ex07</title>
 </head>
 <body>
-<h1>JQUARY 만들기 - 8 Method Chaining()</h1>
+<h1>JQUARY 만들기 -  click()</h1>
 <table border="1">
 <thead>
     <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -15,7 +15,7 @@
 </table>
 <button id="btn1">데이터 가져오기!</button>
 
-<script src="jquery-08.js"></script>
+<script src="jquery-09.js"></script>
 <script>
 
 
@@ -26,7 +26,7 @@
 
 var tbody = $("tbody");
 
-$("#btn1").on('click', () => {
+$("#btn1").click(() => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {

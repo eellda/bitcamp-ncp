@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<h1>JQUARY 만들기 - 14 val()</h1>
+<form id="login-form">
+    email: <input type="email" name="email"><br>
+    pass: <input type="password" name="password"><br>
+    <button type="button" id="btn1">login</button>
+    <button type="button" id="btn2">back</button>
+</form>
+
+<script src="jquery-14.js"></script>
+<script>
+
+
+
+</script>
+<script>
+"use strict"
+
+
+
+var tbody = $("tbody");
+
+$("#btn1").click(() => {
+
+    let email = $("#login-form > input[name = 'email']").val(); // 값을 꺼내옴
+    let password = $("#login-form > input[name = 'password']").val();
+
+    console.log(email, password);
+
+});
+
+$("#btn2").click(() => {
+
+    let email = $("#login-form > input[name = 'email']").val(""); // ""값을 저장
+    let password = $("#login-form > input[name = 'password']").val("");
+
+    console.log(email, password);
+
+});
+
+</script>
+</body>
+</html>
+
+
+
+
+

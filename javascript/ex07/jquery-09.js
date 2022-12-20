@@ -1,4 +1,4 @@
-// Method Chaining()
+// click()
 
 function jQuery(selector) {
     let el =[];  // 생성한 태그나 찾은 태그를 담는 배열
@@ -65,6 +65,14 @@ function jQuery(selector) {
         }
         return this;
     }
+
+    el.click = function(handler) {
+        for (let e of el) {
+            this.on('click', handler);
+        }
+        return this;
+    }
+
     return el;
 }
 
