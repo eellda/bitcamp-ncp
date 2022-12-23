@@ -16,12 +16,12 @@ const promise1 = new Promise((resolve, reject) => {
 const promise2 = promise1.then((result) => {
   console.log(result)
   return result + " => 1";
-}); 
+})
 
 // 이전의 then() 핸들러가 리턴한 값을 받고 싶다면,
 // then() 이 리턴한 promise2에 핸들러를 등록한 후
 // 핸들러의 파라미터로 받아라.
-promise2.then((result) => console.log(result));
+.then((result) => console.log(result));
 
 console.log("끝!");
 

@@ -8,13 +8,13 @@ app.use(express.urlencoded({extended: true}));
 
 
 app.get('/hello', (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Origin', '*');               // response header
   res.set('Content-Type', 'text/plain; charset=UTF-8');
 
   setTimeout(()=> {
     res.send("Hello!");
   }, 3000);
-}); 
+});
 
 app.get('/header', (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
