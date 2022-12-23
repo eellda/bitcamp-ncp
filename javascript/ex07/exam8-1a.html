@@ -2,29 +2,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>ex07</title>
 <script>
-
-  // load 이벤트:
-  // HTML을 실행하여 DOM Tree를 완성하고
-  // HTML에 연결된 CSS, JavaScript 등의 파일을 모두 다운로드한 후
-  // 화면에 콘텐트 출력을 완료할 때 발생한다.
   window.onload = function () {
-    console.log('load event host');
+    let tbody = $('tbody');
+    
+    $.getJSON("http://localhost:4000/exam04-3", (result) => {
+        result.forEach((b) => {
+            $("<tr>")
+            .html("<td>" + b.no + "</td>" + 
+                    "<td>" + b.title + "</td>" + 
+                    "<td>" + b.writer + "</td>" +
+                    "<td>" + b.viewCnt + "</td>")
+            .appendTo(tbody);
+        });
+    });
   }
 </script>
 </head>
 
 <body>
+
 <h1>load 이벤트 - window.onload</h1>
 
-<script>
-  console.log('1111');
-</script>
-<script src="exam08.js"></script>
-<script>
-  console.log('2222');
-</script>
+<table border="1">
+  <thead>
+      <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+  </thead>
+  <tbody>
+  
+  </tbody>
+
+  </table>
+
 </body>
 </html>

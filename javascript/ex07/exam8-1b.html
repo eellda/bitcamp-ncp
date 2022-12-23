@@ -2,25 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>ex07</title>
-<script>
-  window.onload = function () {
-    let tbody = $('tbody');
-    
-    $.getJSON("http://localhost:4000/exam04-3", (result) => {
-        result.forEach((b) => {
-            $("<tr>")
-            .html("<td>" + b.no + "</td>" + 
-                    "<td>" + b.title + "</td>" + 
-                    "<td>" + b.writer + "</td>" +
-                    "<td>" + b.viewCnt + "</td>")
-            .appendTo(tbody);
-        });
-    });
-  }
-</script>
+
 </head>
 
 <body>
@@ -35,7 +19,23 @@
   
   </tbody>
 
-  </table>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+let tbody = $('tbody');
+$.getJSON("http://localhost:4000/exam04-3", (result) => {
+    result.forEach((b) => {
+        $("<tr>")
+        .html("<td>" + b.no + "</td>" + 
+                "<td>" + b.title + "</td>" + 
+                "<td>" + b.writer + "</td>" +
+                "<td>" + b.viewCnt + "</td>")
+        .appendTo(tbody);
+    });
+});
+</script>
+
 
 </body>
 </html>
