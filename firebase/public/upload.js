@@ -14,15 +14,32 @@ const db = firebase.firestore();
 //const app = initializeApp(firebaseConfig);
 //const db = getFirestore(app);
 
-const btn = document.querySelector('.btn');
+const btn = document.querySelector('#send');
 const title = document.querySelector('#title');
 const content = document.querySelector('#content');
 const price = document.querySelector('#price');
+const storage = firebase.storage();
 
 btn.addEventListener('click', () => {
-    db.collection('product').doc('post2').set({
-        name: title.value,
+
+    var file = document.querySelector('#image').files[0];
+
+    var storageRef = storage.ref();
+    var saveLink = storageRef.child('image/' + file.name);
+    var upload = saveLink.put(file);
+
+    db.collection('product').add({
+        name: $(title).val(),
         cost: price.value,
-        content: content.value
-    });
+        content: content.value,
+        date: new Date()
+    }).then((result) => {
+        console.log(result);
+        window.location.href = "index.html";
+    }).catch((err) => {
+        console.log(err); 
+    })
 })
+// btn.addEventListener('click', () => {
+//     window.location.href = "index.html";
+// })
