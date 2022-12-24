@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>ex07</title>
+</head>
+
+<body>
+<h1>외부 라이브러리 활용 - SweetAlret2</h1>
+
+<button id="btn1">일반 알림창</button>
+<button id="btn2">SweetAlret2 경고창 띄우기</button>
+
+
+
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+<script>
+
+$('#btn1').click(() => {
+  window.alert('알림창 ㅋㅋ');
+});
+$('#btn2').click(() => {
+    Swal.fire({
+    title: 'Error!',
+    text: 'Do you want to continue',
+    icon: 'error',
+    confirmButtonText: 'Cool'
+  })
+});
+
+</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<title>ex07</title>
+<script>
+
+
+// mz 방식
+$(() => {
+    console.log('ready() 호출됨1');
+});
+
+
+// 틀딱 방식
+$(document).ready(() => {
+  console.log('ready() 호출됨2');
+});
+
+
+
+$(() => {
+    console.log('ready() 호출됨3');
+});
+
+
+
+window.onload = function () {
+  console.log('load event host');
+}
+
+// ready() 와 onload 로 등록한 함수는 jQuery의 버전에 따라 실행 순서가 다름.
+// 따라서 한가지 방법을 사용하라..
+
+</script>
+</head>
+
+<body>
+<h1>load 이벤트 - $(document).ready()</h1>
+
+<script>
+  console.log('1111');
+</script>
+<script src="exam08.js"></script>
+<script>
+  console.log('2222');
+</script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>ex07</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script>
+    // body 태그의 콘텐트가 로딩 되기도 전에 dbody를 찾으면 해당 태그는 존재 x
+
+  let tbody = $('tbody'); // return 값에는 tbody 태그가 들어있지 않은 객체
+  $.getJSON("http://localhost:4000/exam04-3", (result) => {
+      result.forEach((b) => {
+          $("<tr>")
+          .html("<td>" + b.no + "</td>" + 
+                  "<td>" + b.title + "</td>" + 
+                  "<td>" + b.writer + "</td>" +
+                  "<td>" + b.viewCnt + "</td>")
+          .appendTo(tbody);
+      });
+  });
+  </script>
+</head>
+
+<body>
+
+<h1>load 이벤트 - window.onload</h1>
+
+<table border="1">
+  <thead>
+      <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+  </thead>
+  <tbody>
+  
+  </tbody>
+
+</table>
+<hr>
+<p>비트캠프02022</p>
+
+
+</body>
+</html>
