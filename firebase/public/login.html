@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="./css/upload.css">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Document</title>
+</head>
+
+
+
+
+<body class="dark-theme">
+
+    <!--
+      - #HEADER
+    -->
+  
+    <header>
+      <div class="container">
+        <nav class="navbar">
+          <a href="./index.html">
+            <img src="./images/logo-light.svg" alt="Devblog's logo" width="150" class="logo-light">
+            <img src="./images/logo-dark.svg" alt="Devblog's logo" width="150" class="logo-dark">
+          </a>
+          <div class="btn-group">
+            <button class="theme-btn theme-btn-mobile light">
+              <ion-icon name="moon" class="moon"></ion-icon>
+              <ion-icon name="sunny" class="sun"></ion-icon>
+            </button>
+  
+            <button class="nav-menu-btn">
+              <ion-icon name="menu-outline"></ion-icon>
+            </button>
+  
+          </div>
+  
+          <div class="flex-wrapper">
+            <ul class="desktop-nav">
+              <li>
+                <a href="#" class="nav-link">Home</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link">About Me</a>
+              </li>
+            </ul>
+            <button class="theme-btn theme-btn-desktop light">
+              <ion-icon name="moon" class="moon"></ion-icon>
+              <ion-icon name="sunny" class="sun"></ion-icon>
+            </button>
+          </div>
+          <div class="mobile-nav">
+            <button class="nav-close-btn">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <div class="wrapper">
+              <p class="h3 nav-title">Main Menu</p>
+              <ul>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">About Me</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  
+  
+  
+  
+  
+    <main>
+  
+      <!--
+        - #HERO SECTION
+      -->
+  
+      <div class="hero">
+        <div class="container">
+            <!-- 해드 -->
+        </div>
+      </div>
+  
+  
+  
+  
+  
+      <div class="main">
+        <div class="container">
+  
+          <!--
+            - BLOG SECTION
+          -->
+  
+          <div class="blog">
+            <div class="blog-card-group">
+                <!-- 메인 -->
+                <div class="container mt-3">
+                    <div class="mb-3">
+                      <input type="text" class="form-control" placeholder="name" id="name-new">
+                    </div>
+                    <div class="mb-3">
+                      <input type="email" class="form-control" placeholder="email" id="email-new">
+                    </div>
+                    <div class="mb-3">
+                      <input type="password" class="form-control" placeholder="pw" id="pw-new">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="register">가입하기</button>
+                 </div>
+          </div>
+  
+  
+  
+  
+  
+          <!--
+            - ASIDE
+          -->
+  
+          <!-- <div class="aside">
+            <div class="topics">
+              <h2 class="h2">Topics</h2>
+              <a href="#" class="topic-btn">
+                <div class="icon-box">
+                  <ion-icon name="server-outline"></ion-icon>
+                </div>
+                <p>Database</p>
+              </a>
+              <a href="#" class="topic-btn">
+                <div class="icon-box">
+                  <ion-icon name="accessibility-outline"></ion-icon>
+                </div>
+                <p>Accessibility</p>
+              </a>
+              <a href="#" class="topic-btn">
+                <div class="icon-box">
+                  <ion-icon name="rocket-outline"></ion-icon>
+                </div>
+                <p>Web Performance</p>
+              </a>
+            </div> -->
+  
+            <!-- <div class="tags">
+  
+              <h2 class="h2">Tags</h2>
+  
+              <div class="wrapper">
+  
+                <button class="hashtag">#mongodb</button>
+                <button class="hashtag">#nodejs</button>
+                <button class="hashtag">#a11y</button>
+                <button class="hashtag">#mobility</button>
+                <button class="hashtag">#inclusion</button>
+                <button class="hashtag">#webperf</button>
+                <button class="hashtag">#optimize</button>
+                <button class="hashtag">#performance</button>
+  
+              </div>
+  
+            </div> -->
+  
+            <!-- <div class="contact">
+              <h2 class="h2">Let's Talk</h2>
+              <div class="wrapper">
+                <p>
+                  Do you want to learn more about how I can help your company overcome problems? Let us have a
+                  conversation.
+                </p>
+                <ul class="social-link">
+                  <li>
+                    <a href="#" class="icon-box discord">
+                      <ion-icon name="logo-discord"></ion-icon>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="icon-box twitter">
+                      <ion-icon name="logo-twitter"></ion-icon>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="icon-box facebook">
+                      <ion-icon name="logo-facebook"></ion-icon>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="newsletter">
+              <h2 class="h2">Newsletter</h2>
+              <div class="wrapper">
+                <p>
+                  Subscribe to our newsletter to be among the first to keep up with the latest updates.
+                </p>
+                <form action="#">
+                  <input type="email" name="email" placeholder="Email Address" required>
+                  <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </main>
+  
+  
+  
+  
+  
+    <!--
+      - #FOOTER
+    -->
+  
+    <footer>
+      <div class="container">
+        <div class="wrapper">
+          <a href="#" class="footer-logo">
+            <img src="./images/logo-light.svg" alt="DevBlog's Logo" width="150" class="logo-light">
+            <img src="./images/logo-dark.svg" alt="DevBlog's Logo" width="150" class="logo-dark">
+          </a>
+          <p class="footer-text">
+            Learn about Web accessibility, Web performance, and Database management.
+          </p>
+        </div>
+        <div class="wrapper">
+          <p class="footer-title">Quick Links</p>
+          <ul>
+            <li>
+              <a href="#" class="footer-link">Advertise with us</a>
+            </li>
+            <li>
+              <a href="#" class="footer-link">About Us</a>
+            </li>
+            <li>
+              <a href="#" class="footer-link">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="wrapper">
+          <p class="footer-title">Legal Stuff</p>
+          <ul>
+            <li>
+              <a href="#" class="footer-link">Privacy Notice</a>
+            </li>
+            <li>
+              <a href="#" class="footer-link">Cookie Policy</a>
+            </li>
+            <li>
+              <a href="#" class="footer-link">Terms Of Use</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">
+        &copy; Copyright 2022 <a href="#">DevBlog</a>
+      </p>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+
+<script src="./js/key.js"></script>
+<script src="./js/script.js"></script>
+<script src="./js/login.js"></script>
+
+</body>
+</html> 

@@ -29,7 +29,7 @@ db.collection('product').get().then((result)=> {
 
             <div class="blog-card">
               <div class="blog-card-banner">
-                <img src="./images/blog-1.png" alt="Building microservices with Dropwizard, MongoDB & Docker"
+                <img src="${doc.data().image}" alt="Building microservices with Dropwizard, MongoDB & Docker"
                   width="250" class="blog-banner-img">
               </div>
               <div class="blog-content-wrapper">
