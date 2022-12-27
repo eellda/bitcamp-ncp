@@ -1,6 +1,7 @@
 var quaryString = new URLSearchParams(window.location.search);
 
 
+
 db.collection('product').doc(quaryString.get('id')).get().then((result) => {
     console.log(result.data());
 
@@ -10,10 +11,20 @@ db.collection('product').doc(quaryString.get('id')).get().then((result) => {
         <h1 class="title">${result.data().title}</h1>
         <hr>
         <h3>작성자 : ${result.data().name}</h3>
-        <p class="date">${result.data().date}</p>
+        <br>
+        <br>
         <p class="content">${result.data().content}</p>
         </div>`;
 
     $('.main > .container > .blog > .blog-card-group').append(templit);
 
+    $('#edit').click(function() {
+        window.location.href = '/edit.html?id=' + quaryString.get('id');
+    })
+
 })
+
+
+
+
+//<p class="date">${result.data().date}</p>
