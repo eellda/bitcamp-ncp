@@ -1,3 +1,12 @@
+firebase.auth().onAuthStateChanged((user) => {
+    if(user) {
+        console.log(user.uid);
+        console.log(user.displayName);
+        //window.location.href = "index.html";
+        $('#userName').html(user.displayName + '님');
+    }
+})
+
 $('#login').click(function () {
 
     var email = $('#email').val();
