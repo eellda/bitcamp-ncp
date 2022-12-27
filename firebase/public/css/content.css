@@ -390,6 +390,13 @@ header .btn-group {
   #BLOG SECTION
 \*-----------------------------------*/
 
+.detail-pic {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+  } 
+
 .main {
   background: var(--background-secondary);
   padding: var(--py) 0;
@@ -904,7 +911,7 @@ footer .wrapper { text-align: center; }
 
   .main .container {
     display: grid;
-    grid-template-columns: 5fr 2fr;
+    xgrid-template-columns: 5fr 2fr;
     gap: 60px;
   }
 

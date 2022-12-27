@@ -35,7 +35,8 @@ btn.addEventListener('click', () => {
     var file = document.querySelector('#image').files[0];
     var storageRef = storage.ref();
     var saveLink = storageRef.child('image/' + file.name);
-    var upLoad = saveLink.put(file)
+    var upLoad = saveLink.put(file);
+
 
     upLoad.on( 'state_changed', 
     // 변화시 동작하는 함수 
@@ -50,11 +51,13 @@ btn.addEventListener('click', () => {
                 console.log('업로드된 경로는', url);
 
                 var save = {
-                    name: $(title).val(),
+                    title: $(title).val(),
                     //cost: price.value,
                     content: content.value,
                     date: new Date(),
-                    image: url
+                    image: url,
+                    uid: JSON.parse(localStorage.getItem('user')).uid,
+                    name: JSON.parse(localStorage.getItem('user')).displayName
                 }
                 db.collection('product').add(save).then((result) => {
                     console.log(result);

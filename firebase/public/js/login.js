@@ -1,7 +1,7 @@
 var mi = localStorage.getItem('user');
-$('#userName').html(JSON.parse(mi).displayName + '님');
-
-
+console.log(mi);
+$('#userName').html(JSON.parse(mi.displayName));
+console.log(mi.displayName);
 
 firebase.auth().onAuthStateChanged((user) => {
     if(user) {
@@ -9,7 +9,6 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log(user.displayName);
         //window.location.href = "index.html";
         localStorage.setItem('user', JSON.stringify(user));
-
     }
 })
 

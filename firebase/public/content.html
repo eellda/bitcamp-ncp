@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="./css/content.css">
   <title>Document</title>
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./css/index.css">
+  <!-- <link rel="stylesheet" href="./css/index.css"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 </head>
 <body class="dark-theme">
 
@@ -45,6 +46,13 @@
         <div class="flex-wrapper">
           <ul class="desktop-nav">
             <li>
+              <span class="ms-auto mx-2" id="userName"></span>
+            </li>
+            <li>
+              <li>
+                <a href="./login.html" class="nav-link">Login</a>
+              </li>
+            <li>
               <a href="#" class="nav-link">Home</a>
             </li>
             <li>
@@ -64,7 +72,7 @@
             <p class="h3 nav-title">Main Menu</p>
             <ul>
               <li class="nav-item">
-                <a href="#" class="nav-link">Home</a>
+                <a href="./index.html" class="nav-link">Home</a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">About Me</a>
@@ -91,10 +99,145 @@
     </div>
   </header>
 
-  <div class="main">
-    
-  </div>
 
+
+
+
+  <main>
+
+    <!--
+      - #HERO SECTION
+    -->
+
+
+
+
+
+
+    <div class="main">
+      <div class="container">
+
+        <!--
+          - BLOG SECTION
+        -->
+
+        <div class="blog">
+          <!-- <h2 class="h2">Latest Blog Post</h2> -->
+          <div class="blog-card-group">
+
+            <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
+            <div>
+              <h5>올린사람 : 모름</h5>
+              <hr>
+              <h5 class="title">상품명</h5>
+              <p class="date">올린날짜</p>
+              <p class="price">가격</p>
+            </div>
+          <!-- 여기에 포스트 내용 들어감 -->
+          <!-- <button class="btn load-more">Load More</button> -->
+
+        </div>
+
+
+
+
+
+        <!--
+          - ASIDE
+        -->
+
+        <div class="aside">
+          <div class="topics">
+            <h2 class="h2">Topics</h2>
+            <a href="#" class="topic-btn">
+              <div class="icon-box">
+                <ion-icon name="server-outline"></ion-icon>
+              </div>
+              <p>Database</p>
+            </a>
+            <a href="#" class="topic-btn">
+              <div class="icon-box">
+                <ion-icon name="accessibility-outline"></ion-icon>
+              </div>
+              <p>Accessibility</p>
+            </a>
+            <a href="#" class="topic-btn">
+              <div class="icon-box">
+                <ion-icon name="rocket-outline"></ion-icon>
+              </div>
+              <p>Web Performance</p>
+            </a>
+          </div>
+
+          <!-- <div class="tags">
+
+            <h2 class="h2">Tags</h2>
+
+            <div class="wrapper">
+
+              <button class="hashtag">#mongodb</button>
+              <button class="hashtag">#nodejs</button>
+              <button class="hashtag">#a11y</button>
+              <button class="hashtag">#mobility</button>
+              <button class="hashtag">#inclusion</button>
+              <button class="hashtag">#webperf</button>
+              <button class="hashtag">#optimize</button>
+              <button class="hashtag">#performance</button>
+
+            </div>
+
+          </div> -->
+
+          <div class="contact">
+            <h2 class="h2">Let's Talk</h2>
+            <div class="wrapper">
+              <p>
+                Do you want to learn more about how I can help your company overcome problems? Let us have a
+                conversation.
+              </p>
+              <ul class="social-link">
+                <li>
+                  <a href="#" class="icon-box discord">
+                    <ion-icon name="logo-discord"></ion-icon>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="icon-box twitter">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="icon-box facebook">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="newsletter">
+            <h2 class="h2">Newsletter</h2>
+            <div class="wrapper">
+              <p>
+                Subscribe to our newsletter to be among the first to keep up with the latest updates.
+              </p>
+              <form action="#">
+                <input type="email" name="email" placeholder="Email Address" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+  <!--
+    - #FOOTER
+  -->
 
   <footer>
     <div class="container">
@@ -142,7 +285,10 @@
   </footer>
 
 
-    <!--
+
+
+
+  <!--
     - custom js link
   -->
   <script src="./js/script.js"></script>
@@ -153,5 +299,12 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <script src="./js/key.js"></script>
+
 </body>
-</html>
+</html> 
