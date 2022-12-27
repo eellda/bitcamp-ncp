@@ -1,9 +1,15 @@
+var mi = localStorage.getItem('user');
+$('#userName').html(JSON.parse(mi).displayName + '님');
+
+
+
 firebase.auth().onAuthStateChanged((user) => {
     if(user) {
         console.log(user.uid);
         console.log(user.displayName);
         //window.location.href = "index.html";
-        $('#userName').html(user.displayName + '님');
+        localStorage.setItem('user', JSON.stringify(user));
+
     }
 })
 
@@ -19,6 +25,7 @@ $('#login').click(function () {
 
 $('#logout').click(function () {
     firebase.auth().signOut();
+    localStorage.removeItem('user');
 })
 
 

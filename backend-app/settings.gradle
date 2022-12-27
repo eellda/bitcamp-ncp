@@ -1,3 +1,4 @@
-rootProject.name = 'backend-app'
 
+
+rootProject.name = 'backend-app'
 include('app')

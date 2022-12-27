@@ -8,25 +8,59 @@
 
 // gradle 도구의 기능을 확장하는 설정
 plugins {
-    // gradle 에서 자바 application을 실행시킬 수 있도록 기능을 추가
-    id 'application' // java plug in 포함
-    //id 'java'
 
-    // gradle 에서 스프링부트를 다를 수 있도록 기능을 추가
-    id 'org.springframework.boot' version '3.0.1'
+  // Eclipse IDE 관련 기능을 추가 하기
+  id 'eclipse'
 
-    // gradle에서 스프링부트 릐존 라이브러리를 다룰 수 있도록 기능을 추가
+  // gradle 에서 자바 application을 실행시킬 수 있도록 기능을 추가
+  id 'application' // java plug in 포함
+  //id 'java' // 의존
+
+  // gradle 에서 스프링부트를 다를 수 있도록 기능을 추가
+  id 'org.springframework.boot' version '3.0.1'
+
+  // gradle에서 스프링부트 릐존 라이브러리를 다룰 수 있도록 기능을 추가
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
-// 빌드 배파일 (.zar, .zip 등)을 만들 때 사용할 이름 설정
+// java 플러그인 설정
+// 자바 소스를 컴파일 할 때 적용할 옵션
+tasks.withType(JavaCompile) {
+    // 프로젝트의 소스 파일 인코딩을 gradle에게 알려준다.
+    // $javac -encoding UTF-8 ..
+    options.encoding = 'UTF-8' 
+
+    // 소스 파일을 작성할 때 사용할 자바 버전
+    sourceCompatibility = '17'
+
+    // 자바 클래스를 실행시킬 JVM의 최소 버전
+    targetCompatibility = '17'
+}
+
+// eclipse 플러그인 설정
+// eclipse 프로젝트 이름 설정
+eclipse {
+    project {
+        name = "backend-app"
+    }
+    jdt {
+      //if you want to alter the java versions (by default they are configured with gradle java plugin settings):
+      sourceCompatibility = 17
+      targetCompatibility = 17
+      javaRuntimeName = "JavaSE-17"
+    }
+}
+
+// => Application test 에 사용할 단위 테스트 프레임워크 설정
+tasks.named('test') {
+  useJUnitPlatform()
+}
+
+// => 배포 파일 (.zar, .zip 등)을 만들 때 사용할 이름 설정
 group = 'bitcamp' 
 version = '0.0.1-SNAPSHOT'
 
-// Application 개발에 사용하는 자바 언어의 최대 버전 설정
-sourceCompatibility = '17'
-
-// Spring Configuration Processor 설정 정보
+// => Spring Configuration Processor 를 다룰때 필요한 설정 정보
 configurations {
   compileOnly {
     extendsFrom annotationProcessor
@@ -43,25 +77,22 @@ repositories {
 dependencies {
     //Spring Boot 기본 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // 개발하는 동안 사용하는 라이브러리
-    // 배포 파일을 만들 때 제외
+    // // 개발하는 동안 사용하는 라이브러리
+    // // 배포 파일을 만들 때 제외
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    // Spring Boot 관련 애노테이션 처리 라이브러리
+    // // Spring Boot 관련 애노테이션 처리 라이브러리
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    // 단위 테스트 할 때 사용하는 라이브러리
+    // // 단위 테스트 할 때 사용하는 라이브러리
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.13.2'
-    // 일반 용도의 유틸리티 라이브러리
+    // // 일반 용도의 유틸리티 라이브러리
  
     implementation 'com.google.guava:guava:31.1-jre'
 }
 
-// Application test 에 사용할 단위 테스트 프레임워크 설정
-tasks.named('test') {
-  useJUnitPlatform()
-}
 
-// run 명령으로 실행시킬 java class 이름
+// application 플러그인 설정
+// run 명령으로 실행시킬 자바 클래스 이름
 application {
     mainClass = 'bitcamp.bootapp.App'
 }
