@@ -47,7 +47,7 @@ db.collection('product').get().then((result)=> {
             <div class="blog-content-wrapper">
               <button class="blog-topic text-tiny">Database</button>
               <h3>
-                <a href="./content.html" class="h3">
+                <a href="./content.html?id=${doc.id}" class="h3">
                   ${doc.data().title}
                 </a>
               </h3>
