@@ -1,0 +1,3 @@
+rootProject.name = 'backend-app'
+
+include('app')
