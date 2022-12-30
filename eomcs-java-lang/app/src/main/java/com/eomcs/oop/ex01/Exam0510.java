@@ -13,6 +13,7 @@ package com.eomcs.oop.ex01;
 // bin/main/com/eomcs/oop/ex01/A.class
 class A {}
 
+
 // => bin/main/com/eomcs/oop/ex01/Exam0510.class
 public class Exam0510 {
 
@@ -71,7 +72,7 @@ public class Exam0510 {
     //    C obj3 = new C(); // 컴파일 오류!
 
     // 다른 메서드에 정의된 로컬 클래스는 사용할 수 없다.
-    //    D obj4 = new D(); // 컴파일 오류! 
+    //    D obj4 = new D(); // 컴파일 오류!
 
   }
 
