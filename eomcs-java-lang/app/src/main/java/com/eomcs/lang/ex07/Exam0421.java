@@ -26,7 +26,6 @@ public class Exam0421 {
     for (int i = 0; i < moneys.length; i++) {
       System.out.printf("%d => %.1f\n", moneys[i], result[i]);
     }
-
   }
 
   static void compute(int[] moneys, float[] totals, float interest) {

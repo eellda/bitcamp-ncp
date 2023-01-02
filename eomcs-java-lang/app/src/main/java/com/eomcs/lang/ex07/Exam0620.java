@@ -6,7 +6,7 @@ public class Exam0620 {
 
   public static void main(String[] 변수명은상관없다) {
     // JVM 아규먼트로 학생의 이름과 국영수 점수를 입력 받아 총점과 평균을 출력하라
-    // $ java -cp ./bin/main -Dname=홍길동 -Dkor=100 -Deng=100 -Dmath=90 com.eomcs.basic.ex07.Exam0620
+    // $ java -cp ./bin/main -Dname=아이유 -Dkor=100 -Deng=100 -Dmath=90 com.eomcs.basic.ex07.Exam0620
     // 이름: 홍길동
     // 총점: 290
     // 평균: 96.9

@@ -30,7 +30,7 @@ public class Exam0230 {
     String r = hello();
     System.out.println(r);
 
-    // 메서드가 리턴한 값을 한 번만 사용할 경우 
+    // 메서드가 리턴한 값을 한 번만 사용할 경우
     // 쓸데없이 로컬 임시 변수를 만들지 않는다.
     // 사용할 곳에 바로 메서드 호출 코드를 둔다.
     System.out.println(hello());

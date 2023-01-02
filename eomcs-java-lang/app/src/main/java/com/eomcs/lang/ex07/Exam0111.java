@@ -6,7 +6,7 @@ import java.util.Scanner;
 //
 public class Exam0111 {
 
-  static void printSpaces(int len) {
+  static void printSpaces(int len) { // 공백을 출력만 해주는거라서 리턴이 필요 없으므로 void
     int spaceCnt = 1;
     while (spaceCnt <= len) {
       System.out.print(" ");
@@ -22,7 +22,7 @@ public class Exam0111 {
 
     int starLen = 1;
     while (starLen <= len) {
-      printSpaces((len - starLen) / 2);
+      printSpaces((len - starLen) / 2); // 메소드 이름 자체가 주석이 됨
 
       // 별 출력
       int starCnt = 1;

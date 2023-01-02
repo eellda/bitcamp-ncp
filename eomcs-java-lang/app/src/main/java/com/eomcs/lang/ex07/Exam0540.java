@@ -27,4 +27,3 @@ public class Exam0540 {
     System.out.printf("평균: %.1f\n", sum / 3f);
   }
 }
-
