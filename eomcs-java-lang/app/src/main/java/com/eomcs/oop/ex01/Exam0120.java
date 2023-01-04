@@ -33,7 +33,7 @@ public class Exam0120 {
       int math;
       int sum;
       float aver;
-    }
+    } // 연속된 메모리
 
     // 위에서 작성한 설계도에 따라 메모리를 준비해보자!
     Score s; // int 변수 선언하듯이 이렇게 하면 될까?
