@@ -3,34 +3,33 @@ package bitcamp.myapp;
 public class App {
 
   public static void main(String[] args) {
-    goMainTo();
-    System.out.println("Good Bye~");
-    Prompt.close();
-  }
+	  
+	  goMainMenu();
+	  Prompt.close();
+  } // main()
 
-  private static void goMainTo() {
-    while (true) {
-      System.out.println("Main menu");
-      System.out.println();
-      System.out.println("1. Member management");
-      System.out.println("9. Exit");
-      int iNum = Prompt.inputInt("input number >>");
+	private static void goMainMenu() {
+		while (true) {
+			  System.out.println("메인 메뉴");
+			  System.out.println("1. 회원 메뉴");
+			  System.out.println("9. 종료");
+			  System.out.println();
+			  System.out.println();
+			  
+			  int menuNo = Prompt.inputInt("메뉴 선택 >>  ");
+			  
+			  if (menuNo == 1) {
+				  MemberHandler.goFirstMenu();
+			  } else if (menuNo == 9) {
+				  System.out.println("안녕히 가세요 ~!");
+				  break;
+			  } else {
+				  System.out.println("번호를 다시 입력 하세요.");
+			  }
+		  }
+	}
+} // class App
 
-      if (iNum == 1) {
-        MemberHandler.service();
-      } else if (iNum == 9) {
-        break;
-      } else {
-        System.out.println("Number is weird..!");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-      }
-    }
-  }
-}
 
 
 
