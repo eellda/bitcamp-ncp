@@ -27,6 +27,28 @@ public class BoardHandler {
 		}
 	}
 
+	static void detailBoard() {
+		int boardNo = Prompt.inputInt("책 번호? ");
+		Board b = findByNo(boardNo);
+		if (b == null) {
+			System.out.println("해당 번호의 책은 없습니다.");
+			return;
+		}
+		System.out.printf("제목: %s\n", b.title);
+		System.out.printf("내용: %s\n", b.content);
+		System.out.printf("작성일: %s\n", b.createdDate);
+		System.out.printf("조회수: %s\n", b.viewCount);
+	}
+
+	static Board findByNo (int no) {
+		for (int i = 0; i < count; i++) {
+			if (boards[i].no == no) {
+				return boards[i];
+			}
+		}
+		return null;
+	}
+
 	static void service() {
 		while (true) {
 			System.out.println("책 메뉴");
@@ -42,6 +64,7 @@ public class BoardHandler {
 			case 0: return;
 			case 1: inputBoard(); break;
 			case 2: listBoards(); break;
+			case 3: detailBoard(); break;
 			}
 		}
 	}
