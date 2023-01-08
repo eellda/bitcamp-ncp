@@ -18,6 +18,7 @@ public class App {
 		// 국비 지원 학생 목록을 저장할 메모리를 준비한다.
 		MemberHandler companyMemberHandler = new MemberHandler("위탁 교육생");
 		// 기업 위탁 교육생 목록을 저장할 메모리를 준비한다.
+		BoardHandler bookBoardHandler = new BoardHandler("책 메뉴");
 		while (true) {
 			System.out.println("1. 일반 학생 관리");
 			System.out.println("2. 국비 지원 학생 관리");
@@ -33,7 +34,7 @@ public class App {
 			} else if (menuNo == 3) {
 				companyMemberHandler.service();
 			} else if (menuNo == 4) {
-				BoardHandler.service();
+				bookBoardHandler.service();
 			} else if (menuNo == 9) {
 				break;
 			} else {

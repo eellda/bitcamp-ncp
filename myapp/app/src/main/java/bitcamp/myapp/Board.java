@@ -6,10 +6,5 @@ public class Board {
 	String title;
 	String content;
 	String createdDate;
-	String viewCount;
-	//	String detailAddress;
-	//	boolean working;
-	//	char gender;
-	//	byte level;
-	//	String createdDate;
+	int viewCount;
 }
