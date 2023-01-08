@@ -18,6 +18,15 @@ public class BoardHandler {
 		boards[count++] = b;
 	}
 
+	static void listBoards() {
+		System.out.println("번호\t제목\t\t작성일\t\t조회수");
+
+		for (int i = 0; i < count; i++) {
+			Board b = boards[i];
+			System.out.printf("%d\t%s\t%s\t%d\n", b.no, b.title, b.createdDate, b.viewCount);
+		}
+	}
+
 	static void service() {
 		while (true) {
 			System.out.println("책 메뉴");
@@ -32,6 +41,7 @@ public class BoardHandler {
 			switch (menuNo) {
 			case 0: return;
 			case 1: inputBoard(); break;
+			case 2: listBoards(); break;
 			}
 		}
 	}
