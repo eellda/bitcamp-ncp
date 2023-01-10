@@ -82,19 +82,17 @@ public class BoardController {
 
   @PutMapping("/boards/{boardNo}")
   public Object updateBoard(
-
-      // 클라이언트가 보낼때 사용한 이름을 받는다.
       @PathVariable int boardNo,
-      @RequestParam (required = false) String title,
-      @RequestParam (required = false) String content,
-      @RequestParam (required = false) String password) {
+      @RequestParam(required = false) String title,
+      @RequestParam(required = false) String content,
+      @RequestParam(required = false) String password) {
+
+    Map<String,Object> contentMap = new HashMap<>();
 
     Board old = this.boardDao.findByNo(boardNo);
-    if (old == null || old.getPassword().equals(password)) {
-
-      Map<String, Object> contentMap = new HashMap<>();
+    if (old == null || !old.getPassword().equals(password)) {
       contentMap.put("status", "failure");
-      contentMap.put("data", "게시글이 없거나, 암호가 맞지 않습니다.");
+      contentMap.put("data", "게시글이 없거나 암호가 맞지 않습니다.");
       return contentMap;
     }
 
@@ -106,9 +104,10 @@ public class BoardController {
     b.setCreatedDate(old.getCreatedDate());
     b.setViewCount(old.getViewCount());
 
-    this.boardDao.insert(b);
+    this.boardDao.update(b);
 
-    Map<String, Object> contentMap = new HashMap<>();
+    contentMap.put("status", "success");
+
     return contentMap;
 
   }

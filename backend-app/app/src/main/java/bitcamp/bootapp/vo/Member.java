@@ -6,17 +6,25 @@ public class Member {
   private String name;
   private String tel;
   private String postNo;
-  private String basicAddress;
-  private String detailAddress;
+  private String basicAdress;
+  private String detailAdress;
   private boolean working;
   private char gender;
   private byte level;
   private String createdDate;
+  private String password;
+
   public int getNo() {
     return no;
   }
   public void setNo(int no) {
     this.no = no;
+  }
+  public String getPassword() {
+    return password;
+  }
+  public void setPassword(String password) {
+    this.password = password;
   }
   public String getName() {
     return name;
@@ -36,17 +44,17 @@ public class Member {
   public void setPostNo(String postNo) {
     this.postNo = postNo;
   }
-  public String getBasicAddress() {
-    return basicAddress;
+  public String getBasicAdress() {
+    return basicAdress;
   }
-  public void setBasicAddress(String basicAddress) {
-    this.basicAddress = basicAddress;
+  public void setBasicAdress(String basicAddress) {
+    this.basicAdress = basicAddress;
   }
-  public String getDetailAddress() {
-    return detailAddress;
+  public String getDetailAdress() {
+    return detailAdress;
   }
-  public void setDetailAddress(String detailAddress) {
-    this.detailAddress = detailAddress;
+  public void setDetailAdress(String detailAddress) {
+    this.detailAdress = detailAddress;
   }
   public boolean isWorking() {
     return working;
