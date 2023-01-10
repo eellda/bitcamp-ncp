@@ -32,15 +32,31 @@
             </tr>
             <tr>
                 <th>재직여부</th>
-                <td><input type="text" name="working" id="f-working"></td>
+                <td>
+                    <select name="name" id="f-working">
+                        <option value="true">재직중</option>
+                        <option value="false">개백수</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>성별</th>
-                <td><input type="text" name="gender" id="f-gender"></td>
+                <td>
+                    <select name="gender" id="f-gender">
+                        <option value="M">상남자</option>
+                        <option value="G">여자</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>전공여부</th>
-                <td><input type="text" name="level" id="f-level"></td>
+                <td>
+                    <select name="level" id="f-level">
+                        <option value=0>고졸</option>
+                        <option value=1>배우는중</option>
+                        <option value=2>전공자</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>암호</th>
@@ -139,7 +155,7 @@
             .catch((err) => {
                 alert("서버 요청 오류!");
                 console.log(err);
-            });location.href = "list.html";
+            });
         }
 
         document.querySelector("#delete-btn").onclick = (e) => {
