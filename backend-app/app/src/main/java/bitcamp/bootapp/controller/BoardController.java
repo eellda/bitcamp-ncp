@@ -4,14 +4,17 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import bitcamp.bootapp.dao.BoardDao;
 import bitcamp.bootapp.vo.Board;
 
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"}) // html은 어떤 서버에서 실행한 html이냐?
 @RestController
 //  다음 클래스는 클라이언트 요청을 처리하는 일을 한다는 것을 SpringBoot 에게 알리는 표
 // => SpringBoot 는 다음 클래스의 인스턴스를 생성해서 보관해 둔다.
@@ -20,19 +23,6 @@ public class BoardController {
 
   BoardDao boardDao = new BoardDao();
 
-  public BoardController() {
-    Board b = new Board();
-    b.setNo(1);
-    b.setTitle("제목입니다.1");
-    b.setContent("내용입니다.1");
-    b.setPassword("111");
-    b.setCreatedDate("2023-01-01");
-    b.setViewCount(1);
-
-    this.boardDao.insert(b);
-  }
-
-  @CrossOrigin(origins = "http://127.0.0.1:5500")
   @PostMapping("/boards")
   // 바운더리로써 어떻게 처리할지만 고민하면 됨.
   public Object addBoard( // springboot 가 호출한다.
@@ -54,11 +44,9 @@ public class BoardController {
     // 응답 결과를 담을 맵 객체 준비
     contentMap.put("status", "success");
 
-
     return contentMap;
   } // 응답 영역 (springboot)
 
-  @CrossOrigin(origins = "http://127.0.0.1:5500")
   @GetMapping("/boards")
   // 바운더리로써 어떻게 처리할지만 고민하면 됨.
   public Object getBoards() {
@@ -84,13 +72,66 @@ public class BoardController {
 
     if (b == null) {
       contentMap.put("status", "failure");
-      contentMap.put("message", "해당 번호의 게시글이 없습니다.");
+      contentMap.put("data", "해당 번호의 게시글이 없습니다.");
     } else {
       contentMap.put("success", "success");
-      contentMap.put("message", b);
+      contentMap.put("data", b);
     }
     return contentMap;
   }
 
+  @PutMapping("/boards/{boardNo}")
+  public Object updateBoard(
 
+      // 클라이언트가 보낼때 사용한 이름을 받는다.
+      @PathVariable int boardNo,
+      @RequestParam (required = false) String title,
+      @RequestParam (required = false) String content,
+      @RequestParam (required = false) String password) {
+
+    Board old = this.boardDao.findByNo(boardNo);
+    if (old == null || old.getPassword().equals(password)) {
+
+      Map<String, Object> contentMap = new HashMap<>();
+      contentMap.put("status", "failure");
+      contentMap.put("data", "게시글이 없거나, 암호가 맞지 않습니다.");
+      return contentMap;
+    }
+
+    Board b = new Board();
+    b.setNo(boardNo);
+    b.setTitle(title);
+    b.setContent(content);
+    b.setPassword(password);
+    b.setCreatedDate(old.getCreatedDate());
+    b.setViewCount(old.getViewCount());
+
+    this.boardDao.insert(b);
+
+    Map<String, Object> contentMap = new HashMap<>();
+    return contentMap;
+
+  }
+
+  @DeleteMapping("/boards/{boardNo}")
+  public Object deleteBoard(
+      @PathVariable int boardNo,
+      @RequestParam String password) {
+
+    Board b = this.boardDao.findByNo(boardNo);
+
+    // 응답 결과를 담을 맵 객체 준비
+    Map<String,Object> contentMap = new HashMap<>();
+
+    if (b == null || !b.getPassword().equals(password)) {
+      contentMap.put("status", "failure");
+      contentMap.put("data", "게시글이 없거나 암호가 맞지 않습니다.");
+
+    } else {
+      this.boardDao.delete(b);
+      contentMap.put("status", "success");
+    }
+
+    return contentMap;
+  }
 }
