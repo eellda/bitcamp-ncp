@@ -1,8 +1,11 @@
 package bitcamp.bootapp.dao;
 
+import java.sql.Date;
 import java.util.Arrays;
+import org.springframework.stereotype.Repository;
 import bitcamp.bootapp.vo.Teacher;
 
+@Repository // DAO 역할을 수행하는 객체에 대해서 붙인다.
 public class TeacherDao {
   private static final int SIZE = 100;
 
@@ -12,6 +15,7 @@ public class TeacherDao {
 
   public void insert(Teacher teacher) {
     teacher.setNo(++no);
+    teacher.setCreatedDate(new Date(System.currentTimeMillis()).toString());
     this.teachers[this.count++] = teacher;
   }
 
@@ -36,15 +40,22 @@ public class TeacherDao {
     for (int i = this.indexOf(teacher) + 1; i < this.count; i++) {
       this.teachers[i - 1] = this.teachers[i];
     }
-    this.teachers[--this.count] = null;
+    this.teachers[--this.count] = null; // 레퍼런스 카운트를 줄인다.
   }
 
-  private int indexOf(Teacher m) {
+  private int indexOf(Teacher teacher) {
     for (int i = 0; i < this.count; i++) {
-      if (this.teachers[i].getNo() == m.getNo()) {
+      if (this.teachers[i].getNo() == teacher.getNo()) {
         return i;
       }
     }
     return -1;
   }
 }
+
+
+
+
+
+
+

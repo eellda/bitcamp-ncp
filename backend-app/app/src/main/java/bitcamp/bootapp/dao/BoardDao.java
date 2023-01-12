@@ -1,8 +1,10 @@
 package bitcamp.bootapp.dao;
 
 import java.util.Arrays;
+import org.springframework.stereotype.Repository;
 import bitcamp.bootapp.vo.Board;
 
+@Repository
 public class BoardDao {
   private static final int SIZE = 100;
 
@@ -16,16 +18,15 @@ public class BoardDao {
   }
 
   public Board[] findAll() {
-
-    //  배열의 값 복제
+    // 배열의 값 복제
     //    Board[] arr = new Board[this.count];
     //    for (int i = 0; i < this.count; i++) {
     //      arr[i] = this.boards[i];
     //    }
     //    return arr;
 
+    // 위와 같다!
     return Arrays.copyOf(boards, count);
-    // 위와 같음
   }
 
   public Board findByNo(int no) {
@@ -56,5 +57,11 @@ public class BoardDao {
     }
     return -1;
   }
-
 }
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@ public class Exam0220 {
     int value;
 
     static void m1() {
-      // 클래스 메서드는 인스턴스 주소 없이 호출되기 때문에 
+      // 클래스 메서드는 인스턴스 주소 없이 호출되기 때문에
       // 인스턴스 주소를 받는 내장 변수가 없다.
       //      this.value = 100; // 컴파일 오류!
     }
@@ -17,6 +17,7 @@ public class Exam0220 {
       // 인스턴스 메서드는 인스턴스 주소가 있어야만 호출되기 때문에
       // 인스턴스 주소를 받을 변수가 내장되어 있다.
       this.value = 100;
+      // [pc: 0, pc: 8] local: this index: 0 type: com.eomcs.oop.ex03.Exam0220.A
     }
 
     void m3() {
@@ -26,7 +27,7 @@ public class Exam0220 {
     }
 
     void m4(int value) {
-      // 로컬 변수의 이름이 인스턴스 이름과 같을 경우 
+      // 로컬 변수의 이름이 인스턴스 이름과 같을 경우
       // this를 붙이지 않으면 로컬 변수를 가리킨다.
       value = 200; // 로컬 변수이다.
 

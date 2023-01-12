@@ -1,71 +1,43 @@
 package bitcamp.bootapp.vo;
 
-// 강사 데이터를 담을 메모리를 설계한다.
-public class Teacher {
-  private int no;
-  private int pay;
-  private byte level;
-  private String name;
-  private String tel;
+public class Teacher extends Member {
+  // Member class 의 code 를 사용하겠다고 선언.
+
   private String email;
-  private String education;
-  private String university;
-  private String createdDate;
-  public int getNo() {
-    return no;
-  }
-  public void setNo(int no) {
-    this.no = no;
-  }
-  public int getPay() {
-    return pay;
-  }
-  public void setPay(int pay) {
-    this.pay = pay;
-  }
-  public byte getLevel() {
-    return level;
-  }
-  public void setLevel(byte level) {
-    this.level = level;
-  }
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  public String getTel() {
-    return tel;
-  }
-  public void setTel(String tel) {
-    this.tel = tel;
-  }
+  private int degree;
+  private String school;
+  private String major;
+  private int wage;
+
   public String getEmail() {
     return email;
   }
   public void setEmail(String email) {
     this.email = email;
   }
-  public String getEducation() {
-    return education;
+  public int getDegree() {
+    return degree;
   }
-  public void setEducation(String education) {
-    this.education = education;
+  public void setDegree(int degree) {
+    this.degree = degree;
   }
-  public String getUniversity() {
-    return university;
+  public String getSchool() {
+    return school;
   }
-  public void setUniversity(String university) {
-    this.university = university;
+  public void setSchool(String school) {
+    this.school = school;
   }
-  public String getCreatedDate() {
-    return createdDate;
+  public String getMajor() {
+    return major;
   }
-  public void setCreatedDate(String createdDate) {
-    this.createdDate = createdDate;
+  public void setMajor(String major) {
+    this.major = major;
   }
-
-
+  public int getWage() {
+    return wage;
+  }
+  public void setWage(int wage) {
+    this.wage = wage;
+  }
 
 }

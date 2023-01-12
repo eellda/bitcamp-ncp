@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher list</title>
+</head>
+<body>
+    <h1>강사</h1>
+    <table border="1">
+        <a href="form.html">강사 추가</a>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>번호</th>
+                <th>이메일</th>
+                <th>최종학력</th>
+                <th>전공</th>
+                <th>수강료</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+
+        var tbody = document.querySelector("tbody");
+
+        function getLevelTitle(level) {
+            switch (level) {
+                case 0: return "학사";
+                case 1: return "석사";
+                case 2: return "박사";
+                case 3: return "기타";
+                default: return "";
+            }
+        }
+
+        fetch('http://localhost:8080/teachers')
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+
+        .then((obj) => {
+            console.log(obj);
+            var html = '';
+            for (var t of obj.data) {
+                html += `
+                <tr>
+                    <td><a href="view.html?no=${t.no}">${t.name}</a></td>
+                    <td>${t.tel}</td>
+                    <td>${t.email}</td>
+                    <td>${getLevelTitle(t.level)}</td>
+                    <td>${t.education}</td>
+                    <td>${t.pay}만원</td>
+                </tr>\n`;
+            }
+            tbody.innerHTML = html;
+        })
+        .catch((err) => {
+            alert("서버 요청 오류!");
+            console.log(err);
+        });
+
+    </script>
+</body>
+</html>

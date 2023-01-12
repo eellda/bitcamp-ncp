@@ -4,26 +4,26 @@ package com.eomcs.oop.ex03;
 public class Exam0691 {
 
   static class A {
-    static int a = 7;
+    static int a = 7; // 1번
 
     static {
-      System.out.println("A.static{}");
-      a += B.b;
+      System.out.println("A.static{}"); // 2번
+      a += B.b; // 3번 7 + 6번 결과 29 = 36
     }
   }
 
   static class B {
-    static int b = 22;
+    static int b = 22; // 4번
 
     static {
-      System.out.println("B.static{}");
-      b += A.a;
+      System.out.println("B.static{}"); // 5번
+      b += A.a; // 6번 7 + 22 = 29
     }
   }
 
   public static void main(String[] args) {
-    System.out.println(A.a); // ?
-    System.out.println(B.b); // ?
+    System.out.println(A.a); // ? 7번 36
+    System.out.println(B.b); // ? 8번 29
 
     // 클래스 로딩 절차
     // 1) 클래스를 Method Area에 로딩한다.
