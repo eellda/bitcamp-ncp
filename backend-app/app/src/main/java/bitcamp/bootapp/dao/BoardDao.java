@@ -18,14 +18,6 @@ public class BoardDao {
   }
 
   public Board[] findAll() {
-    // 배열의 값 복제
-    //    Board[] arr = new Board[this.count];
-    //    for (int i = 0; i < this.count; i++) {
-    //      arr[i] = this.boards[i];
-    //    }
-    //    return arr;
-
-    // 위와 같다!
     return Arrays.copyOf(boards, count);
   }
 

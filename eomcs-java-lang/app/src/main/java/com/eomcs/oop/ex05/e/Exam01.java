@@ -11,6 +11,8 @@ public class Exam01 {
 
     obj.m2(); // B 클래스의 m2() 호출
 
+    obj.m3();
+
     // 실험:
     // bin/main/.../A.class 파일을 제거한 후 다시 실행하라!
     // => 결과는?

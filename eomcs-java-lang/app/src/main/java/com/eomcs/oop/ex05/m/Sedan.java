@@ -9,9 +9,6 @@ package com.eomcs.oop.ex05.m;
 //
 
 public class Sedan extends Car {
-  public void run() {
-    System.out.println("쌩쌩 달린다.");
-  }
 
   public void doSunroof(boolean open) {
     if (open) {

@@ -18,6 +18,7 @@ public class Exam03 {
 
     System.out.printf("%s: %d(%.1f)\n", s.name, s.sum, s.aver);
   }
+
 }
 
 /*
