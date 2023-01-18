@@ -32,7 +32,7 @@ class DumpTruck extends Truck {
 
 class CarFactory {
   Car makeCar() {
-    return new Car();
+    return new Truck();
   }
 }
 

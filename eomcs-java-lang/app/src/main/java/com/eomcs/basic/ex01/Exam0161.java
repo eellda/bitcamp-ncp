@@ -12,7 +12,7 @@ public class Exam0161 {
     // 배열의 클래스 정보
     String[] obj2 = new String[10];
     classInfo = obj2.getClass();
-    System.out.println(classInfo.getName()); //[Ljava.lang.String;
+    System.out.println(classInfo.getName()); //[Ljava.lang.String; Object 레퍼런스 배열이라는 정보
 
     //    int i = 100;
     //    classInfo = i.getClass(); // primitive type은 Object의 서브 클래스가 아니다.
