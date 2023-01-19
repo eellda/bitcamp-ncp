@@ -28,6 +28,7 @@ public class Exam0510 {
     } catch (Exception e) {
       System.out.println("catch 2");
 
+
     } finally {
       // 정상적으로 실행하든, 아니면 예외가 발생하여 catch 블록을 실행하든
       // finally 블록은 무조건 실행한다.
@@ -38,8 +39,10 @@ public class Exam0510 {
       // => 자원? 파일, DB 커넥션, 소켓 커넥션, 대량의 메모리 등
       //
       System.out.println("finally");
+
     }
     System.out.println("안녕히 가세요");
+
   }
 
 }
