@@ -24,5 +24,3 @@ public class Exam0170 {
     System.out.println(s7);
   }
 }
-
-
