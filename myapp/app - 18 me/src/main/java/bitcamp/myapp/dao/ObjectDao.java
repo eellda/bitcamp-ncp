@@ -162,7 +162,7 @@ public abstract class ObjectDao {
       throw new DaoException("인덱스가 무효합니다!");
     }
 
-    // 시작 노드의 주소를  가져온다.
+    // 시작 노드의 주소를 가져온다.
     Node cursor = head;
     int i = 0;
 

@@ -12,7 +12,7 @@ public class App {
     System.out.println("안녕히 가세요!");
 
     Prompt.close();
-  } // main()
+  }
 
   private static void goMainMenu() {
 
@@ -27,6 +27,7 @@ public class App {
       System.out.println("9. 종료");
 
       int menuNo;
+
       try {
         menuNo = Prompt.inputInt("메뉴> ");
       } catch (Exception e) {
@@ -50,8 +51,7 @@ public class App {
       }
     }
   }
-
-} // class App
+}
 
 
 

@@ -14,7 +14,6 @@ public class Board {
   public int hashCode() {
     return Objects.hash(no);
   }
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -26,8 +25,6 @@ public class Board {
     Board other = (Board) obj;
     return no == other.no;
   }
-
-
 
   public int getNo() {
     return no;
@@ -65,6 +62,4 @@ public class Board {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
-
 }

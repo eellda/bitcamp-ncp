@@ -2,11 +2,12 @@ package bitcamp.myapp.handler;
 
 import bitcamp.myapp.dao.TeacherDao;
 import bitcamp.myapp.vo.Teacher;
+import bitcamp.util.ArrayList;
 import bitcamp.util.Prompt;
 
 public class TeacherHandler {
 
-  private TeacherDao teacherDao = new TeacherDao();
+  private TeacherDao teacherDao = new TeacherDao(new ArrayList());
   private String title;
 
   public TeacherHandler(String title) {
@@ -14,50 +15,49 @@ public class TeacherHandler {
   }
 
   private void inputTeacher() {
-    Teacher m = new Teacher();
-    m.setName(Prompt.inputString("이름? "));
-    m.setTel(Prompt.inputString("전화? "));
-    m.setEmail(Prompt.inputString("이메일? "));
-    m.setDegree(Prompt.inputInt("1. 고졸\n2. 전문학사\n3. 학사\n4. 석사\n5. 박사\n0. 기타\n학위? "));
-    m.setSchool(Prompt.inputString("학교? "));
-    m.setMajor(Prompt.inputString("전공? "));
-    m.setWage(Prompt.inputInt("강의료(시급)? "));
+    Teacher t = new Teacher();
+    t.setName(Prompt.inputString("이름? "));
+    t.setTel(Prompt.inputString("전화? "));
+    t.setEmail(Prompt.inputString("이메일? "));
+    t.setDegree(Prompt.inputInt("1. 고졸\n2. 전문학사\n3. 학사\n4. 석사\n5. 박사\n0. 기타\n학위? "));
+    t.setSchool(Prompt.inputString("학교? "));
+    t.setMajor(Prompt.inputString("전공? "));
+    t.setWage(Prompt.inputInt("강의료(시급)? "));
 
-    this.teacherDao.insert(m);
+    this.teacherDao.insert(t);
   }
 
   private void printTeachers() {
 
-    Object[] teachers = this.teacherDao.findAll();
+    Teacher[] teachers = this.teacherDao.findAll();
 
     System.out.println("번호\t이름\t전화\t학위\t전공\t시강료");
 
-    for (Object obj : teachers) {
-      Teacher m = (Teacher) obj;
+    for (Teacher t : teachers) {
       System.out.printf("%d\t%s\t%s\t%s\t%s\t%d\n",
-          m.getNo(), m.getName(), m.getTel(),
-          getDegreeText(m.getDegree()), m.getMajor(), m.getWage());
+          t.getNo(), t.getName(), t.getTel(),
+          getDegreeText(t.getDegree()), t.getMajor(), t.getWage());
     }
   }
 
   private void printTeacher() {
     int teacherNo = Prompt.inputInt("강사번호? ");
 
-    Teacher m = this.teacherDao.findByNo(teacherNo);
+    Teacher t = this.teacherDao.findByNo(teacherNo);
 
-    if (m == null) {
+    if (t == null) {
       System.out.println("해당 번호의 강사가 없습니다.");
       return;
     }
 
-    System.out.printf("    이름: %s\n", m.getName());
-    System.out.printf("    전화: %s\n", m.getTel());
-    System.out.printf("  이메일: %s\n", m.getEmail());
-    System.out.printf("    학위: %s\n", getDegreeText(m.getDegree()));
-    System.out.printf("    학교: %s\n", m.getSchool());
-    System.out.printf("    전공: %s\n", m.getMajor());
-    System.out.printf("  강의료: %s\n", m.getWage());
-    System.out.printf("  등록일: %s\n", m.getCreatedDate());
+    System.out.printf("    이름: %s\n", t.getName());
+    System.out.printf("    전화: %s\n", t.getTel());
+    System.out.printf("  이메일: %s\n", t.getEmail());
+    System.out.printf("    학위: %s\n", getDegreeText(t.getDegree()));
+    System.out.printf("    학교: %s\n", t.getSchool());
+    System.out.printf("    전공: %s\n", t.getMajor());
+    System.out.printf("  강의료: %s\n", t.getWage());
+    System.out.printf("  등록일: %s\n", t.getCreatedDate());
   }
 
   private static String getDegreeText(int degree) {
@@ -82,27 +82,26 @@ public class TeacherHandler {
     }
 
     // 변경할 데이터를 저장할 인스턴스 준비
-    Teacher m = new Teacher();
-    m.setNo(old.getNo());
-    m.setCreatedDate(old.getCreatedDate());
-    m.setName(Prompt.inputString(String.format("이름(%s)? ", old.getName())));
-    m.setTel(Prompt.inputString(String.format("전화(%s)? ", old.getTel())));
-    m.setEmail(Prompt.inputString(String.format("이메일(%s)? ", old.getEmail())));
-    m.setDegree(Prompt.inputInt(String.format(
+    Teacher t = new Teacher();
+    t.setNo(old.getNo());
+    t.setCreatedDate(old.getCreatedDate());
+    t.setName(Prompt.inputString(String.format("이름(%s)? ", old.getName())));
+    t.setTel(Prompt.inputString(String.format("전화(%s)? ", old.getTel())));
+    t.setEmail(Prompt.inputString(String.format("이메일(%s)? ", old.getEmail())));
+    t.setDegree(Prompt.inputInt(String.format(
         "1. 고졸\n2. 전문학사\n3. 학사\n4. 석사\n5. 박사\n0. 기타\n학위(%s)? ",
         getDegreeText(old.getDegree()))));
-    m.setSchool(Prompt.inputString(String.format("학교(%s)? ", old.getSchool())));
-    m.setMajor(Prompt.inputString(String.format("전공(%s)? ", old.getMajor())));
-    m.setWage(Prompt.inputInt(String.format("강의료(시급)(%s)? ", old.getWage())));
+    t.setSchool(Prompt.inputString(String.format("학교(%s)? ", old.getSchool())));
+    t.setMajor(Prompt.inputString(String.format("전공(%s)? ", old.getMajor())));
+    t.setWage(Prompt.inputInt(String.format("강의료(시급)(%s)? ", old.getWage())));
 
     String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      this.teacherDao.update(m);
+      this.teacherDao.update(t);
       System.out.println("변경했습니다.");
     } else {
       System.out.println("변경 취소했습니다.");
     }
-
   }
 
   private void deleteTeacher() {
