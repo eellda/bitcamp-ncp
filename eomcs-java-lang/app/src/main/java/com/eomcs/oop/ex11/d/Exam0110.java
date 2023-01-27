@@ -2,6 +2,7 @@
 package com.eomcs.oop.ex11.d;
 
 class A {
+  int v1;
 
   void m1() {
     // 메서드 안에 정의하는 클래스를 "local class"라 한다.
@@ -11,8 +12,11 @@ class A {
     // - 로컬 클래스에서 로컬 이라는 말은 '이 메서드 안에서만 사용할 수 있다'는 뜻이다.
     // - 그냥 사용 범위에 대한 제한을 가리키는 말이다.
     // - 메서드를 호출할 때 클래스가 정의된다는  뜻이 아니다.
-    class X {
 
+    class X {
+      void f() {
+        A.this.v1 =100;
+      }
     }
     X obj = new X();
   }

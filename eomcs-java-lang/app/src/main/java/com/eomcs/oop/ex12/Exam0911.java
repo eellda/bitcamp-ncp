@@ -13,7 +13,7 @@ public class Exam0911 {
     names.add("김구");
     names.add("안중근");
 
-    for (String name : names) {
+    for (String name : names) { // 처음부터 끝까지 반복
       System.out.println(name);
     }
   }

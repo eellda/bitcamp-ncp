@@ -9,7 +9,7 @@ public class Exam0413 {
 
   static Interest getInterest(final double rate) {
     // 익명 클래스로 인터페이스 구현한 후 객체 리턴하기
-    return new Interest() {
+    return new Interest() { // 세미콜론이 없는 이유? 이거 익명 클래스잖아 .. 
       @Override
       public double compute(int money) {
         return money + (money * rate / 100);

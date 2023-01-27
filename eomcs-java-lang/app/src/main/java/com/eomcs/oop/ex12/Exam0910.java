@@ -13,7 +13,7 @@ public class Exam0910 {
     names.add("김구");
     names.add("안중근");
 
-    for (int i = 0; i < names.size(); i++) {
+    for (int i = 0; i < names.size(); i++) { // 특정 위치를 지정할 수 있다.
       System.out.println(names.get(i));
     }
   }

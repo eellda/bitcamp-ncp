@@ -1,4 +1,4 @@
-// anonymous class - 익명 클래스가 놓이는 장소: 파라미터
+// anonymous class - 익명 클래스가 놓이는 장소: return
 package com.eomcs.oop.ex11.e;
 
 class My {
@@ -17,14 +17,24 @@ public class Exam0450 {
     void print();
   }
 
-  static A create1() {
+  static A create0() {
     class X implements A {
       @Override
       public void print() {
-        System.out.println("Hello!");
+        System.out.println("Hello0!");
       }
     }
     return new X();
+  }
+
+  static A create1() {
+    A a = new A() {
+      @Override
+      public void print() {
+        System.out.println("Hello1!");
+      }
+    };
+    return a;
   }
 
   static A create2() {
@@ -36,19 +46,27 @@ public class Exam0450 {
     };
   }
 
+  static A create22() {
+    return () -> System.out.println("Hello2!");
+  }
+
   static A create3() {
     return () -> System.out.println("Hello3!");
   }
 
   static A create4() {
-    return My::m1;
+    return My::m1; // static
   }
 
   static A create5() {
-    return new My()::m2;
+    return new My()::m2; // instance
   }
+  // 기존에 있는 메소드를 인터페이스 재활용 하려고 만듬
 
   public static void main(String[] args) {
+    A obj0 = create0();
+    obj0.print();
+
     A obj1 = create1();
     obj1.print();
 

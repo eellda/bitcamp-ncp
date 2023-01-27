@@ -14,9 +14,12 @@ public class Exam0110 {
 
   public static void main(final String[] args) {
 
+    //    X obj2;
+    //    obj2 = new X(); // 안된
+
     // 1) 로컬 클래스로 인터페이스 구현하기
     class My implements A {
-      String name = "홍길동"; 
+      String name = "홍길동";
 
       @Override
       public void print() {
