@@ -1,19 +1,17 @@
 package bitcamp.myapp.dao;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 import bitcamp.myapp.vo.Student;
+import bitcamp.util.BinaryDecoder;
+import bitcamp.util.BinaryEncoder;
 
 public class StudentDao {
 
   List<Student> list;
-
   int lastNo;
 
   public StudentDao(List<Student> list) {
@@ -57,24 +55,22 @@ public class StudentDao {
   }
 
   public void save(String filename) {
-    try (FileOutputStream out0 = new FileOutputStream(filename);
-        DataOutputStream out = new DataOutputStream(out0)) {
-
-      out.writeInt(list.size());
+    try (FileOutputStream out = new FileOutputStream(filename)) {
+      out.write(BinaryEncoder.write(list.size()));
 
       for (Student s : list) {
-        out.writeInt(s.getNo());
-        out.writeUTF(s.getName());
-        out.writeUTF(s.getTel());
-        out.writeUTF(s.getCreatedDate());
-        out.writeUTF(s.getPostNo());
-        out.writeUTF(s.getBasicAddress());
-        out.writeUTF(s.getDetailAddress());
-        out.writeBoolean(s.isWorking());
-        out.writeChar(s.getGender());
-        out.writeByte(s.getLevel());
-      }
+        out.write(BinaryEncoder.write(s.getNo()));
+        out.write(BinaryEncoder.write(s.getName()));
+        out.write(BinaryEncoder.write(s.getTel()));
+        out.write(BinaryEncoder.write(s.getPostNo()));
+        out.write(BinaryEncoder.write(s.getBasicAddress()));
+        out.write(BinaryEncoder.write(s.getDetailAddress()));
+        out.write(BinaryEncoder.write(s.isWorking()));
+        out.write(BinaryEncoder.write(s.getGender()));
+        out.write(BinaryEncoder.write(s.getLevel()));
+        out.write(BinaryEncoder.write(s.getCreatedDate()));
 
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -84,24 +80,22 @@ public class StudentDao {
     if (list.size() > 0) {
       return;
     }
-
-    try (FileInputStream in0 = new FileInputStream(filename);
-        DataInputStream in = new DataInputStream (in0)) {
-
-      int size = in.readInt();
+    try (FileInputStream in = new FileInputStream(filename)) {
+      int size = BinaryDecoder.readInt(in);
 
       for (int i = 0; i < size; i++) {
         Student s = new Student();
-        s.setNo(in.readInt());
-        s.setName(in.readUTF());
-        s.setTel(in.readUTF());
-        s.setCreatedDate(in.readUTF());
-        s.setPostNo(in.readUTF());
-        s.setBasicAddress(in.readUTF());
-        s.setDetailAddress(in.readUTF());
-        s.setWorking(in.readBoolean());
-        s.setGender(in.readChar());
-        s.setLevel(in.readByte());
+
+        s.setNo(BinaryDecoder.readInt(in));
+        s.setName(BinaryDecoder.readString(in));
+        s.setTel(BinaryDecoder.readString(in));
+        s.setPostNo(BinaryDecoder.readString(in));
+        s.setBasicAddress(BinaryDecoder.readString(in));
+        s.setDetailAddress(BinaryDecoder.readString(in));
+        s.setWorking(BinaryDecoder.readBoolean(in));
+        s.setGender(BinaryDecoder.readChar(in));
+        s.setLevel(BinaryDecoder.readByte(in));
+        s.setCreatedDate(BinaryDecoder.readString(in));
 
         list.add(s);
       }
@@ -109,10 +103,6 @@ public class StudentDao {
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }
-
-    } catch (FileNotFoundException e) {
-      System.out.println("데이터 파일이 존재하지 않습니다!");
-
     } catch (Exception e) {
       e.printStackTrace();
     }

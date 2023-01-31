@@ -5,20 +5,6 @@ import java.io.InputStream;
 
 public class BinaryDecoder {
 
-  public static byte readByte(InputStream in) throws Exception {
-    return (byte) in.read();
-  }
-
-  public static char readChar(InputStream in) throws Exception {
-    int value = in.read() << 8;
-    value  |= in.read();
-    return (char) value;
-  }
-
-  public static boolean readBoolean(InputStream in) throws Exception {
-    return in.read() == 1 ? true : false;
-  }
-
   public static int readInt(InputStream in) throws Exception {
     int value = 0;
     value  = in.read() << 24;
@@ -28,24 +14,41 @@ public class BinaryDecoder {
     return value;
   }
 
+  public static boolean readBoolean(InputStream in) throws Exception {
+    return in.read() == 1 ? true : false;
+  }
+
   public static String readString(InputStream in) throws Exception {
     // [2byte: 문자열의 바이트 배열 길이][n바이트: 문자열의 바이트 배열]
-
-    // 1) 2바이트를 읽어 문자열의 배열 개수를 알아낸다.
     int length = in.read() << 8;
     length |= in.read();
-
-    // 2) 문자열의 배열을 읽어 들일 빈 배열을 준비한다.
     byte[] bytes = new byte[length];
-
-    // 3) 문자열의 배열을 읽어 빈 배열에 담는다.
     in.read(bytes, 0, length);
-
-    // 4) 배열에 들어 있는 문자 코드를 가지고 String 객체를 생성한다.
     String str = new String(bytes);
 
     return str;
   }
+
+  public static char readChar(InputStream in) throws Exception {
+
+    int ch1 = in.read();
+    int ch2 = in.read();
+    if ((ch1 | ch2) < 0)
+      throw new Exception();
+    return (char) ((ch1 << 8) + ch2);
+  }
+
+  public static byte readByte(InputStream in) throws Exception {
+    return (byte)in.read();
+  }
+
+  //  public static String read(InputStream in) throws Exception {
+  //    StringBuilder builder = new StringBuilder();
+  //    char c;
+  //    while ((c = readChar(in)) != 0)
+  //      builder.append(c);
+  //    return builder.toString();
+  //  }
 
   public static void main(String[] args) throws Exception {
 

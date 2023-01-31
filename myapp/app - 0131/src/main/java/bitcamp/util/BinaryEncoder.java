@@ -2,20 +2,6 @@ package bitcamp.util;
 
 public class BinaryEncoder {
 
-  public static byte[] write(byte value) {
-    return new byte[] {value};
-  }
-
-  public static byte[] write(char value) {
-    return new byte[] {
-        (byte) (value >> 8),
-        (byte) (value)};
-  }
-
-  public static byte[] write(boolean value) {
-    return new byte[] {(byte) (value ? 1 : 0)};
-  }
-
   public static byte[] write(int value) {
     byte[] bytes = new byte[4];
     bytes[0] = (byte) (value >> 24);
@@ -23,6 +9,21 @@ public class BinaryEncoder {
     bytes[2] = (byte) (value >> 8);
     bytes[3] = (byte) value;
     return bytes;
+  }
+
+  public static byte[] write(char value) {
+    byte[] bytes = new byte[2];
+    bytes[0] = (byte) (value >> 8);
+    bytes[1] = (byte) value;
+    return bytes;
+  }
+
+  public static byte[] write(byte value) {
+    return new byte[] {value};
+  }
+
+  public static byte[] write(boolean value) {
+    return new byte[] {(byte) (value ? 1 : 0)};
   }
 
   public static byte[] write(String value) {
@@ -36,6 +37,7 @@ public class BinaryEncoder {
 
     return bytes;
   }
+
 
   public static void main(String[] args) {
     //    int value = 0xabcdef31;
