@@ -7,50 +7,44 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
+
+	static final int SIZE = 100;
+	static int count = 0;
+
+	static int[] no = new int[SIZE];
+	static String[] name = new String[SIZE];
+	static String[] tel = new String[SIZE];
+	static String[] postNo = new String[SIZE];
+	static String[] basicAddress = new String[SIZE];
+	static String[] detailAddress = new String[SIZE];
+	static boolean[] working = new boolean[SIZE];
+	static char[] gender = new char[SIZE];
+	static byte[] level = new byte[SIZE];
+	static String[] createdDate = new String[SIZE];
+
 	public static void main(String[] args) {
 
+		inputMembers();
+		printMembers();
+
+	}
+
+	static void inputMembers() {
 		Scanner scanner = new Scanner(System.in);
 
-		final int SIZE = 100;
-		int count = 0;
-
-		int[] no = new int[SIZE];
-		String[] name = new String[SIZE];
-		String[] tel = new String[SIZE];
-		String[] postNo = new String[SIZE];
-		String[] basicAddress = new String[SIZE];
-		String[] detailAddress = new String[SIZE];
-		boolean[] working = new boolean[SIZE];
-		char[] gender = new char[SIZE];
-		byte[] level = new byte[SIZE];
-		String[] createdDate = new String[SIZE];
-
 		for (int i = 0; i < SIZE; i++) {
-			System.out.print("번호? ");
-			no[i] = Integer.parseInt(scanner.nextLine());
-			System.out.print("이름? ");
-			name[i] = scanner.nextLine();
-			System.out.print("전화번호? ");
-			tel[i] = scanner.nextLine();
-			System.out.print("우편번호? ");
-			postNo[i] = scanner.nextLine();
-			System.out.print("기본주소? ");
-			basicAddress[i] = scanner.nextLine();
-			System.out.print("상세주소? ");
-			detailAddress[i] = scanner.nextLine();
-			System.out.println("0. 백수");
-			System.out.println("1. 재직");
-			System.out.print("재직여부? ");
-			working[i] = Integer.parseInt(scanner.nextLine()) == 1;
-			System.out.println("0. 남자");
-			System.out.println("1. 여자");
-			System.out.printf("성별? ");
-			gender[i] =  Integer.parseInt(scanner.nextLine()) == 0 ? 'M' :  'W';
-			System.out.println("0. 비전공");
-			System.out.println("1. 준전공");
-			System.out.println("2. 전공");
-			System.out.printf("전공? ");
-			level[i] = Byte.parseByte(scanner.nextLine());
+			no[i] = promptInt(scanner, "번호? ");
+			name[i] = promptString(scanner, "이름? ");
+			tel[i] = promptString(scanner, "전화번호? ");
+			postNo[i] = promptString(scanner, "우편번호? ");
+			basicAddress[i] = promptString(scanner, "기본주소? ");
+			detailAddress[i] = promptString(scanner, "상세주소? ");
+			String title = "0. 백수\n1. 재직\n직업? ";
+			working[i] = promptInt(scanner, title) == 1;
+			title = "0. 남자\n1. 여자\n성별? ";
+			gender[i] =  promptInt(scanner, title) == 0 ? 'M' :  'W';
+			title = "0. 비전공자\n1. 준전공자\n2. 전공자\n전공? ";
+			level[i] = (byte) promptInt(scanner, title);
 
 			Date today = new Date(System.currentTimeMillis());
 			createdDate[i] = today.toString();
@@ -63,10 +57,11 @@ public class App {
 				break;
 			}
 		}
-
 		scanner.close();
 		System.out.println();
+	}
 
+	static void printMembers() {
 		for (int i = 0; i < count; i++) {
 			System.out.printf("번호: %d\n", no[i]);
 			System.out.printf("이름: %s\n", name[i]);
@@ -89,5 +84,14 @@ public class App {
 			System.out.printf("생성일: %s\n", createdDate[i]);
 			System.out.println("--------------------------------------");
 		}
+	}
+
+	static String promptString(Scanner scanner, String title) {
+		System.out.println(title);
+		return scanner.nextLine();
+	}
+
+	static int promptInt(Scanner scanner, String title) {
+		return  Integer.parseInt(promptString(scanner,title));
 	}
 }
