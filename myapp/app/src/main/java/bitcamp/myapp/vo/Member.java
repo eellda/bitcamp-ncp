@@ -1,8 +1,10 @@
 package bitcamp.myapp.vo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Member {
+public class Member implements Serializable {
+  private static final long serialVersionUID = 1L;
   private int no;
   private String name;
   private String tel;

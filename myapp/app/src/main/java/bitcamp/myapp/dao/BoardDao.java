@@ -1,9 +1,8 @@
 package bitcamp.myapp.dao;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -56,46 +55,26 @@ public class BoardDao {
   }
 
   public void save(String filename) {
-    try (FileOutputStream out0 = new FileOutputStream(filename); // Data Sink Stream Class
-        DataOutputStream out = new DataOutputStream(out0)) {     // Decorator
-
-      out.writeInt(list.size());
-
-      for (Board b : list) {
-        out.writeInt(b.getNo());
-        out.writeUTF(b.getTitle());
-        out.writeUTF(b.getContent());
-        out.writeUTF(b.getPassword());
-        out.writeInt(b.getViewCount());
-        out.writeUTF(b.getCreatedDate());
-      }
+    try (FileWriter out = new FileWriter(filename)) {
+      for (Board b : list)
+        out.write(String.format("%d,%s,%s,%s,%s\n",
+            b.getNo(), b.getTitle(), b.getPassword(), b.getViewCount(), b.getCreatedDate()));
 
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void load(String filename) {
     if (list.size() > 0) {
       return;
     }
 
-    try (FileInputStream in0 = new FileInputStream(filename);
-        DataInputStream in = new DataInputStream(in0)) {
+    try (
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
 
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        Board b = new Board();
-        b.setNo(in.readInt());
-        b.setTitle(in.readUTF());
-        b.setContent(in.readUTF());
-        b.setPassword(in.readUTF());
-        b.setViewCount(in.readInt());
-        b.setCreatedDate(in.readUTF());
-
-        list.add(b);
-      }
+      list = (List<Board>) in.readObject();
 
       if (list.size() > 0) {
         //        int lastIndex = list.size() - 1;
