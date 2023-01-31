@@ -3,26 +3,50 @@
  */
 package bitcamp.myapp;
 
+import java.sql.Date;
+import java.util.Scanner;
+
 public class App {
 	public static void main(String[] args) {
-		int no = 1;
-		String name = "아이유";
-		String tel = "010-123-123";
-		String postNo = "13532";
-		String basicAddress = "강남구";
-		String detailAddress = "강남빌딩";
-		boolean working = true;
-		char gender = 'M';
-		byte level = 2;
-		String createdDate = "2023-01-31";
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.print("번호? ");
+		int no = Integer.parseInt(scanner.nextLine());
+		System.out.print("이름? ");
+		String name = scanner.nextLine();
+		System.out.print("전화번호? ");
+		String tel = scanner.nextLine();
+		System.out.print("우편번호? ");
+		String postNo = scanner.nextLine();
+		System.out.print("기본주소? ");
+		String basicAddress = scanner.nextLine();
+		System.out.print("상세주소? ");
+		String detailAddress = scanner.nextLine();
+		System.out.println("0. 백수");
+		System.out.println("1. 재직");
+		System.out.print("재직여부? ");
+		boolean working = Integer.parseInt(scanner.nextLine()) == 1;
+		System.out.println("0. 남자");
+		System.out.println("1. 여자");
+		System.out.printf("성별? ");
+		char gender =  Integer.parseInt(scanner.nextLine()) == 0 ? 'M' :  'W';
+		System.out.println("0. 비전공");
+		System.out.println("1. 준전공");
+		System.out.println("2. 전공");
+		System.out.printf("전공? ");
+		byte level = Byte.parseByte(scanner.nextLine());
+
+		Date today = new Date(System.currentTimeMillis());
+		String createdDate = today.toString();
 
 		System.out.printf("번호: %d\n", no);
 		System.out.printf("이름: %s\n", name);
-		System.out.printf("전화번호: %s\n", tel);
+		System.out.printf("전화: %s\n", tel);
 		System.out.printf("우편번호: %s\n", postNo);
-		System.out.printf("기본주소: %s\n", basicAddress);
-		System.out.printf("상세주소: %s\n", detailAddress);
-		System.out.printf("재직여부: %s\n", working ? "예" : "아니요");
+		System.out.printf("주소1: %s\n", basicAddress);
+		System.out.printf("주소2: %s\n", detailAddress);
+		System.out.printf("재직자: %s\n", working ? "예" : "아니오");
 		System.out.printf("성별: %s\n", gender == 'M' ? "남자" : "여자");
 
 		String levelTitle;
