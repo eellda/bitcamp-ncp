@@ -1,8 +1,8 @@
 package bitcamp.myapp.dao;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.ObjectInputStream;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -56,30 +56,34 @@ public class BoardDao {
 
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
-      for (Board b : list)
-        out.write(String.format("%d,%s,%s,%s,%s\n",
-            b.getNo(), b.getTitle(), b.getPassword(), b.getViewCount(), b.getCreatedDate()));
+
+      list.forEach(b -> {
+        try {
+          out.write(b.toScvString() + "\n");
+        } catch (Exception e) {
+          System.out.println("데이터 출력 중 오류 발생!");
+          e.printStackTrace();
+        }
+      });
 
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  @SuppressWarnings("unchecked")
   public void load(String filename) {
-    if (list.size() > 0) {
+    if (list.size() > 0) { // 중복 로딩 방지!
       return;
     }
 
-    try (
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 
-      list = (List<Board>) in.readObject();
+      String csv = null;
+      while ((csv = in.readLine()) != null) {
+        list.add(Board.create(csv));
+      }
 
       if (list.size() > 0) {
-        //        int lastIndex = list.size() - 1;
-        //        Board b = list.get(lastIndex);
-        //        lastNo = b.getNo();
         lastNo = list.get(list.size() - 1).getNo();
       }
 
