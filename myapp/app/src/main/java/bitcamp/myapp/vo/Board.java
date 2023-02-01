@@ -42,7 +42,7 @@ public class Board implements java.io.Serializable {
   }
 
   //Information Expert
-  public String toScvString() {
+  public String toCsvString() {
     return String.format("%d,%s,%s,%s,%d,%s",
         this.getNo(),
         this.getTitle(),
