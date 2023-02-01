@@ -31,8 +31,12 @@ public class Exam0622 {
               return context.deserialize(jsonObject, Teacher.class);
             }
           }
-        })
-        .create();
+        }).create();
+
+    // GsonBuilder 객체를 통해서 만들거야
+    // 이 아답터를 장착해서 만들거야
+    // 만들때 디시리얼라이저가 판단해서 만들거야
+    //
 
     Type collectionType = TypeToken.getParameterized(Collection.class, Member.class).getType();
     Collection<Member> list = gson.fromJson(jsonStr, collectionType);

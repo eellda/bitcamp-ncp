@@ -1,4 +1,4 @@
-// 맵객체 --> JSON 문자열 
+// 맵객체 --> JSON 문자열
 package com.eomcs.openapi.json.gson;
 
 import java.sql.Date;
@@ -26,4 +26,5 @@ public class Exam0712 {
     System.out.println(jsonStr);
   }
 }
+// 프로퍼티가 없으면 필드를 프로퍼티로 함
 

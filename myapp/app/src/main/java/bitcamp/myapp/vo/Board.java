@@ -23,9 +23,9 @@ public class Board implements java.io.Serializable {
   private int viewCount;
 
   // Factory Method + Information Expert
-  public static Board create(String scv) {
+  public static Board create(String csv) {
     try {
-      String[] values = scv.split(",");
+      String[] values = csv.split(",");
 
       Board obj = new Board();
       obj.setNo(Integer.parseInt(values[0]));
