@@ -10,41 +10,41 @@ import java.util.Scanner;
 
 public class CalcClinet {
 
-	public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 
-		Scanner keyScan = new Scanner(System.in);
-		System.out.println("클라 실행중 ~");
+    Scanner keyScan = new Scanner(System.in);
+    System.out.println("클라 실행중 ~");
 
 
-		Socket socket = new Socket("192.168.219.104", 8888);
-		System.out.println("server 연결중");
+    Socket socket = new Socket("192.168.0.6", 8888);
+    System.out.println("server 연결중");
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-		try {
+    try {
 
-			while (true) {
-				System.out.print("계산기 >> ");
-				String outputMsg = keyScan.nextLine();
+      while (true) {
+        System.out.print("계산기 >> ");
+        String outputMsg = keyScan.nextLine();
 
-				if(outputMsg.equalsIgnoreCase("q")) {
-					out.write(outputMsg+"\n");
-					out.flush();
-					break;
-				}
-				out.write(outputMsg+"\n");
-				out.flush();
-				System.out.println("답 : "+in.readLine());
-			}
-		} catch (IOException e) {
-			System.out.printf("채팅 중 오류가 발생\n", e);
-		} 
+        if(outputMsg.equalsIgnoreCase("q")) {
+          out.write(outputMsg+"\n");
+          out.flush();
+          break;
+        }
+        out.write(outputMsg+"\n");
+        out.flush();
+        System.out.println("답 : "+in.readLine());
+      }
+    } catch (IOException e) {
+      System.out.printf("채팅 중 오류가 발생\n", e);
+    }
 
-		System.out.println("클라 종료");
-		keyScan.close();
-		if(socket != null) socket.close();
-		out.close();
-		in.close();
-	}
+    System.out.println("클라 종료");
+    keyScan.close();
+    socket.close();
+    out.close();
+    in.close();
+  }
 }
