@@ -50,7 +50,6 @@ public class TeacherServlet {
   }
 
   private void onUpdate(DataInputStream in, DataOutputStream out) throws Exception {
-
     Teacher teacher = new Gson().fromJson(in.readUTF(), Teacher.class);
     Teacher old = this.teacherDao.findByNo(teacher.getNo());
 
@@ -77,7 +76,6 @@ public class TeacherServlet {
   }
 
   public void service(DataInputStream in, DataOutputStream out) throws Exception {
-
     try {
       String action = in.readUTF();
       switch (action) {

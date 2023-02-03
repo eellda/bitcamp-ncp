@@ -9,15 +9,15 @@ import bitcamp.util.Prompt;
 
 public class StudentServlet {
 
-  private StudentDao memberDao;
+  private StudentDao studentDao;
 
-  public StudentServlet(StudentDao memberDao) {
-    this.memberDao = memberDao;
+  public StudentServlet(StudentDao studentDao) {
+    this.studentDao = studentDao;
   }
 
   private void onInsert(DataInputStream in, DataOutputStream out) throws Exception {
     Student s = new Gson().fromJson(in.readUTF(), Student.class);
-    this.memberDao.insert(s);
+    this.studentDao.insert(s);
     out.writeUTF("200");
     out.writeUTF("success");
   }
@@ -25,12 +25,12 @@ public class StudentServlet {
   private void onFindAll(DataInputStream in, DataOutputStream out) throws Exception{
 
     out.writeUTF("200");
-    out.writeUTF(new Gson().toJson(this.memberDao.findAll()));
+    out.writeUTF(new Gson().toJson(this.studentDao.findAll()));
   }
 
   private void onFindByNo(DataInputStream in, DataOutputStream out) throws Exception {
     int studentNo = new Gson().fromJson(in.readUTF(), int.class);
-    Student s = this.memberDao.findByNo(studentNo);
+    Student s = this.studentDao.findByNo(studentNo);
 
     if (s == null) {
       out.writeUTF("400");
@@ -53,7 +53,7 @@ public class StudentServlet {
   private void onUpdate(DataInputStream in, DataOutputStream out) throws Exception {
 
     Student student = new Gson().fromJson(in.readUTF(), Student.class);
-    Student old = this.memberDao.findByNo(student.getNo());
+    Student old = this.studentDao.findByNo(student.getNo());
 
     if (old == null) {
       out.writeUTF("400");
@@ -61,14 +61,14 @@ public class StudentServlet {
     }
     out.writeUTF("200");
     out.writeUTF("success");
-    this.memberDao.update(student);
+    this.studentDao.update(student);
 
   }
 
   private void onDelete(DataInputStream in, DataOutputStream out) throws Exception {
 
     Student student = new Gson().fromJson(in.readUTF(), Student.class);
-    Student old = this.memberDao.findByNo(student.getNo());
+    Student old = this.studentDao.findByNo(student.getNo());
 
     if (old == null) {
       out.writeUTF("400");
@@ -76,12 +76,12 @@ public class StudentServlet {
     }
     out.writeUTF("200");
     out.writeUTF("success");
-    this.memberDao.delete(old);
+    this.studentDao.delete(old);
   }
 
   private void searchMember(DataInputStream in, DataOutputStream out) {
 
-    Student[] members = this.memberDao.findAll();
+    Student[] members = this.studentDao.findAll();
 
     String name = Prompt.inputString("이름? ");
 

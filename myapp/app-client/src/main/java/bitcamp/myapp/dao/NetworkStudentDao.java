@@ -1,110 +1,57 @@
 package bitcamp.myapp.dao;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.List;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.vo.Student;
 
 public class NetworkStudentDao implements StudentDao {
+  DaoStub daoStub;
 
-  List<Student> list;
-  int lastNo;
-  DataInputStream in;
-  DataOutputStream out;
-
-  public NetworkStudentDao(DataInputStream in, DataOutputStream out) {
-    this.in = in;
-    this.out = out;
+  public NetworkStudentDao(DaoStub daoStub) {
+    this.daoStub = daoStub;
   }
 
   @Override
-  public void insert(Student s) {
-    fetch("student", "insert", s);
+  public void insert(Student b) {
+    daoStub.fetch("student", "insert", b);
   }
 
   @Override
   public Student[] findAll() {
-    return new Gson().fromJson(fetch("student", "findAll"), Student[].class);
+    return new Gson().fromJson(daoStub.fetch("student", "findAll"), Student[].class);
   }
 
   @Override
   public Student findByNo(int no) {
-    return new Gson().fromJson(fetch("student", "findByNo"), Student.class);
+    return new Gson().fromJson(daoStub.fetch("student", "findByNo", no), Student.class);
   }
 
   @Override
-  public void update(Student s) {
-    fetch("student", "update", s);
+  public void update(Student b) {
+    daoStub.fetch("student", "update", b);
   }
 
   @Override
-  public boolean delete(Student s) {
-    fetch("stident", "delete", s);
+  public boolean delete(Student b) {
+    daoStub.fetch("student", "delete", b);
     return true;
   }
-
-  public void save(String filename) {
-    try (FileWriter out = new FileWriter(filename)) {
-
-      out.write(new Gson().toJson(list));
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void load(String filename) {
-    if (list.size() > 0) { // 중복 로딩 방지!
-      return;
-    }
-
-    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
-
-      TypeToken<List<Student>> CollectionType = new TypeToken<>() {};
-
-      list = new Gson().fromJson(in, CollectionType);
-
-      if (list.size() > 0) {
-        lastNo = list.get(list.size() - 1).getNo();
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public String fetch(String dataName, String action, Object...data) {
-    try {
-      // 서버에 요청
-      out.writeUTF(dataName);
-      out.writeUTF(action);
-
-      if (data.length > 0) {
-        out.writeUTF(new Gson().toJson(data[0]));
-      }
-
-      // 서버의 응답
-      String status = in.readUTF();
-
-      if (status.equals("400")) {
-        throw new DaoException("클라이언트 요청 오류");
-      } else if (status.equals("500") ) {
-        throw new DaoException("서버 실행 오류");
-      }
-      return in.readUTF();
-
-    } catch (DaoException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new DaoException("오류 발생!", e);
-    }
-  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
