@@ -17,7 +17,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Student;
 import bitcamp.myapp.vo.Teacher;
 
-public class ServerApp {
+public class ServerApp0 {
   BoardDao boardDao = new BoardDao(new LinkedList<Board>());
   StudentDao studentDao = new StudentDao(new ArrayList<Student>());
   TeacherDao teacherDao = new TeacherDao(new ArrayList<Teacher>());
@@ -27,7 +27,7 @@ public class ServerApp {
 
   public static void main(String[] args) {
 
-    new ServerApp().service(8888);
+    new ServerApp0().service(8888);
     System.out.println("서버 종료!");
 
   } // main()
@@ -45,8 +45,12 @@ public class ServerApp {
         //        t.start();
 
         Socket socket = serverSocket.accept();
-        new Thread(() -> processRequest(socket)).start();
-        // 쓰레드를 만들어서 실행 하는데 Runnable 이란 조건을 따라서 run()을 실행한다.
+        new Thread() {
+          @Override
+          public void run() {
+            processRequest(socket);
+          };
+        }.start(); // 스레드 객세 생성 후 스타트 한다
       }
     } catch (Exception e) {
       System.out.println("서버 오류 발생");

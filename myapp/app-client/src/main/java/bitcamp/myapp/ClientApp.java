@@ -14,7 +14,7 @@ public class ClientApp {
 
   public static void main(String[] args) {
 
-    new ClientApp().execute("192.168.0.31", 8888);
+    new ClientApp().execute("192.168.0.6", 8888);
 
   }
 
