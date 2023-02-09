@@ -14,7 +14,6 @@ public class Board implements java.io.Serializable {
   // - 누가 판단? ObjectInputStream 클래스!
   //
   private static final long serialVersionUID = 1L;
-
   private int no;
   private String title;
   private String content;
@@ -109,6 +108,4 @@ public class Board implements java.io.Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
-
 }

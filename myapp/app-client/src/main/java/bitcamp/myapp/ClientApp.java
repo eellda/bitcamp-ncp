@@ -1,9 +1,9 @@
 package bitcamp.myapp;
 
 import bitcamp.myapp.dao.DaoStub;
-import bitcamp.myapp.dao.NetworkBoardDao;
-import bitcamp.myapp.dao.NetworkStudentDao;
-import bitcamp.myapp.dao.NetworkTeacherDao;
+import bitcamp.myapp.dao.JdbcBoardDao;
+import bitcamp.myapp.dao.JdbcStudentDao;
+import bitcamp.myapp.dao.JdbcTeacherDao;
 import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
@@ -13,20 +13,17 @@ public class ClientApp {
 
 
   public static void main(String[] args) {
-
     new ClientApp().execute("192.168.0.6", 8888);
-
   }
 
   void execute(String ip, int port) {
-
     try /*(Socket socket = new Socket(ip, port);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream()))*/ {
       DaoStub daoStub = new DaoStub(ip, port);
-      NetworkBoardDao boardDao = new NetworkBoardDao(daoStub);
-      NetworkStudentDao studentDao = new NetworkStudentDao(daoStub);
-      NetworkTeacherDao teacherDao = new NetworkTeacherDao(daoStub);
+      JdbcBoardDao boardDao = new JdbcBoardDao();
+      JdbcStudentDao studentDao = new JdbcStudentDao();
+      JdbcTeacherDao teacherDao = new JdbcTeacherDao();
 
       //      LocalBoardDao boardDao = new LocalBoardDao(new LinkedList<Board>());
       //      boardDao.load("board.json");
