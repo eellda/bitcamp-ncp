@@ -15,12 +15,15 @@ public class ClientApp {
         Socket socket = new Socket(ip, port);
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+      System.out.println(in.readUTF());
+
       while (true) {
-        System.out.println(in.readUTF());
         String input = prompt(">", keyboard);
         out.writeUTF(input);
-
-        if (input.equalsIgnoreCase("quit")) break;
+        //        if (input.equalsIgnoreCase("quit")) break;
+        String response = in.readUTF();
+        if (response.equalsIgnoreCase("quit")) break;
+        System.out.println(response);
       }
       System.out.println("ㅅㄱ");
 
@@ -30,7 +33,7 @@ public class ClientApp {
   }
 
   private String prompt(String title, Scanner keyboard) throws Exception {
-    System.out.printf("\n%s", title);
+    System.out.printf("%s", title);
     return keyboard.nextLine();
   }
 }
