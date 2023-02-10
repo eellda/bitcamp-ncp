@@ -2,87 +2,134 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.net.InetAddress;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.StudentDao;
-import bitcamp.myapp.dao.TeacherDao;
-import bitcamp.myapp.servlet.BoardServlet;
-import bitcamp.myapp.servlet.StudentServlet;
-import bitcamp.myapp.servlet.TeacherServlet;
-import bitcamp.myapp.vo.Board;
-import bitcamp.myapp.vo.Student;
-import bitcamp.myapp.vo.Teacher;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import bitcamp.myapp.dao.JdbcBoardDao;
+import bitcamp.myapp.dao.JdbcStudentDao;
+import bitcamp.myapp.dao.JdbcTeacherDao;
+import bitcamp.myapp.handler.BoardHandler;
+import bitcamp.myapp.handler.StudentHandler;
+import bitcamp.myapp.handler.TeacherHandler;
+import bitcamp.util.Prompt;
 
 public class ServerApp {
-  BoardDao boardDao = new BoardDao(new LinkedList<Board>());
-  StudentDao studentDao = new StudentDao(new ArrayList<Student>());
-  TeacherDao teacherDao = new TeacherDao(new ArrayList<Teacher>());
-  StudentServlet studentServlet = new StudentServlet(studentDao);
-  TeacherServlet teacherServlet = new TeacherServlet(teacherDao);
-  BoardServlet boardServlet = new BoardServlet(boardDao);
+  Connection con;
+  StudentHandler studentHandler;
+  TeacherHandler teacherHandler;
+  BoardHandler boardHandler;
 
   public static void main(String[] args) {
+    new ServerApp().execute(8888);
+  }
 
-    new ServerApp().service(8888);
-    System.out.println("서버 종료!");
+  public ServerApp() throws Exception {
+    this.con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
 
-  } // main()
+    JdbcBoardDao boardDao = new JdbcBoardDao(con);
+    JdbcStudentDao studentDao = new JdbcStudentDao(con);
+    JdbcTeacherDao teacherDao = new JdbcTeacherDao(con);
 
-  void service(int port) {
-    System.out.println("서버 실행 중 ..");
+    this.studentHandler = new StudentHandler("학생", studentDao);
+    this.teacherHandler = new TeacherHandler("강사", teacherDao);
+    this.boardHandler = new BoardHandler("게시판", boardDao);
+  }
 
-    try (ServerSocket serverSocket = new ServerSocket(port)) {
-      boardDao.load("board.json");
-      studentDao.load("student.json");
-      teacherDao.load("teacher.json");
+  void execute(int port) {
+    try (Connection con = this.con;
+        ServerSocket serverSocket = new ServerSocket(port)) {
+      System.out.println("server on...");
 
-      while (true) {
-        //        RequestProcessorThread t = new RequestProcessorThread(serverSocket.accept());
-        //        t.start();
+      try (Socket socket = serverSocket.accept();
+          DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+          DataInputStream in = new DataInputStream(socket.getInputStream())) {
+        String clientIP = socket.getInetAddress().getHostAddress();
+        System.out.printf("접속: %s\n", clientIP);
 
-        Socket socket = serverSocket.accept();
-        new Thread(() -> processRequest(socket)).start();
-        // 쓰레드를 만들어서 실행 하는데 Runnable 이란 조건을 따라서 run()을 실행한다.
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+
+        hello(printWriter);
+        out.writeUTF(stringWriter.toString());
+
+        while (true) {
+          String message = in.readUTF();
+
+          if (message.equalsIgnoreCase("quit")) break;
+
+          stringWriter.getBuffer().setLength(0); // StringWriter 의 buffer 를 초기화
+          printWriter.print(message + "!!!");
+          out.writeUTF(stringWriter.toString());
+        }
+        System.out.printf("끊기: %s\n", clientIP);
+
+      } catch (Exception e) {
+        System.out.println("클라이언트 소켓 오류");
+        e.printStackTrace();
       }
+
     } catch (Exception e) {
-      System.out.println("서버 오류 발생");
+      System.out.println("서버 소켓 오류");
       e.printStackTrace();
     }
   }
 
-  void processRequest(Socket socket) {
-    try (Socket socket2 = socket;
-        DataInputStream in = new DataInputStream(socket.getInputStream()); // 날 것 그대로 쓰지 말자
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());) {
-      InetAddress address = socket.getInetAddress();
-      System.out.printf("%s 가 연결함ㄷㄷ\n", address.getHostAddress());
+  private void hello(PrintWriter out) throws Exception {
+    out.println("bitcamp 관리 시스템");
+    out.println("    Copyright by naver cloud 1st");
+    out.println();
+    out.println("hello!");
+  }
 
-      //      while (true) { // stateful
-      String dataName = in.readUTF();     // writeUTF가 올 때 까지 무한 대기
-      switch (dataName) {
-        case "board":
-          boardServlet.service(in, out);  // 입출력 스트림을 그대로 넘겨준다
-          boardDao.save("board.json");    // 효율성이 좋지는 않음
-          break;
-        case "student":
-          studentServlet.service(in, out); // 입출력 스트림을 그대로 넘겨준다
-          studentDao.save("student.json"); // 효율성이 좋지는 않음
-          break;
-        case "teacher":
-          teacherServlet.service(in, out); // 입출력 스트림을 그대로 넘겨준다
-          teacherDao.save("teacher.json"); // 효율성이 좋지는 않음
-          break;
-          //          case "quit":
-          //            return;
+  private void processRequest(DataInputStream in) {
+    loop: while (true) {
+      System.out.println("1. 학생관리");
+      System.out.println("2. 강사관리");
+      System.out.println("3. 게시판");
+      System.out.println("9. 종료");
+
+      int menuNo;
+      try {
+        menuNo = Prompt.inputInt("메뉴> ");
+      } catch (Exception e) {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
+        continue;
       }
-      //      }
-    } catch (Exception e) {
-      System.out.println("실행 오류!");
+
+      try {
+        switch (menuNo) {
+          case 1:
+            studentHandler.service();
+            break;
+          case 2:
+            teacherHandler.service();
+            break;
+          case 3:
+            boardHandler.service();
+            break;
+          case 9:
+            break loop; // loop 라벨이 붙은 while 문을 나간다.
+          default:
+            System.out.println("잘못된 메뉴 번호 입니다.");
+        }
+      } catch (Exception e) {
+        System.out.printf("명령 실행 중 오류 발생! - %s : %s\n",
+            e.getMessage(),
+            e.getClass().getSimpleName());
+      }
     }
+
+    System.out.println("안녕히 가세요!");
+
+    Prompt.close();
+
+  } catch (Exception e) {
+    System.out.println("네트워킹 오류!");
+    e.printStackTrace();
   }
 }
 
