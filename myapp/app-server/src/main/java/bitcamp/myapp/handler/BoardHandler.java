@@ -2,156 +2,171 @@ package bitcamp.myapp.handler;
 
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.Prompt;
+import bitcamp.util.StreamTool;
 
 public class BoardHandler {
+	private BoardDao boardDao;
+	private String title;
 
-  private BoardDao boardDao;
-  private String title;
+	public BoardHandler(String title, BoardDao boardDao) {
+		this.title = title;
+		this.boardDao = boardDao;
+	}
 
-  public BoardHandler(String title, BoardDao boardDao) {
-    this.title = title;
-    this.boardDao = boardDao;
-  }
+	private void inputBoard(StreamTool streamTool) throws Exception {
+		Board b = new Board();
+		b.setTitle(streamTool.promptString("제목? "));
+		b.setContent(streamTool.promptString("내용? "));
+		b.setPassword(streamTool.promptString("암호? "));
+		this.boardDao.insert(b);
+		streamTool.send();
+	}
 
-  private void inputBoard() {
-    Board b = new Board();
-    b.setTitle(Prompt.inputString("제목? "));
-    b.setContent(Prompt.inputString("내용? "));
-    b.setPassword(Prompt.inputString("암호? "));
+	private void printBoards(StreamTool streamTool) throws Exception {
+		streamTool.println("번호\t제목\t작성일\t조회수");
+		Board[] boards = this.boardDao.findAll();
 
-    this.boardDao.insert(b);
-  }
+		for (Board b : boards) {
+			streamTool.printf("%d\t%s\t%s\t%d\n",
+					b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+		}
+		streamTool.send();
+	}
 
-  private void printBoards() {
-    System.out.println("번호\t제목\t작성일\t조회수");
+	private void printBoard(StreamTool streamTool) throws Exception {
+		int boardNo = streamTool.promptInt("게시글 번호? ");
+		Board b = this.boardDao.findByNo(boardNo);
 
-    Board[] boards = this.boardDao.findAll();
+		if (b == null) {
+			streamTool.println("해당 번호의 게시글 없습니다.").send();
+			return;
+		}
+		streamTool.printf("    제목: %s\n", b.getTitle())
+		.printf("    내용: %s\n", b.getContent())
+		.printf("  등록일: %s\n", b.getCreatedDate())
+		.printf("  조회수: %d\n", b.getViewCount());
+		b.setViewCount(b.getViewCount() + 1);
+		streamTool.send();
+	}
 
-    for (Board b : boards) {
-      System.out.printf("%d\t%s\t%s\t%d\n",
-          b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-    }
-  }
+	private void modifyBoard(StreamTool streamTool) throws Exception {
+		int boardNo = streamTool.promptInt("게시글 번호? ");
+		Board old = this.boardDao.findByNo(boardNo);
 
-  private void printBoard() {
-    int boardNo = Prompt.inputInt("게시글 번호? ");
+		if (old == null) {
+			streamTool.println("해당 번호의 게시글이 없습니다.").send();
+			return;
+		}
 
-    Board b = this.boardDao.findByNo(boardNo);
+		// 변경할 데이터를 저장할 인스턴스 준비
+		Board b = new Board();
+		b.setNo(old.getNo());
+		b.setCreatedDate(old.getCreatedDate());
+		b.setTitle(streamTool.promptString(String.format("제목(%s)? ", old.getTitle())));
+		b.setContent(streamTool.promptString(String.format("내용(%s)? ", old.getContent())));
+		b.setPassword(streamTool.promptString("암호? "));
+		b.setViewCount(old.getViewCount());
 
-    if (b == null) {
-      System.out.println("해당 번호의 게시글 없습니다.");
-      return;
-    }
+		if (!old.getPassword().equals(b.getPassword())) {
+			streamTool.println("암호가 맞지 않습니다!").send();
+			return;
+		}
 
-    System.out.printf("    제목: %s\n", b.getTitle());
-    System.out.printf("    내용: %s\n", b.getContent());
-    System.out.printf("  등록일: %s\n", b.getCreatedDate());
-    System.out.printf("  조회수: %d\n", b.getViewCount());
-    b.setViewCount(b.getViewCount() + 1);
-  }
+		String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
+		if (str.equalsIgnoreCase("Y")) {
+			this.boardDao.update(b);
+			streamTool.println("변경했습니다.");
+		} else {
+			streamTool.println("변경 취소했습니다.");
+		}
+		streamTool.send();
+	}
 
-  private void modifyBoard() {
-    int boardNo = Prompt.inputInt("게시글 번호? ");
+	private void deleteBoard(StreamTool streamTool) throws Exception {
+		int boardNo = streamTool.promptInt("게시글 번호? ");
+		Board b = this.boardDao.findByNo(boardNo);
 
-    Board old = this.boardDao.findByNo(boardNo);
+		if (b == null) {
+			streamTool.println("해당 번호의 게시글이 없습니다.").send();
+			return;
+		}
 
-    if (old == null) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
-      return;
-    }
+		String password = streamTool.promptString("암호? ");
+		if (!b.getPassword().equals(password)) {
+			streamTool.println("암호가 맞지 않습니다!").send();
+			return;
+		}
 
-    // 변경할 데이터를 저장할 인스턴스 준비
-    Board b = new Board();
-    b.setNo(old.getNo());
-    b.setCreatedDate(old.getCreatedDate());
-    b.setTitle(Prompt.inputString(String.format("제목(%s)? ", old.getTitle())));
-    b.setContent(Prompt.inputString(String.format("내용(%s)? ", old.getContent())));
-    b.setPassword(Prompt.inputString("암호? "));
-    b.setViewCount(old.getViewCount());
+		String str = streamTool.promptString("정말 삭제하시겠습니까?(y/N) ");
+		if (!str.equalsIgnoreCase("Y")) {
+			streamTool.println("삭제 취소했습니다.").send();
+			return;
+		}
+		this.boardDao.delete(b);
+		streamTool.println("삭제했습니다.").send();
+	}
 
-    if (!old.getPassword().equals(b.getPassword())) {
-      System.out.println("암호가 맞지 않습니다!");
-      return;
-    }
+	private void searchBoard(StreamTool streamTool) throws Exception {
+		String keyword = streamTool.promptString("검색어? ");
+		Board[] boards = this.boardDao.findByKeyword(keyword);
+		streamTool.println("번호\t제목\t작성일\t조회수");
 
-    String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
-    if (str.equalsIgnoreCase("Y")) {
-      this.boardDao.update(b);
-      System.out.println("변경했습니다.");
-    } else {
-      System.out.println("변경 취소했습니다.");
-    }
+		for (Board b : boards) {
+			streamTool.printf("%d\t%s\t%s\t%d\n",
+					b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+		}
+		streamTool.send();
+	}
 
-  }
+	public void service(StreamTool streamTool) throws Exception {
+		menu(streamTool);
 
-  private void deleteBoard() {
-    int boardNo = Prompt.inputInt("게시글 번호? ");
+		while (true) {
+			String command = streamTool.readString();
 
-    Board b = this.boardDao.findByNo(boardNo);
+			if (command.equals("menu")) {
+				menu(streamTool);
+				continue;
+			}
+			int menuNo;
 
-    if (b == null) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
-      return;
-    }
+			try {
+				menuNo = Integer.parseInt(command);
+			} catch (Exception e) {
+				streamTool.println("메뉴 남바가 옳지 않은데예?").println().send();
+				continue;
+			}
 
-    String password = Prompt.inputString("암호? ");
-    if (!b.getPassword().equals(password)) {
-      System.out.println("암호가 맞지 않습니다!");
-      return;
-    }
+			try {
+				switch (menuNo) {
+				case 0: 
+					streamTool.println("메인 화면으로 이동").send();
+					return;
+				case 1: this.inputBoard(streamTool); break;
+				case 2: this.printBoards(streamTool); break;
+				case 3: this.printBoard(streamTool); break;
+				case 4: this.modifyBoard(streamTool); break;
+				case 5: this.deleteBoard(streamTool); break;
+				case 6: this.searchBoard(streamTool); break;
+				default:
+					System.out.println("잘못된 메뉴 번호 입니다.");
+				}
+			} catch (Exception e) {
+				streamTool.printf("Instruction 실행중 error 발생ㅋㅋ  - %s : %s\n",
+						e.getMessage(),
+						e.getClass().getSimpleName()).send();
+			}
+		}
+	}
 
-    String str = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
-    if (!str.equalsIgnoreCase("Y")) {
-      System.out.println("삭제 취소했습니다.");
-      return;
-    }
-
-    this.boardDao.delete(b);
-
-    System.out.println("삭제했습니다.");
-
-  }
-
-  private void searchBoard() {
-    Board[] boards = this.boardDao.findAll();
-
-    String keyword = Prompt.inputString("검색어? ");
-    System.out.println("번호\t제목\t작성일\t조회수");
-
-    for (Board b : boards) {
-      if (b.getTitle().indexOf(keyword) != -1 ||
-          b.getContent().indexOf(keyword) != -1) {
-        System.out.printf("%d\t%s\t%s\t%d\n",
-            b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-      }
-    }
-  }
-
-  public void service() {
-
-    while (true) {
-      System.out.printf("[%s]\n", this.title);
-      System.out.println("1. 등록");
-      System.out.println("2. 목록");
-      System.out.println("3. 조회");
-      System.out.println("4. 변경");
-      System.out.println("5. 삭제");
-      System.out.println("6. 검색");
-      System.out.println("0. 이전");
-      int menuNo = Prompt.inputInt(String.format("%s> ", this.title));
-
-      switch (menuNo) {
-        case 0: return;
-        case 1: this.inputBoard(); break;
-        case 2: this.printBoards(); break;
-        case 3: this.printBoard(); break;
-        case 4: this.modifyBoard(); break;
-        case 5: this.deleteBoard(); break;
-        case 6: this.searchBoard(); break;
-        default:
-          System.out.println("잘못된 메뉴 번호 입니다.");
-      }
-    }
-  }
+	void menu(StreamTool streamTool) throws Exception {
+		streamTool.printf("[%s]\n", this.title)
+		.println("1. 등록")
+		.println("2. 목록")
+		.println("3. 조회")
+		.println("4. 변경")
+		.println("5. 삭제")
+		.println("6. 검색")
+		.println("0. 이전").send();
+	}
 }

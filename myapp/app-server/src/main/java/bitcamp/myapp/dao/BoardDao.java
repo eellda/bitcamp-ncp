@@ -4,15 +4,17 @@ import bitcamp.myapp.vo.Board;
 
 public interface BoardDao {
 
-  void insert(Board board);
+	void insert(Board board);
 
-  Board[] findAll();
+	Board[] findAll();
 
-  Board findByNo(int no);
+	Board findByNo(int no);
 
-  void update(Board b);
+	Board[] findByKeyword(String keyword);
 
-  boolean delete(Board b);
+	void update(Board b);
+
+	boolean delete(Board b);
 
 }
 
