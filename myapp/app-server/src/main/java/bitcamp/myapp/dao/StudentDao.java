@@ -4,7 +4,6 @@ import bitcamp.myapp.vo.Student;
 
 public interface StudentDao {
 
-
   void insert(Student s);
 
   Student[] findAll();
@@ -16,7 +15,6 @@ public interface StudentDao {
   void update(Student s);
 
   boolean delete(Student s);
-
 
 }
 

@@ -63,4 +63,14 @@ public class StreamTool {
     this.print(title).send();
     return this.readInt();
   }
+
 }
+
+
+
+
+
+
+
+
+

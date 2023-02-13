@@ -9,6 +9,7 @@ public class Teacher extends Member implements java.io.Serializable {
   private String major;
   private int wage;
 
+  // Factory Method 패턴 + Information Expert 패턴
   public static Teacher create(String csv) {
     try {
       String[] values = csv.split(",");
@@ -31,8 +32,9 @@ public class Teacher extends Member implements java.io.Serializable {
     }
   }
 
-  public String toCsvString () {
-    return String.format("%d,%s,%s,%s,%s,%s,%s,%s,%s",
+  // Information Expert 패턴
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%d,%s,%s,%d",
         this.getNo(),
         this.getName(),
         this.getTel(),
@@ -44,8 +46,11 @@ public class Teacher extends Member implements java.io.Serializable {
         this.getWage());
   }
 
-
-
+  @Override
+  public String toString() {
+    return "Teacher [email=" + email + ", degree=" + degree + ", school=" + school + ", major="
+        + major + ", wage=" + wage + "]";
+  }
   public String getEmail() {
     return email;
   }
@@ -58,7 +63,6 @@ public class Teacher extends Member implements java.io.Serializable {
   public void setDegree(int degree) {
     this.degree = degree;
   }
-
   public String getSchool() {
     return school;
   }

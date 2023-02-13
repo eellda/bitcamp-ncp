@@ -11,20 +11,7 @@ public class Student extends Member implements java.io.Serializable {
   private char gender;
   private byte level;
 
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s,%b,%s,%d",
-        this.getNo(),
-        this.getName(),
-        this.getTel(),
-        this.getCreatedDate(),
-        this.getPostNo(),
-        this.getBasicAddress(),
-        this.getDetailAddress(),
-        this.isWorking(),
-        this.getGender(),
-        this.getLevel());
-  }
-
+  // Factory Method 패턴 + Information Expert 패턴
   public static Student create(String csv) {
     try {
       String[] values = csv.split(",");
@@ -42,9 +29,31 @@ public class Student extends Member implements java.io.Serializable {
       obj.setLevel(Byte.parseByte(values[9]));
 
       return obj;
+
     } catch (Exception e) {
       throw new RuntimeException("Board 객체 생성 오류!", e);
     }
+  }
+
+  // Information Expert 패턴
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%s,%s,%b,%s,%d",
+        this.getNo(),
+        this.getName(),
+        this.getTel(),
+        this.getCreatedDate(),
+        this.getPostNo(),
+        this.getBasicAddress(),
+        this.getDetailAddress(),
+        this.isWorking(),
+        this.getGender(),
+        this.getLevel());
+  }
+
+  @Override
+  public String toString() {
+    return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
+        + detailAddress + ", working=" + working + ", gender=" + gender + ", level=" + level + "]";
   }
 
   public String getPostNo() {

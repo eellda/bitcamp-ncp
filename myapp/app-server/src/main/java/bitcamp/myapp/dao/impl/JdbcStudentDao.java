@@ -1,33 +1,39 @@
-package bitcamp.myapp.dao;
+package bitcamp.myapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
 
 public class JdbcStudentDao implements StudentDao {
+
   Connection con;
 
+  // 의존객체 Connection 을 생성자에서 받는다.
   public JdbcStudentDao(Connection con) {
     this.con = con;
   }
 
   @Override
-  public void insert(Student b) {
+  public void insert(Student s) {
     try (Statement stmt = con.createStatement()) {
+
       String sql = String.format(
-          "insert into app_student(name, tel, pst_no, bas_addr, det_addr, work, gender, level) "
-              + "values('%s', '%s', '%s', '%s', '%s', %b, '%s', %d)",
-              b.getName(),
-              b.getTel(),
-              b.getPostNo(),
-              b.getBasicAddress(),
-              b.getDetailAddress(),
-              b.isWorking(),
-              b.getGender(),
-              b.getLevel());
+          "insert into app_student(name, tel, pst_no, bas_addr, det_addr, work, gender, level)"
+              + " values('%s','%s','%s','%s','%s',%b,'%s',%d)",
+              s.getName(),
+              s.getTel(),
+              s.getPostNo(),
+              s.getBasicAddress(),
+              s.getDetailAddress(),
+              s.isWorking(),
+              s.getGender(),
+              s.getLevel());
+
       stmt.executeUpdate(sql);
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
@@ -37,10 +43,11 @@ public class JdbcStudentDao implements StudentDao {
   public Student[] findAll() {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select student_id, name, tel, work, level "
-                + "from app_student order by student_id desc")) {
-      LinkedList<Student> list = new LinkedList<>();
+            "select student_id, name, tel, work, level"
+                + " from app_student"
+                + " order by student_id desc")) {
 
+      ArrayList<Student> list = new ArrayList<>();
       while (rs.next()) {
         Student s = new Student();
         s.setNo(rs.getInt("student_id"));
@@ -48,9 +55,15 @@ public class JdbcStudentDao implements StudentDao {
         s.setTel(rs.getString("tel"));
         s.setWorking(rs.getBoolean("work"));
         s.setLevel(rs.getByte("level"));
+
         list.add(s);
       }
-      return list.toArray(new Student[] {});
+
+      Student[] arr = new Student[list.size()];
+      list.toArray(arr);
+
+      return arr;
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
@@ -60,25 +73,27 @@ public class JdbcStudentDao implements StudentDao {
   public Student findByNo(int no) {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select student_id, name, tel, pst_no, bas_addr, "
-                + "det_addr, work, gender, level, created_date "
-                + "from app_student where student_id=" + no)) {
+            "select student_id, name, tel, created_date, pst_no, bas_addr, det_addr, work, gender, level"
+                + " from app_student"
+                + " where student_id=" + no)) {
 
-      while (rs.next()) {
+      if (rs.next()) {
         Student s = new Student();
         s.setNo(rs.getInt("student_id"));
         s.setName(rs.getString("name"));
         s.setTel(rs.getString("tel"));
+        s.setCreatedDate(rs.getString("created_date"));
         s.setPostNo(rs.getString("pst_no"));
         s.setBasicAddress(rs.getString("bas_addr"));
         s.setDetailAddress(rs.getString("det_addr"));
         s.setWorking(rs.getBoolean("work"));
         s.setGender(rs.getString("gender").charAt(0));
         s.setLevel(rs.getByte("level"));
-        s.setCreatedDate(rs.getString("created_date"));
         return s;
       }
+
       return null;
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
@@ -95,8 +110,8 @@ public class JdbcStudentDao implements StudentDao {
                 + " or bas_addr like('%" + keyword + "%')"
                 + " or det_addr like('%" + keyword + "%')"
                 + " order by student_id desc")) {
-      LinkedList<Student> list = new LinkedList<>();
 
+      ArrayList<Student> list = new ArrayList<>();
       while (rs.next()) {
         Student s = new Student();
         s.setNo(rs.getInt("student_id"));
@@ -104,47 +119,79 @@ public class JdbcStudentDao implements StudentDao {
         s.setTel(rs.getString("tel"));
         s.setWorking(rs.getBoolean("work"));
         s.setLevel(rs.getByte("level"));
+
         list.add(s);
       }
-      return list.toArray(new Student[] {});
+
+      Student[] arr = new Student[list.size()];
+      list.toArray(arr);
+
+      return arr;
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
   }
 
   @Override
-  public void update(Student b) {
+  public void update(Student s) {
     try (Statement stmt = con.createStatement()) {
+
       String sql = String.format(
-          "update app_student set name='%s', tel='%s', pst_no='%s', bas_addr='%s', "
-              + "det_addr='%s', work=%s, gender='%s', level=%s "
-              + "where student_id=%d",
-              b.getName(),
-              b.getTel(),
-              b.getPostNo(),
-              b.getBasicAddress(),
-              b.getDetailAddress(),
-              b.isWorking(),
-              b.getGender(),
-              b.getLevel(),
-              b.getNo());
+          "update app_student set "
+              + " name='%s', tel='%s', pst_no='%s', bas_addr='%s', det_addr='%s',"
+              + " work=%b, gender='%s', level=%d "
+              + " where student_id=%d",
+              s.getName(),
+              s.getTel(),
+              s.getPostNo(),
+              s.getBasicAddress(),
+              s.getDetailAddress(),
+              s.isWorking(),
+              s.getGender(),
+              s.getLevel(),
+              s.getNo());
+
       stmt.executeUpdate(sql);
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
   }
 
   @Override
-  public boolean delete(Student b) {
+  public boolean delete(Student s) {
     try (Statement stmt = con.createStatement()) {
-      String sql = String.format(
-          "delete from app_student where student_id=%d",
-          b.getNo());
+
+      String sql = String.format("delete from app_student where student_id=%d", s.getNo());
+
       return stmt.executeUpdate(sql) == 1;
+
     } catch (Exception e) {
       throw new DaoException(e);
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
