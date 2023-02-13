@@ -1,9 +1,11 @@
 package bitcamp.myapp.dao.impl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
@@ -22,10 +24,15 @@ public class StudentDaoImpl implements StudentDao {
     try (Statement stmt = con.createStatement()) {
 
       String sql = String.format(
-          "insert into app_student(member_id, pst_no, bas_addr, det_addr, work, gender, level)"
-              + " values('%s','%s','%s','%s','%s',%b,'%s',%d)",
-              s.getName(),
-              s.getTel(),
+          "insert into app_student("
+              + "member_id,"
+              + " pst_no,"
+              + " bas_addr,"
+              + " det_addr,"
+              + " work, gender,"
+              + " level)"
+              + " values('%s','%s','%s','%s',%b,'%s',%d)",
+              s.getNo(),
               s.getPostNo(),
               s.getBasicAddress(),
               s.getDetailAddress(),
@@ -41,29 +48,34 @@ public class StudentDaoImpl implements StudentDao {
   }
 
   @Override
-  public Student[] findAll() {
+  public List<Student> findAll() {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select student_id, name, tel, work, level"
-                + " from app_student"
-                + " order by student_id desc")) {
+            "select "
+                + "  m.member_id,"
+                + "  m.name,"
+                + "  m.email,"
+                + "  m.tel,"
+                + "  s.work,"
+                + "  s.level"
+                + " from app_student s"
+                + "  inner join app_member m on s.member_id = m.member_id"
+                + " order by"
+                + " m.name asc")) {
 
       ArrayList<Student> list = new ArrayList<>();
       while (rs.next()) {
         Student s = new Student();
-        s.setNo(rs.getInt("student_id"));
+        s.setNo(rs.getInt("member_id"));
         s.setName(rs.getString("name"));
+        s.setEmail(rs.getString("email"));
         s.setTel(rs.getString("tel"));
         s.setWorking(rs.getBoolean("work"));
         s.setLevel(rs.getByte("level"));
-
         list.add(s);
       }
 
-      Student[] arr = new Student[list.size()];
-      list.toArray(arr);
-
-      return arr;
+      return list;
 
     } catch (Exception e) {
       throw new DaoException(e);
@@ -74,16 +86,30 @@ public class StudentDaoImpl implements StudentDao {
   public Student findByNo(int no) {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select student_id, name, tel, created_date, pst_no, bas_addr, det_addr, work, gender, level"
-                + " from app_student"
-                + " where student_id=" + no)) {
+            "select "
+                + "  m.member_id,"
+                + "  m.name,"
+                + "  m.email,"
+                + "  m.tel,"
+                + "  m.created_date,"
+                + "  s.pst_no,"
+                + "  s.bas_addr,"
+                + "  s.det_addr,"
+                + "  s.work,"
+                + "  s.gender,"
+                + "  s.level"
+                + " from app_student s"
+                + "  inner join app_member m on s.member_id = m.member_id"
+                + " where"
+                + " s.member_id=" + no)) {
 
       if (rs.next()) {
         Student s = new Student();
-        s.setNo(rs.getInt("student_id"));
+        s.setNo(rs.getInt("member_id"));
         s.setName(rs.getString("name"));
+        s.setEmail(rs.getString("email"));
         s.setTel(rs.getString("tel"));
-        s.setCreatedDate(rs.getString("created_date"));
+        s.setCreatedDate(rs.getDate("created_date"));
         s.setPostNo(rs.getString("pst_no"));
         s.setBasicAddress(rs.getString("bas_addr"));
         s.setDetailAddress(rs.getString("det_addr"));
@@ -101,33 +127,42 @@ public class StudentDaoImpl implements StudentDao {
   }
 
   @Override
-  public Student[] findByKeyword(String keyword) {
+  public List<Student> findByKeyword(String keyword) {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select student_id, name, tel, work, level"
-                + " from app_student"
-                + " where name like('%" + keyword + "%')"
-                + " or tel like('%" + keyword + "%')"
-                + " or bas_addr like('%" + keyword + "%')"
-                + " or det_addr like('%" + keyword + "%')"
-                + " order by student_id desc")) {
+            "select "
+                + "  m.member_id,"
+                + "  m.name,"
+                + "  m.email,"
+                + "  m.tel,"
+                + "  s.work,"
+                + "  s.level"
+                + " from app_student s"
+                + "  inner join app_member m on s.member_id = m.member_id"
+                + " where"
+                + "   m.name like('%" + keyword + "%')"
+                + "   or m.tel like('%" + keyword + "%')"
+                + "   or m.email like('%" + keyword + "%')"
+                + "   or s.bas_addr like('%" + keyword + "%')"
+                + "   or s.det_addr like('%" + keyword + "%')"
+                + " order by"
+                + " m.member_id desc")) {
 
       ArrayList<Student> list = new ArrayList<>();
       while (rs.next()) {
         Student s = new Student();
-        s.setNo(rs.getInt("student_id"));
+        s.setNo(rs.getInt("member_id"));
         s.setName(rs.getString("name"));
+        s.setEmail(rs.getString("email"));
         s.setTel(rs.getString("tel"));
         s.setWorking(rs.getBoolean("work"));
         s.setLevel(rs.getByte("level"));
+        list.add(s);
 
         list.add(s);
       }
 
-      Student[] arr = new Student[list.size()];
-      list.toArray(arr);
-
-      return arr;
+      return list;
 
     } catch (Exception e) {
       throw new DaoException(e);
@@ -135,16 +170,18 @@ public class StudentDaoImpl implements StudentDao {
   }
 
   @Override
-  public void update(Student s) {
+  public int update(Student s) {
     try (Statement stmt = con.createStatement()) {
 
       String sql = String.format(
           "update app_student set "
-              + " name='%s', tel='%s', pst_no='%s', bas_addr='%s', det_addr='%s',"
-              + " work=%b, gender='%s', level=%d "
-              + " where student_id=%d",
-              s.getName(),
-              s.getTel(),
+              + " pst_no='%s',"
+              + " bas_addr='%s',"
+              + " det_addr='%s',"
+              + " work=%b,"
+              + " gender='%s',"
+              + " level=%d "
+              + " where member_id=%d",
               s.getPostNo(),
               s.getBasicAddress(),
               s.getDetailAddress(),
@@ -153,7 +190,7 @@ public class StudentDaoImpl implements StudentDao {
               s.getLevel(),
               s.getNo());
 
-      stmt.executeUpdate(sql);
+      return stmt.executeUpdate(sql);
 
     } catch (Exception e) {
       throw new DaoException(e);
@@ -161,16 +198,65 @@ public class StudentDaoImpl implements StudentDao {
   }
 
   @Override
-  public boolean delete(Student s) {
+  public int delete(int no) {
     try (Statement stmt = con.createStatement()) {
 
-      String sql = String.format("delete from app_student where student_id=%d", s.getNo());
+      String sql = String.format(
+          "delete from app_student"
+              + " where member_id=%d",
+              no);
 
-      return stmt.executeUpdate(sql) == 1;
+      return stmt.executeUpdate(sql);
 
     } catch (Exception e) {
       throw new DaoException(e);
     }
+  }
+
+
+
+  public static void main(String[] args) throws Exception {
+    Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+
+    StudentDaoImpl dao = new StudentDaoImpl(con);
+
+    //    Student m = new Student();
+    //    m.setNo(6);
+    //    m.setPostNo("65006");
+    //    m.setBasicAddress("테스트66");
+    //    m.setDetailAddress("6gogoho");
+    //    m.setWorking(true);
+    //    m.setGender('W');
+    //    m.setLevel((byte) 2);
+    //    dao.insert(m);
+
+    //    List<Student> list = dao.findAll();
+    //    for (Student s : list) {
+    //      System.out.println(s);
+    //    }
+
+    //    Student s = dao.findByNo(2);
+    //    System.out.println(s);
+
+    //    List<Student> list = dao.findByKeyword("rj");
+    //    for (Student s : list) {
+    //      System.out.println(s);
+    //    }
+
+    //    Student m = new Student();
+    //    m.setNo(6);
+    //    m.setPostNo("777");
+    //    m.setBasicAddress("테스트77");
+    //    m.setDetailAddress("7go7oho");
+    //    m.setWorking(true);
+    //    m.setGender('M');
+    //    m.setLevel((byte) 1);
+    //    System.out.println(dao.update(m));
+
+    //    System.out.println(dao.delete(2));
+
+    con.close();
   }
 }
 
