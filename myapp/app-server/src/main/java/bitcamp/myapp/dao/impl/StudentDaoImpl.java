@@ -4,15 +4,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
 
-public class JdbcStudentDao implements StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
   Connection con;
 
   // 의존객체 Connection 을 생성자에서 받는다.
-  public JdbcStudentDao(Connection con) {
+  public StudentDaoImpl(Connection con) {
     this.con = con;
   }
 
@@ -21,7 +22,7 @@ public class JdbcStudentDao implements StudentDao {
     try (Statement stmt = con.createStatement()) {
 
       String sql = String.format(
-          "insert into app_student(name, tel, pst_no, bas_addr, det_addr, work, gender, level)"
+          "insert into app_student(member_id, pst_no, bas_addr, det_addr, work, gender, level)"
               + " values('%s','%s','%s','%s','%s',%b,'%s',%d)",
               s.getName(),
               s.getTel(),

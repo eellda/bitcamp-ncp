@@ -8,9 +8,18 @@ public class Member implements java.io.Serializable {
 
   private int no;
   private String name;
+  private String email;
   private String tel;
   private Date createdDate;
+  private String password;
 
+
+
+  @Override
+  public String toString() {
+    return "Member [no=" + no + ", name=" + name + ", eamil=" + email + ", tel=" + tel
+        + ", createdDate=" + createdDate + ", password=" + password + "]";
+  }
   @Override
   public int hashCode() {
     return Objects.hash(no);
@@ -39,6 +48,12 @@ public class Member implements java.io.Serializable {
   public void setName(String name) {
     this.name = name;
   }
+  public String getEmail() {
+    return email;
+  }
+  public void setEmail(String email) {
+    this.email = email;
+  }
   public String getTel() {
     return tel;
   }
@@ -50,6 +65,12 @@ public class Member implements java.io.Serializable {
   }
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+  public String getPassword() {
+    return password;
+  }
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 }

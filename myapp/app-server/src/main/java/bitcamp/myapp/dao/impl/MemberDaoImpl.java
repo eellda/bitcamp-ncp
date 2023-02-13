@@ -24,9 +24,11 @@ public class MemberDaoImpl implements MemberDao {
     try (Statement stmt = con.createStatement()) {
 
       String sql = String.format(
-          "insert into app_member(name, tel)"
-              + " values('%s','%s')",
+          "insert into app_member(name, email, pwd, tel)"
+              + " values('%s','%s',sha2('%s', 256),'%s')",
               m.getName(),
+              m.getEmail(),
+              m.getPassword(),
               m.getTel());
 
       stmt.executeUpdate(sql);
@@ -40,7 +42,7 @@ public class MemberDaoImpl implements MemberDao {
   public List<Member> findAll() {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select member_id, name, tel, created_date"
+            "select member_id, name, email, created_date"
                 + " from app_member"
                 + " order by member_id desc")) {
 
@@ -49,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
         Member m = new Member();
         m.setNo(rs.getInt("member_id"));
         m.setName(rs.getString("name"));
-        m.setTel(rs.getString("tel"));
+        m.setEmail(rs.getString("email"));
         m.setCreatedDate(rs.getDate("created_date"));
 
         list.add(m);
@@ -66,7 +68,7 @@ public class MemberDaoImpl implements MemberDao {
   public Member findByNo(int no) {
     try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
-            "select member_id, name, tel, created_date"
+            "select member_id, name, email, tel, created_date"
                 + " from app_member"
                 + " where member_id=" + no)) {
 
@@ -74,6 +76,7 @@ public class MemberDaoImpl implements MemberDao {
         Member m = new Member();
         m.setNo(rs.getInt("member_id"));
         m.setName(rs.getString("name"));
+        m.setEmail(rs.getString("email"));
         m.setTel(rs.getString("tel"));
         m.setCreatedDate(rs.getDate("created_date"));
 
@@ -93,9 +96,11 @@ public class MemberDaoImpl implements MemberDao {
 
       String sql = String.format(
           "update app_member set "
-              + " name='%s', tel='%s'"
+              + " name='%s', email='%s', pwd=sha2('%s', 256), tel='%s'"
               + " where member_id=%d",
               m.getName(),
+              m.getEmail(),
+              m.getPassword(),
               m.getTel(),
               m.getNo());
 
@@ -121,17 +126,45 @@ public class MemberDaoImpl implements MemberDao {
     }
   }
 
+
+
+
+
+
+
+
+
   public static void main(String[] args) throws Exception {
     Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
 
     MemberDaoImpl dao = new MemberDaoImpl(con);
 
-    Member m = new Member();
-    m.setName("aaa4");
-    m.setTel("123456");
+    //    Member m = new Member();
+    //    m.setName("aaa5");
+    //    m.setEmail("aaa5@gmail.com");
+    //    m.setPassword("1fn!#413f3");
+    //    m.setTel("123456");
+    //    dao.insert(m);
 
-    dao.insert(m);
+    //    List<Member> list = dao.findAll();
+    //    for (Member m : list) {
+    //      System.out.println(m);
+    //    }
+
+    //    Member m = dao.findByNo(2);
+    //    System.out.println(m);
+
+    Member m = new Member();
+    m.setNo(2);
+    m.setName("xvxv");
+    m.setEmail("test@naver.com");
+    m.setPassword("135@$vbfvef3");
+    m.setTel("4321");
+    System.out.println(dao.update(m));
+
+    //    System.out.println(dao.delete(3));
+
     con.close();
   }
 }
