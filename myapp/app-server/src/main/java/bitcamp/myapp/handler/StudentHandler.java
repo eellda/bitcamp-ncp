@@ -132,8 +132,22 @@ public class StudentHandler {
 
     String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      this.memberDao.update(m);
-      streamTool.println("변경했습니다.");
+      con.setAutoCommit(false);
+
+      try {
+        memberDao.update(m);
+        studentDao.update(m);
+        con.commit();
+        streamTool.println("변경했습니다.");
+
+      } catch (Exception e) {
+        con.rollback();
+        streamTool.println("변경 실패 했습니다.");
+        e.printStackTrace();
+
+      } finally {
+        con.setAutoCommit(true);
+      }
     } else {
       streamTool.println("변경 취소했습니다.");
     }
@@ -155,8 +169,21 @@ public class StudentHandler {
       streamTool.println("삭제 취소했습니다.").send();
       return;
     }
+    con.setAutoCommit(false);
 
-    streamTool.println("삭제했습니다.").send();
+    try {
+      studentDao.delete(memberNo);
+      memberDao.delete(memberNo);
+      con.commit();
+      streamTool.println("삭제했습니다.").send();
+
+    } catch (Exception e) {
+      con.rollback();
+      streamTool.println("삭제 실패 했습니다.").send();
+
+    } finally {
+      con.setAutoCommit(true);
+    }
   }
 
   private void searchMember(StreamTool streamTool) throws Exception {
