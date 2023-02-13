@@ -37,9 +37,7 @@ public class StudentHandler {
     con.setAutoCommit(false);
 
     try {
-      System.out.println(s);
       memberDao.insert(s);
-      System.out.println(s);
       studentDao.insert(s);
       con.commit();
       streamTool.println("입력했습니다!").send();
@@ -156,7 +154,6 @@ public class StudentHandler {
 
   private void deleteMember(StreamTool streamTool) throws Exception {
     int memberNo = streamTool.promptInt("회원번호? ");
-
     Student m = this.studentDao.findByNo(memberNo);
 
     if (m == null) {

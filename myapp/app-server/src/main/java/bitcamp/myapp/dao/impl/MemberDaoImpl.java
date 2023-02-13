@@ -149,13 +149,13 @@ public class MemberDaoImpl implements MemberDao {
 
     MemberDaoImpl dao = new MemberDaoImpl(con);
 
-    //    Member m = new Member();
-    //    m.setName("aaa11");
-    //    m.setEmail("aaa11@gmail.com");
-    //    m.setPassword("1fn!#413f3");
-    //    m.setTel("123456");
-    //    dao.insert(m);
-    //    System.out.println(m);
+    Member m = new Member();
+    m.setName("teacher13");
+    m.setEmail("teacher13@gmail.com");
+    m.setPassword("2u4F@VRvgy");
+    m.setTel("tttttt");
+    dao.insert(m);
+    System.out.println(m);
 
     //    List<Member> list = dao.findAll();
     //    for (Member m : list) {
