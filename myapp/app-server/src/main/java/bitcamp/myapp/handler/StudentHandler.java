@@ -1,5 +1,6 @@
 package bitcamp.myapp.handler;
 
+import java.sql.Connection;
 import java.util.List;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
@@ -10,10 +11,12 @@ public class StudentHandler {
 
   private MemberDao memberDao;
   private StudentDao studentDao;
+  private Connection con;
   private String title;
 
-  public StudentHandler(String title,MemberDao memberDao, StudentDao studentDao) {
+  public StudentHandler(String title, Connection con, MemberDao memberDao, StudentDao studentDao) {
     this.title = title;
+    this.con = con;
     this.memberDao = memberDao;
     this.studentDao = studentDao;
   }
@@ -31,15 +34,30 @@ public class StudentHandler {
     s.setGender(streamTool.promptInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     s.setLevel((byte) streamTool.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
-    this.memberDao.insert(s);
-    this.studentDao.insert(s);
+    con.setAutoCommit(false);
 
-    streamTool.println("입력했습니다!").send();
+    try {
+      System.out.println(s);
+      memberDao.insert(s);
+      System.out.println(s);
+      studentDao.insert(s);
+      con.commit();
+      streamTool.println("입력했습니다!").send();
+
+    } catch (Exception e) {
+      con.rollback();
+      streamTool.println("입력 실패!").send();
+      e.printStackTrace();
+
+    } finally {
+      con.setAutoCommit(true);
+    }
   }
 
   private void printMembers(StreamTool streamTool) throws Exception {
     List<Student> members = this.studentDao.findAll();
     streamTool.println("번호\t이름\t전화\t재직\t전공");
+
     for (Student m : members) {
       streamTool.printf("%d\t%s\t%s\t%s\t%s\n",
           m.getNo(), m.getName(), m.getTel(),
@@ -153,6 +171,7 @@ public class StudentHandler {
           m.isWorking() ? "예" : "아니오",
               getLevelText(m.getLevel()));
     }
+
     streamTool.send();
   }
 

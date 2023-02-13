@@ -21,6 +21,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public void insert(Student s) {
+
     try (Statement stmt = con.createStatement()) {
 
       String sql = String.format(
