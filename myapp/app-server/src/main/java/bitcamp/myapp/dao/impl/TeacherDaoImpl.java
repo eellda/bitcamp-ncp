@@ -14,29 +14,26 @@ public class TeacherDaoImpl implements TeacherDao {
 
   Connection con;
 
-  // 의존객체 Connection 을 생성자에서 받는다.
   public TeacherDaoImpl(Connection con) {
     this.con = con;
   }
 
   @Override
-  public void insert(Teacher t) {
-
+  public void insert(Teacher s) {
     try (Statement stmt = con.createStatement()) {
 
-      String sql = String.format(
-          "insert into app_teacher("
-              + "member_id,"
-              + " degree,"
-              + " school,"
-              + " major,"
-              + " wage)"
-              + " values('%s',%d,'%s','%s',%d)",
-              t.getNo(),
-              t.getDegree(),
-              t.getSchool(),
-              t.getMajor(),
-              t.getWage());
+      String sql = String.format("insert into app_teacher("
+          + " member_id,"
+          + " degree,"
+          + " school,"
+          + " major,"
+          + " wage)"
+          + " values(%d, %d,'%s','%s',%d)",
+          s.getNo(),
+          s.getDegree(),
+          s.getSchool(),
+          s.getMajor(),
+          s.getWage());
 
       stmt.executeUpdate(sql);
 
@@ -48,30 +45,30 @@ public class TeacherDaoImpl implements TeacherDao {
   @Override
   public List<Teacher> findAll() {
     try (Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(
-            "select m.member_id,"
-                + " m.name,"
-                + " m.tel,"
-                + " t.degree,"
-                + " t.major,"
-                + " t.wage"
-                + " from app_teacher t"
-                + "  inner join app_member m on t.member_id = m.member_id"
-                + " order by"
-                + " m.name desc")) {
+        ResultSet rs = stmt.executeQuery("select"
+            + "  m.member_id,"
+            + "  m.name,"
+            + "  m.tel,"
+            + "  t.degree,"
+            + "  t.major,"
+            + "  t.wage"
+            + " from app_teacher t"
+            + "   inner join app_member m on t.member_id = m.member_id"
+            + " order by"
+            + "   m.name asc")) {
 
       ArrayList<Teacher> list = new ArrayList<>();
       while (rs.next()) {
-        Teacher t = new Teacher();
-        t.setNo(rs.getInt("member_id"));
-        t.setName(rs.getString("name"));
-        t.setTel(rs.getString("tel"));
-        t.setDegree(rs.getInt("degree"));
-        t.setMajor(rs.getString("major"));
-        t.setWage(rs.getInt("wage"));
-        list.add(t);
-      }
+        Teacher s = new Teacher();
+        s.setNo(rs.getInt("member_id"));
+        s.setName(rs.getString("name"));
+        s.setTel(rs.getString("tel"));
+        s.setDegree(rs.getInt("degree"));
+        s.setMajor(rs.getString("major"));
+        s.setWage(rs.getInt("wage"));
 
+        list.add(s);
+      }
       return list;
 
     } catch (Exception e) {
@@ -82,34 +79,32 @@ public class TeacherDaoImpl implements TeacherDao {
   @Override
   public Teacher findByNo(int no) {
     try (Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(
-            "select"
-                + " m.member_id,"
-                + " m.name,"
-                + " m.tel,"
-                + " m.created_date,"
-                + " m.email,"
-                + " t.degree,"
-                + " t.school,"
-                + " t.major,"
-                + " t.wage"
-                + " from app_teacher t"
-                + "  inner join app_member m on t.member_id = m.member_id"
-                + " where"
-                + " t.member_id=" + no)) {
+        ResultSet rs = stmt.executeQuery("select"
+            + "  m.member_id,"
+            + "  m.name,"
+            + "  m.email,"
+            + "  m.tel,"
+            + "  m.created_date,"
+            + "  t.degree,"
+            + "  t.school,"
+            + "  t.major,"
+            + "  t.wage"
+            + " from app_teacher t"
+            + "   inner join app_member m on t.member_id = m.member_id"
+            + " where m.member_id=" + no)) {
 
       if (rs.next()) {
-        Teacher t = new Teacher();
-        t.setNo(rs.getInt("member_id"));
-        t.setName(rs.getString("name"));
-        t.setTel(rs.getString("tel"));
-        t.setCreatedDate(rs.getDate("created_date"));
-        t.setEmail(rs.getString("email"));
-        t.setDegree(rs.getInt("degree"));
-        t.setSchool(rs.getString("school"));
-        t.setMajor(rs.getString("major"));
-        t.setWage(rs.getInt("wage"));
-        return t;
+        Teacher s = new Teacher();
+        s.setNo(rs.getInt("member_id"));
+        s.setName(rs.getString("name"));
+        s.setEmail(rs.getString("email"));
+        s.setTel(rs.getString("tel"));
+        s.setCreatedDate(rs.getDate("created_date"));
+        s.setDegree(rs.getInt("degree"));
+        s.setSchool(rs.getString("school"));
+        s.setMajor(rs.getString("major"));
+        s.setWage(rs.getInt("wage"));
+        return s;
       }
 
       return null;
@@ -147,10 +142,8 @@ public class TeacherDaoImpl implements TeacherDao {
   public int delete(int no) {
     try (Statement stmt = con.createStatement()) {
 
-      String sql = String.format(
-          "delete from app_teacher"
-              + " where"
-              + " member_id=%d", no);
+      String sql = String.format("delete from app_teacher"
+          + " where member_id=%d", no);
 
       return stmt.executeUpdate(sql);
 
@@ -166,11 +159,12 @@ public class TeacherDaoImpl implements TeacherDao {
     TeacherDaoImpl dao = new TeacherDaoImpl(con);
 
     //    Teacher t = new Teacher();
-    //    t.setNo(17);
+    //    t.setNo(15);
     //    t.setDegree(3);
-    //    t.setSchool("삭제용");
-    //    t.setMajor("메이저321");
-    //    t.setWage(5250);
+    //    t.setSchool("비트대학교");
+    //    t.setMajor("수학");
+    //    t.setWage(14000);
+    //
     //    dao.insert(t);
 
     //    List<Teacher> list = dao.findAll();
@@ -178,18 +172,18 @@ public class TeacherDaoImpl implements TeacherDao {
     //      System.out.println(t);
     //    }
 
-    //    Teacher t = dao.findByNo(16);
+    //    Teacher t = dao.findByNo(4);
     //    System.out.println(t);
 
     //    Teacher t = new Teacher();
-    //    t.setNo(16);
-    //    t.setDegree(4);
-    //    t.setSchool("버클리 음악 대학교");
-    //    t.setMajor("실용 음악과");
-    //    t.setWage(33000);
+    //    t.setNo(4);
+    //    t.setDegree(5);
+    //    t.setSchool("비트대학교x");
+    //    t.setMajor("수학xx");
+    //    t.setWage(55000);
     //    System.out.println(dao.update(t));
 
-    System.out.println(dao.delete(17));
+    //    System.out.println(dao.delete(4));
 
     con.close();
   }

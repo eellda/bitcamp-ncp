@@ -53,16 +53,30 @@ public class ServerApp {
         ServerSocket serverSocket = new ServerSocket(port)) {
       System.out.println("서버 실행 중...");
 
-      while (true) {
-        Socket socket = serverSocket.accept();
-        new Thread(() -> service(socket)).start();
+      try (Socket socket = serverSocket.accept();
+          DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+          DataInputStream in = new DataInputStream(socket.getInputStream())) {
+
+        // 입출력 보조 도구 준비
+        StreamTool streamTool = new StreamTool(in, out);
+
+        String clientIP = socket.getInetAddress().getHostAddress();
+        System.out.printf("접속: %s\n", clientIP);
+
+        hello(streamTool);
+        processRequest(streamTool);
+
+        System.out.printf("끊기: %s\n", clientIP);
+
+      } catch (Exception e) {
+        System.out.println("클라이언트 요청 처리 오류!");
+        e.printStackTrace();
       }
 
     } catch (Exception e) {
       System.out.println("서버 소켓 오류!");
       e.printStackTrace();
     }
-
   }
 
   private void hello(StreamTool streamTool) throws Exception {
@@ -75,7 +89,6 @@ public class ServerApp {
   }
 
   private void processRequest(StreamTool streamTool) throws Exception {
-
     loop: while (true) {
       String command = streamTool.readString();
 
@@ -87,6 +100,7 @@ public class ServerApp {
       int menuNo;
       try {
         menuNo = Integer.parseInt(command);
+
       } catch (Exception e) {
         streamTool.println("메뉴 번호가 옳지 않습니다!").println().send();
         continue;
@@ -112,8 +126,6 @@ public class ServerApp {
             streamTool.println("잘못된 메뉴 번호 입니다.").send();
         }
 
-
-
       } catch (Exception e) {
         streamTool.printf("명령 실행 중 오류 발생! - %s : %s\n",
             e.getMessage(),
@@ -134,29 +146,6 @@ public class ServerApp {
     .println("9. 종료")
     .println("메뉴 번호:")
     .send();
-  }
-
-  public void service(Socket clientSocket) {
-
-    // thread가 실행할 코드를 둔다!
-    try (Socket socket = clientSocket;
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-        DataInputStream in = new DataInputStream(socket.getInputStream())) {
-
-      // 입출력 보조 도구 준비
-      StreamTool streamTool = new StreamTool(in, out);
-      String clientIP = socket.getInetAddress().getHostAddress();
-      System.out.printf("접속: %s\n", clientIP);
-
-      hello(streamTool);
-      processRequest(streamTool);
-
-      System.out.printf("끊기: %s\n", clientIP);
-
-    } catch (Exception e) {
-      System.out.println("클라이언트 요청 처리 오류!");
-      e.printStackTrace();
-    }
   }
 }
 

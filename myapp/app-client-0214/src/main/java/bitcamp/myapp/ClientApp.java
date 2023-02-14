@@ -22,17 +22,14 @@ public class ClientApp {
       while (true) {
         String input = prompt("> ", keyboard);
         out.writeUTF(input);
-        String response = in.readUTF();
 
+        String response = in.readUTF();
         if (response.equalsIgnoreCase("quit")) {
           break;
         }
-
         System.out.print(response);
       }
-
       System.out.println("안녕!");
-
     } catch (Exception e) {
       e.printStackTrace();
     }

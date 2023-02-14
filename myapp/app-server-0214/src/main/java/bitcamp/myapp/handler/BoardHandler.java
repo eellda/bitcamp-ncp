@@ -92,7 +92,6 @@ public class BoardHandler {
 
   private void deleteBoard(StreamTool streamTool) throws Exception {
     int boardNo = streamTool.promptInt("게시글 번호? ");
-
     Board b = this.boardDao.findByNo(boardNo);
 
     if (b == null) {

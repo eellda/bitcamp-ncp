@@ -13,9 +13,9 @@ public class Teacher extends Member implements java.io.Serializable {
   public String toString() {
     return "Teacher [degree=" + degree + ", school=" + school + ", major=" + major + ", wage="
         + wage + ", getNo()=" + getNo() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
-        + ", getPassword()=" + getPassword() + ", getTel()=" + getTel() + ", getCreatedDate()="
-        + getCreatedDate() + "]";
+        + ", getTel()=" + getTel() + ", getCreatedDate()=" + getCreatedDate() + "]";
   }
+
   public int getDegree() {
     return degree;
   }
