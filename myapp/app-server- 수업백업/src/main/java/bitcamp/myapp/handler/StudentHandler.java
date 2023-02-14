@@ -15,7 +15,7 @@ public class StudentHandler {
   private StudentDao studentDao;
   private String title;
 
-  public StudentHandler(String title, ConnectionFactory conFactory, MemberDao memberDao, StudentDao studentDao) {
+  public StudentHandler(String title,ConnectionFactory conFactory, MemberDao memberDao, StudentDao studentDao) {
     this.title = title;
     this.conFactory = conFactory;
     this.memberDao = memberDao;
@@ -35,16 +35,16 @@ public class StudentHandler {
     s.setGender(streamTool.promptInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     s.setLevel((byte) streamTool.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
-    // 현재 스레드가 갖고 있는 Connection 객체를 리턴 받는다.
+    // 현재 스레드가 갖고 있는 Connection 객체를 리턴
     Connection con = conFactory.getConnection();
+
     con.setAutoCommit(false);
     try {
       memberDao.insert(s);
       studentDao.insert(s);
-
       Thread t = Thread.currentThread();
-      System.out.printf("%s 스레드를 30초간 중지합니다!", t.getName());
-      Thread.sleep(30000);
+      System.out.printf("%s 스레드 30초 압수ㅋㅋ", t.getName());
+      t.sleep(30000);
 
       con.commit();
       streamTool.println("입력했습니다!").send();
@@ -139,8 +139,9 @@ public class StudentHandler {
 
     String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      // 현재 스레드가 갖고 있는 Connection 객체를 리턴 받는다.
+      // 현재 스레드가 갖고 있는 Connection 객체를 리턴
       Connection con = conFactory.getConnection();
+
       con.setAutoCommit(false);
       try {
         memberDao.update(m);
@@ -177,9 +178,9 @@ public class StudentHandler {
       streamTool.println("삭제 취소했습니다.").send();
       return;
     }
-
-    // 현재 스레드가 갖고 있는 Connection 객체를 리턴 받는다.
+    // 현재 스레드가 갖고 있는 Connection 객체를 리턴
     Connection con = conFactory.getConnection();
+
     con.setAutoCommit(false);
     try {
       studentDao.delete(memberNo);

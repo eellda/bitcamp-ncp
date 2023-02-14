@@ -9,7 +9,6 @@ import bitcamp.util.ConnectionFactory;
 import bitcamp.util.StreamTool;
 
 public class TeacherHandler {
-
   private ConnectionFactory conFactory;
   private MemberDao memberDao;
   private TeacherDao teacherDao;
@@ -33,9 +32,9 @@ public class TeacherHandler {
     m.setMajor(streamTool.promptString("전공? "));
     m.setWage(streamTool.promptInt("강의료(시급)? "));
 
-    // 현재 스레드에 보관된 Connection 객체를 리턴 받는다.
     Connection con = conFactory.getConnection();
     con.setAutoCommit(false);
+
     try {
       memberDao.insert(m);
       teacherDao.insert(m);
@@ -122,9 +121,9 @@ public class TeacherHandler {
 
     String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      // 현재 스레드에 보관된 Connection 객체를 리턴 받는다.
       Connection con = conFactory.getConnection();
       con.setAutoCommit(false);
+
       try {
         memberDao.update(m);
         teacherDao.update(m);
@@ -161,9 +160,9 @@ public class TeacherHandler {
       return;
     }
 
-    // 현재 스레드에 보관된 Connection 객체를 리턴 받는다.
     Connection con = conFactory.getConnection();
     con.setAutoCommit(false);
+
     try {
       teacherDao.delete(teacherNo);
       memberDao.delete(teacherNo);

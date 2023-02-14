@@ -24,10 +24,7 @@ public class ClientApp {
         out.writeUTF(input);
         String response = in.readUTF();
 
-        if (response.equalsIgnoreCase("quit")) {
-          break;
-        }
-
+        if (response.equalsIgnoreCase("quit")) break;
         System.out.print(response);
       }
 

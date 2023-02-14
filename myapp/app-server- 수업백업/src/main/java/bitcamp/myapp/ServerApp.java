@@ -21,11 +21,8 @@ import bitcamp.util.ConnectionPool;
 import bitcamp.util.StreamTool;
 
 public class ServerApp {
-
-  ConnectionPool connectionPool = new ConnectionPool(
-      "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+  ConnectionPool connectionPool = new ConnectionPool("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
   ConnectionFactory conFactory = new ConnectionFactory(connectionPool);
-
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
   BoardHandler boardHandler;
@@ -40,14 +37,14 @@ public class ServerApp {
     }
   }
 
-  public ServerApp() throws Exception{
+  public ServerApp() throws Exception {
 
     // Mybatis API 사용 준비
-    // 1. Mybatis 설정파일 준비 : resources/bitcamp/myapp/config/mybatis-config.xml
+    // 1. Mybatis 설정파일 준비 : resources/bitcamp/myapp/conf/mybatis-config.xml
     // 2. SQL Mapper 파일 준비 : resources/bitcamp/myapp/mapper/BoardMmpper.xml
     // 3. Mybatis 설정 파일 읽을 때 사용할 InputStream 객체 준비
     InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
-        "bitcamp/myapp/config/mybatis-config.xml");
+        "bitcamp/myapp/mapper/BoardMapper.xml");
     // 4. SqlSessionFactoryBuider 객 준비
     SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
     // 5. builder를 이용하여 SqlSessionFactory 객체 생성
@@ -64,6 +61,7 @@ public class ServerApp {
   }
 
   void execute(int port) {
+
     try (ServerSocket serverSocket = new ServerSocket(port)) {
       System.out.println("서버 실행 중...");
 
@@ -150,14 +148,14 @@ public class ServerApp {
   }
 
   public void service(Socket clientSocket) {
-    // 스레드가 실행할 코드를 둔다.
+
+    // thread가 실행할 코드를 둔다!
     try (Socket socket = clientSocket;
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream())) {
 
       // 입출력 보조 도구 준비
       StreamTool streamTool = new StreamTool(in, out);
-
       String clientIP = socket.getInetAddress().getHostAddress();
       System.out.printf("접속: %s\n", clientIP);
 
@@ -171,7 +169,7 @@ public class ServerApp {
       e.printStackTrace();
 
     } finally {
-      // 현재 스레드가 갖고 있는 커넥션 객체를 ConnectionPool에 반납시킨다.
+      // 현재 스레드가 갖고 있는 connection 객체를 connectionPool에 반납시킨다.
       conFactory.closeConnection();
     }
   }
