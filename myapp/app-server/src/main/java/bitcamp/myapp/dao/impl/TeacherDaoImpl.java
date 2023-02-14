@@ -9,18 +9,19 @@ import java.util.List;
 import bitcamp.myapp.dao.DaoException;
 import bitcamp.myapp.dao.TeacherDao;
 import bitcamp.myapp.vo.Teacher;
+import bitcamp.util.ConnectionFactory;
 
 public class TeacherDaoImpl implements TeacherDao {
 
-  Connection con;
+  ConnectionFactory conFactory;
 
-  public TeacherDaoImpl(Connection con) {
-    this.con = con;
+  public TeacherDaoImpl(ConnectionFactory conFactory) {
+    this.conFactory = conFactory;
   }
 
   @Override
   public void insert(Teacher s) {
-    try (Statement stmt = con.createStatement()) {
+    try (Statement stmt = conFactory.getConnecton().createStatement()) {
 
       String sql = String.format("insert into app_teacher("
           + " member_id,"
@@ -44,7 +45,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
   @Override
   public List<Teacher> findAll() {
-    try (Statement stmt = con.createStatement();
+    try (Statement stmt = conFactory.getConnecton().createStatement();
         ResultSet rs = stmt.executeQuery("select"
             + "  m.member_id,"
             + "  m.name,"
@@ -78,7 +79,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
   @Override
   public Teacher findByNo(int no) {
-    try (Statement stmt = con.createStatement();
+    try (Statement stmt = conFactory.getConnecton().createStatement();
         ResultSet rs = stmt.executeQuery("select"
             + "  m.member_id,"
             + "  m.name,"
@@ -116,7 +117,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
   @Override
   public int update(Teacher t) {
-    try (Statement stmt = con.createStatement()) {
+    try (Statement stmt = conFactory.getConnecton().createStatement()) {
 
       String sql = String.format(
           "update app_teacher set "
@@ -140,7 +141,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
   @Override
   public int delete(int no) {
-    try (Statement stmt = con.createStatement()) {
+    try (Statement stmt = conFactory.getConnecton().createStatement()) {
 
       String sql = String.format("delete from app_teacher"
           + " where member_id=%d", no);
@@ -156,7 +157,7 @@ public class TeacherDaoImpl implements TeacherDao {
     Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
 
-    TeacherDaoImpl dao = new TeacherDaoImpl(con);
+    //    TeacherDaoImpl dao = new TeacherDaoImpl(con);
 
     //    Teacher t = new Teacher();
     //    t.setNo(15);
@@ -185,7 +186,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
     //    System.out.println(dao.delete(4));
 
-    con.close();
+    //    conFactory.getConnecton().close();
   }
 }
 

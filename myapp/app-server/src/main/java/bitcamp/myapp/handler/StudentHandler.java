@@ -38,6 +38,10 @@ public class StudentHandler {
     try {
       memberDao.insert(s);
       studentDao.insert(s);
+      Thread t = Thread.currentThread();
+      System.out.printf("%s 스레드 30초 압수ㅋㅋ", t.getName());
+      t.sleep(30000);
+
       con.commit();
       streamTool.println("입력했습니다!").send();
 

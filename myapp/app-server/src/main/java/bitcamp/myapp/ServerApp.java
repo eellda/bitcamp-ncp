@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import bitcamp.myapp.dao.impl.BoardDaoImpl;
 import bitcamp.myapp.dao.impl.MemberDaoImpl;
 import bitcamp.myapp.dao.impl.StudentDaoImpl;
@@ -14,11 +13,11 @@ import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
+import bitcamp.util.ConnectionFactory;
 import bitcamp.util.StreamTool;
 
 public class ServerApp {
-
-  Connection con;
+  ConnectionFactory conFactory = new ConnectionFactory("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
   BoardHandler boardHandler;
@@ -34,16 +33,13 @@ public class ServerApp {
   }
 
   public ServerApp() throws Exception{
-    this.con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+    BoardDaoImpl boardDao = new BoardDaoImpl(conFactory);
+    MemberDaoImpl memberDao = new MemberDaoImpl(conFactory);
+    StudentDaoImpl studentDao = new StudentDaoImpl(conFactory);
+    TeacherDaoImpl teacherDao = new TeacherDaoImpl(conFactory);
 
-    BoardDaoImpl boardDao = new BoardDaoImpl(con);
-    MemberDaoImpl memberDao = new MemberDaoImpl(con);
-    StudentDaoImpl studentDao = new StudentDaoImpl(con);
-    TeacherDaoImpl teacherDao = new TeacherDaoImpl(con);
-
-    this.studentHandler = new StudentHandler("학생", con, memberDao, studentDao);
-    this.teacherHandler = new TeacherHandler("강사", con, memberDao, teacherDao);
+    this.studentHandler = new StudentHandler("학생", conFactory, memberDao, studentDao);
+    this.teacherHandler = new TeacherHandler("강사", conFactory, memberDao, teacherDao);
     this.boardHandler = new BoardHandler("게시판", boardDao);
   }
 
@@ -62,7 +58,6 @@ public class ServerApp {
       System.out.println("서버 소켓 오류!");
       e.printStackTrace();
     }
-
   }
 
   private void hello(StreamTool streamTool) throws Exception {
