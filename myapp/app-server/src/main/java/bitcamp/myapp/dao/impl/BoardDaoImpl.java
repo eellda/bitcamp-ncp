@@ -19,7 +19,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public void insert(Board b) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("insert into app_board(title, content, pwd) values('%s', '%s', '%s')",
           b.getTitle(), b.getContent(), b.getPassword());
@@ -33,7 +33,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(
             "select board_id, title, created_date, view_cnt from app_board order by board_id desc")) {
 
@@ -56,7 +56,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public Board findByNo(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(
             "select board_id, title, content, pwd, created_date, view_cnt from app_board where board_id=" + no)) {
 
@@ -80,7 +80,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public void increaseViewCount(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format(
           "update app_board set"
@@ -97,7 +97,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findByKeyword(String keyword) {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(
             "select board_id, title, created_date, view_cnt"
                 + " from app_board"
@@ -124,7 +124,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int update(Board b) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("update app_board set title='%s', content='%s' where board_id=%d",
           b.getTitle(), b.getContent(), b.getNo());
@@ -138,7 +138,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int delete(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("delete from app_board where board_id=%d", no);
 

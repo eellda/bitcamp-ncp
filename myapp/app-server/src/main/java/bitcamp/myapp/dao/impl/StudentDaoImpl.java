@@ -1,7 +1,5 @@
 package bitcamp.myapp.dao.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class StudentDaoImpl implements StudentDao {
   @Override
   public void insert(Student s) {
 
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("insert into app_student("
           + "  member_id,"
@@ -50,7 +48,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public List<Student> findAll() {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("select"
             + "  m.member_id,"
             + "  m.name,"
@@ -84,7 +82,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public Student findByNo(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("select"
             + "  m.member_id,"
             + "  m.name,"
@@ -126,7 +124,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public List<Student> findByKeyword(String keyword) {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery("select"
             + "  m.member_id,"
             + "  m.name,"
@@ -166,7 +164,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public int update(Student s) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("update app_student set "
           + "  pst_no='%s',"
@@ -193,7 +191,7 @@ public class StudentDaoImpl implements StudentDao {
 
   @Override
   public int delete(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format("delete from app_student"
           + " where member_id=%d", no);
@@ -206,8 +204,8 @@ public class StudentDaoImpl implements StudentDao {
 
 
   public static void main(String[] args) throws Exception {
-    Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+    //    Connection con = DriverManager.getConnection(
+    //        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
 
     //    StudentDaoImpl dao = new StudentDaoImpl(con);
 
@@ -248,7 +246,7 @@ public class StudentDaoImpl implements StudentDao {
 
     //    System.out.println(dao.delete(7));
 
-    //    conFactory.getConnecton().close();
+    //    conFactory.getConnection().close();
   }
 }
 

@@ -5,18 +5,18 @@ import java.util.List;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.TeacherDao;
 import bitcamp.myapp.vo.Teacher;
+import bitcamp.util.ConnectionFactory;
 import bitcamp.util.StreamTool;
 
 public class TeacherHandler {
-
-  private Connection con;
+  private ConnectionFactory conFactory;
   private MemberDao memberDao;
   private TeacherDao teacherDao;
   private String title;
 
-  public TeacherHandler(String title, Connection con, MemberDao memberDao, TeacherDao teacherDao) {
+  public TeacherHandler(String title, ConnectionFactory conFactory, MemberDao memberDao, TeacherDao teacherDao) {
     this.title = title;
-    this.con = con;
+    this.conFactory = conFactory;
     this.memberDao = memberDao;
     this.teacherDao = teacherDao;
   }
@@ -32,7 +32,9 @@ public class TeacherHandler {
     m.setMajor(streamTool.promptString("전공? "));
     m.setWage(streamTool.promptInt("강의료(시급)? "));
 
+    Connection con = conFactory.getConnection();
     con.setAutoCommit(false);
+
     try {
       memberDao.insert(m);
       teacherDao.insert(m);
@@ -119,7 +121,9 @@ public class TeacherHandler {
 
     String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
+      Connection con = conFactory.getConnection();
       con.setAutoCommit(false);
+
       try {
         memberDao.update(m);
         teacherDao.update(m);
@@ -156,7 +160,9 @@ public class TeacherHandler {
       return;
     }
 
+    Connection con = conFactory.getConnection();
     con.setAutoCommit(false);
+
     try {
       teacherDao.delete(teacherNo);
       memberDao.delete(teacherNo);

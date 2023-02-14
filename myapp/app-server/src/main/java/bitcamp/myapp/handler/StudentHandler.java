@@ -5,18 +5,19 @@ import java.util.List;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.vo.Student;
+import bitcamp.util.ConnectionFactory;
 import bitcamp.util.StreamTool;
 
 public class StudentHandler {
 
-  private Connection con;
+  private ConnectionFactory conFactory;
   private MemberDao memberDao;
   private StudentDao studentDao;
   private String title;
 
-  public StudentHandler(String title, Connection con, MemberDao memberDao, StudentDao studentDao) {
+  public StudentHandler(String title,ConnectionFactory conFactory, MemberDao memberDao, StudentDao studentDao) {
     this.title = title;
-    this.con = con;
+    this.conFactory = conFactory;
     this.memberDao = memberDao;
     this.studentDao = studentDao;
   }
@@ -33,6 +34,9 @@ public class StudentHandler {
     s.setWorking(streamTool.promptInt("0. 미취업\n1. 재직중\n재직자? ") == 1);
     s.setGender(streamTool.promptInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     s.setLevel((byte) streamTool.promptInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
+
+    // 현재 스레드가 갖고 있는 Connection 객체를 리턴
+    Connection con = conFactory.getConnection();
 
     con.setAutoCommit(false);
     try {
@@ -135,6 +139,9 @@ public class StudentHandler {
 
     String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
+      // 현재 스레드가 갖고 있는 Connection 객체를 리턴
+      Connection con = conFactory.getConnection();
+
       con.setAutoCommit(false);
       try {
         memberDao.update(m);
@@ -171,6 +178,8 @@ public class StudentHandler {
       streamTool.println("삭제 취소했습니다.").send();
       return;
     }
+    // 현재 스레드가 갖고 있는 Connection 객체를 리턴
+    Connection con = conFactory.getConnection();
 
     con.setAutoCommit(false);
     try {

@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
 import bitcamp.myapp.dao.impl.BoardDaoImpl;
 import bitcamp.myapp.dao.impl.MemberDaoImpl;
 import bitcamp.myapp.dao.impl.StudentDaoImpl;
@@ -14,10 +13,12 @@ import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
 import bitcamp.util.ConnectionFactory;
+import bitcamp.util.ConnectionPool;
 import bitcamp.util.StreamTool;
 
 public class ServerApp {
-  ConnectionFactory conFactory = new ConnectionFactory("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+  ConnectionPool connectionPool = new ConnectionPool("jdbc:mariadb://localhost:3306/studydb", "study", "1111");
+  ConnectionFactory conFactory = new ConnectionFactory(connectionPool);
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
   BoardHandler boardHandler;
@@ -45,8 +46,7 @@ public class ServerApp {
 
   void execute(int port) {
 
-    try (Connection con = this.con;
-        ServerSocket serverSocket = new ServerSocket(port)) {
+    try (ServerSocket serverSocket = new ServerSocket(port)) {
       System.out.println("서버 실행 중...");
 
       while (true) {
@@ -151,6 +151,10 @@ public class ServerApp {
     } catch (Exception e) {
       System.out.println("클라이언트 요청 처리 오류!");
       e.printStackTrace();
+
+    } finally {
+      // 현재 스레드가 갖고 있는 connection 객체를 connectionPool에 반납시킨다.
+      conFactory.closeConnection();
     }
   }
 }

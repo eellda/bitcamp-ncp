@@ -19,7 +19,7 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public void insert(Member m) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format(
           "insert into app_member(name, email, pwd, tel)"
@@ -54,7 +54,7 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findAll() {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(
             "select member_id, name, email, created_date"
                 + " from app_member"
@@ -79,7 +79,7 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public Member findByNo(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement();
+    try (Statement stmt = conFactory.getConnection().createStatement();
         ResultSet rs = stmt.executeQuery(
             "select member_id, name, email, tel, created_date"
                 + " from app_member"
@@ -103,7 +103,7 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int update(Member m) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format(
           "update app_member set "
@@ -124,7 +124,7 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int delete(int no) {
-    try (Statement stmt = conFactory.getConnecton().createStatement()) {
+    try (Statement stmt = conFactory.getConnection().createStatement()) {
 
       String sql = String.format(
           "delete from app_member"
@@ -138,7 +138,7 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public static void main(String[] args) throws Exception {
-    //    Connection con = DriverManager.getConnecton(
+    //    Connection con = DriverManager.getConnection(
     //        "jdbc:mariadb://localhost:3306/studydb", "study", "1111");
     //
     //    MemberDaoImpl dao = new MemberDaoImpl(con);
@@ -171,7 +171,7 @@ public class MemberDaoImpl implements MemberDao {
 
     //    System.out.println(dao.delete(3));
 
-    //    conFactory.getConnecton().close();
+    //    conFactory.getConnection().close();
   }
 }
 
