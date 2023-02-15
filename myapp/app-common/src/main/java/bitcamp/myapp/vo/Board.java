@@ -13,7 +13,6 @@ public class Board implements java.io.Serializable {
   private Date createdDate;
   private int viewCount;
 
-
   @Override
   public String toString() {
     return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="
@@ -59,7 +58,6 @@ public class Board implements java.io.Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
-
   public Date getCreatedDate() {
     return createdDate;
   }

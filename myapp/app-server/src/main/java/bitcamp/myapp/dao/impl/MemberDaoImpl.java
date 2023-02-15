@@ -20,7 +20,6 @@ public class MemberDaoImpl implements MemberDao {
   public void insert(Member m) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       sqlSession.insert("MemberMapper.insert", m);
-      sqlSession.commit();
     }
   }
 
@@ -41,18 +40,14 @@ public class MemberDaoImpl implements MemberDao {
   @Override
   public int update(Member m) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int n = sqlSession.update("MemberMapper.update", m);
-      sqlSession.commit();
-      return n;
+      return sqlSession.update("MemberMapper.update", m);
     }
   }
 
   @Override
   public int delete(int no) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int n = sqlSession.delete("MemberMapper.delete", no);
-      sqlSession.commit();
-      return n;
+      return sqlSession.delete("MemberMapper.delete", no);
     }
   }
 
@@ -61,36 +56,32 @@ public class MemberDaoImpl implements MemberDao {
         Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml"));
 
     MemberDaoImpl dao = new MemberDaoImpl(sqlSessionFactory);
+
+    //    Member m = new Member();
+    //    m.setName("x1");
+    //    m.setEmail("x1@test.com");
+    //    m.setPassword("1111");
+    //    m.setTel("010-1111-1111");
+    //    dao.insert(m);
     //
-    Member m = new Member();
-    m.setName("학생용2");
-    m.setEmail("hac3@test.com");
-    m.setPassword("2222");
-    m.setTel("010-2222-2222");
-    dao.insert(m);
-    System.out.println(m);
-
-
     //    List<Member> list = dao.findAll();
-    //    for (Member m :list) {
+    //    for (Member m : list) {
     //      System.out.println(m);
     //    }
 
-
-    //    Member m = dao.findByNo(41);
+    //    Member m = dao.findByNo(26);
     //    System.out.println(m);
 
-
     //    Member m = new Member();
-    //    m.setNo(40);
-    //    m.setName("test11");
-    //    m.setEmail("numbertest1@test.com");
-    //    m.setPassword("1");
-    //    m.setTel("1111");
+    //    m.setNo(26);
+    //    m.setName("x1aa");
+    //    m.setEmail("x1aa@test.com");
+    //    m.setPassword("1111");
+    //    m.setTel("010-1111-1111a");
     //    System.out.println(dao.update(m));
 
+    //    System.out.println(dao.delete(26));
 
-    //    System.out.println(dao.delete(41));
   }
 }
 
