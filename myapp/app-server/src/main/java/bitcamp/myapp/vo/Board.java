@@ -1,7 +1,10 @@
 package bitcamp.myapp.vo;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 public class Board implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
@@ -10,14 +13,19 @@ public class Board implements java.io.Serializable {
   private String title;
   private String content;
   private String password;
-  private Date createdDate;
-  private int viewCount;
 
-  @Override
-  public String toString() {
-    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="
-        + password + ", createdDate=" + createdDate + ", viewCount=" + viewCount + "]";
-  }
+  // Jackson 라이브러리가 Date 타입 값을 JSON 문자열로 변환할 때 사용할 규칙을 설정한다.
+  @JsonFormat(
+      shape = Shape.STRING,
+      pattern = "yyyy-MM-dd")
+  private Date createdDate;
+
+  private int viewCount;
+  private int writerNo;
+  private String writerName;
+  private Member writer;
+  private List<BoardFile> attachedFiles;
+
   @Override
   public int hashCode() {
     return Objects.hash(no);
@@ -70,6 +78,36 @@ public class Board implements java.io.Serializable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
+  public int getWriterNo() {
+    return writerNo;
+  }
+  public void setWriterNo(int writerNo) {
+    this.writerNo = writerNo;
+  }
+  public String getWriterName() {
+    return writerName;
+  }
+  public void setWriterName(String writerName) {
+    this.writerName = writerName;
+  }
+  public Member getWriter() {
+    return writer;
+  }
+  public void setWriter(Member writer) {
+    this.writer = writer;
+  }
+  public List<BoardFile> getAttachedFiles() {
+    return attachedFiles;
+  }
+  public void setAttachedFiles(List<BoardFile> attachedFiles) {
+    this.attachedFiles = attachedFiles;
+  }
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="
+        + password + ", createdDate=" + createdDate + ", viewCount=" + viewCount + ", writerNo="
+        + writerNo + ", writerName=" + writerName + ", writer=" + writer + ", attachedFiles="
+        + attachedFiles + "]";
+  }
 
 }
