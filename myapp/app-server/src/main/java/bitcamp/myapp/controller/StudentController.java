@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,11 +42,13 @@ public class StudentController {
         .setData(studentService.list(keyword));
   }
 
-  @GetMapping("/student/view")
-  public void view(
-      int no,
-      Model model) {
-    model.addAttribute("student", studentService.get(no));
+  @GetMapping("/students/{no}")
+  @ResponseBody
+  public Object view(@PathVariable int no) {
+    Student student = studentService.get(no);
+    return new RestResult()
+        .setStatus(RestStatus.SUCCESS)
+        .setData(student);
   }
 
   @PostMapping("/student/update")
