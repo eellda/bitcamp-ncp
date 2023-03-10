@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a0569f8e-0f41-4895-a4c5-3dbf5c262c36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/dao/StudentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/dao/StudentDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/dao/TeacherDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/dao/TeacherDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/filter/CharacterEncodingFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/listener/ContextLoaderListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/HelloServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardDeleteServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardFormServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardInsertServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardListServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardUpdateServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/board/BoardViewServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentDeleteServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentFormServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentInsertServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentListServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentUpdateServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/student/StudentViewServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherDeleteServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherFormServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherInsertServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherListServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherUpdateServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/servlet/teacher/TeacherViewServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/vo/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/vo/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/vo/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/myapp/vo/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/util/BitcampSqlSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/util/BitcampSqlSessionFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/util/DaoGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/java/bitcamp/util/TransactionManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/config/mybatis-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/BoardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/BoardMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/MemberMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/MemberMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/StudentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/StudentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/TeacherMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/resources/bitcamp/myapp/mapper/TeacherMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/delete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/delete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/insert.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/insert.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/update.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/update.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/board/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/board/view.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/delete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/delete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/insert.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/insert.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/update.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/update.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/student/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/student/view.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/delete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/delete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/insert.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/insert.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/update.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/update.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/teacher/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/app-server/src/main/webapp/WEB-INF/jsp/teacher/view.jsp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MiMKw0Vx0pbbQ75bm97i0ZS0uu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/sungmin/git/bitcamp-ncp"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="bitcamp-ncp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="bitcamp-ncp" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a0569f8e-0f41-4895-a4c5-3dbf5c262c36" name="Changes" comment="" />
+      <created>1678245891734</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678245891734</updated>
+    </task>
+    <servers />
+  </component>
+</project>
