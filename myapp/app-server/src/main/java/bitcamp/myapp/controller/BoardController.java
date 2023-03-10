@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/boards")
 public class BoardController {
 
   Logger log = LogManager.getLogger(getClass());
@@ -32,7 +33,7 @@ public class BoardController {
   @Autowired private ServletContext servletContext;
   @Autowired private BoardService boardService;
 
-  @PostMapping("/boards")
+  @PostMapping
   public Object insert(
       Board board,
       List<MultipartFile> files,
@@ -67,7 +68,7 @@ public class BoardController {
         .setStatus(RestStatus.SUCCESS);
   }
 
-  @GetMapping("/boards")
+  @GetMapping
   public Object list(String keyword) {
     log.debug("BoardController.list() 호출됨!");
 
@@ -80,7 +81,7 @@ public class BoardController {
         .setData(boardService.list(keyword));
   }
 
-  @GetMapping("boards/{no}")
+  @GetMapping("{no}")
   public Object view(@PathVariable int no) {
     Board board = boardService.get(no);
     if (board != null) {
@@ -94,7 +95,7 @@ public class BoardController {
     }
   }
 
-  @PutMapping("/boards")
+  @PutMapping
   public Object update(
       Board board,
       List<MultipartFile> files,
@@ -134,7 +135,7 @@ public class BoardController {
         .setStatus(RestStatus.SUCCESS);
   }
 
-  @DeleteMapping("/boards/{no}")
+  @DeleteMapping("{no}")
   public Object delete(@PathVariable int no, HttpSession session) {
     Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -151,7 +152,7 @@ public class BoardController {
         .setStatus(RestStatus.SUCCESS);
   }
 
-  @DeleteMapping("/boards/{boardNo}/files/{fileNo}")
+  @DeleteMapping("{boardNo}/files/{fileNo}")
   public Object filedelete(
       @PathVariable int boardNo,
       @PathVariable int fileNo,
