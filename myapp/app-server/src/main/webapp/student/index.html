@@ -108,8 +108,8 @@ article {
     </table>
 
     <div>
-      <button id='btn-list' type='button'>목록</button>
-      <button>변경</button>
+      <button id='btn-insert' type='button'>추가</button>
+      <button id="btn-update" type="button">변경</button>
       <button id='btn-delete' type='button'>삭제</button>
     </div>
   </form>
@@ -171,8 +171,85 @@ function getStudent(e) {
   document.querySelector(`input[name="gender"][value="${student.gender}"]`).checked = true;
   document.querySelector('#f-level').value = student.level;
   document.querySelector('#f-createdDate').innerHTML = student.createdDate;
-
   });
+}
+
+document.querySelector('#btn-insert').onclick = () => {
+  console.log('추가');
+}
+
+document.querySelector('#btn-update').onclick = () => {
+  const form = document.querySelector('#student-form');
+  const formData = new FormData(form);
+
+  // formData -> QueryString 1)
+  // let qs = [...formData.entries()].map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`).join('&');
+
+  // formData -> QueryString 2)
+  // let qs = new URLSearchParams(formData).toString();
+
+  //toQueryString(...formData.entries());
+
+  fetch("../admin/students", {
+    method: "PUT",
+    body: formData
+  })
+  .then(response => {
+    return response.json();
+  })
+  .then(result => {
+    if (result.status == 'success') {
+      alert("변경 했습니다");
+      location.reload();
+    } else {
+      alert('변경 실패!');
+      console.log(result.data);
+    }
+  })
+  .catch(exception => {
+	  alert('변경 중 오류 발생!');
+	  console.log(exception);
+  });
+}
+
+document.querySelector('#btn-delete').onclick = () => {
+  console.log('삭제');
+}
+
+// entries 에서 QueryString 으로 변환하기
+function toQueryStringFromEntries(entries) {
+  let qs = '';
+  for (let [key, value] of entries) {
+    if (qs.length > 0) {
+      qs += "&";
+    }
+    qs += encodeURIComponent(key) + "=" + encodeURIComponent(value);
+  }
+  return qs;
+}
+
+function toQueryStringFromEntries2(entries) {
+  let arr = [];
+
+  for (let entry of entries) {
+    arr.push(entry);
+  }
+<!--  console.log(arr);-->
+<!--  var arr2  = arr.map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`);-->
+<!--  console.log(arr2);-->
+<!--  let str = arr2.join('&');-->
+<!--  console.log(str);-->
+
+  return arr.map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`).join('&');
+}
+
+function toQueryStringFromEntries3(entries) {
+  let arr = [...entries];
+  return arr.map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`).join('&');
+}
+
+function toQueryString() {
+  console.log(arguments.length);
 }
 </script>
 

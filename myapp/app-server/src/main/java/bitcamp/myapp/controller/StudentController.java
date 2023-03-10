@@ -9,10 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class StudentController {
@@ -51,9 +48,12 @@ public class StudentController {
         .setData(student);
   }
 
-  @PostMapping("/student/update")
-  public void update(Student student, Model model) {
+  @PutMapping("/students")
+  @ResponseBody
+  public Object update(Student student) {
     studentService.update(student);
+    return new RestResult()
+        .setStatus(RestStatus.SUCCESS);
   }
 
   @PostMapping("/student/delete")
