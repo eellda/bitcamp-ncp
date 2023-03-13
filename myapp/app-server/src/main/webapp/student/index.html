@@ -109,6 +109,30 @@
       </form>
     </article>
 
+    <script id="tr-template"  type="text/x-handlebars-template">
+      {{#each this}}
+      <tr data-no="{{no}}" onclick="getStudent(event)">
+        <td>{{no}}</td>
+        <td>{{name}}</td>
+        <td>{{#if working}}예{{else}}아니요{{/if}}</td>
+        <td>{{tel}}</td>
+      </tr>
+      {{/each}}
+    </script>
+
     <script src="./index.js"></script>
+    <script src="../node_modules/handlebars/dist/handlebars.js"></script>
+    <script>
+    const html = document.querySelector('#tr-template').innerHTML;
+    const templateEngine = Handlebars.compile(html);
+
+     fetch("../admin/students")
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      document.querySelector("#student-table > tbody").innerHTML = templateEngine(result.data);
+    });
+    </script>
   </body>
 </html>
