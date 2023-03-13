@@ -164,7 +164,7 @@ document.querySelector('#btn-update').onclick = function() {
   const form = document.querySelector('#board-form');
   const formData = new FormData(form);
   
-  fetch("../app/boards", {
+  fetch("../app/boards/" + document.querySelector("input[name='no']").value, {
     method: "PUT",
     body: formData
   })
@@ -186,7 +186,7 @@ document.querySelector('#btn-update').onclick = function() {
 	
 document.querySelector('#btn-delete').onclick = function() {
   fetch("../app/boards/" + document.querySelector('input[name="no"]').value, {
-    method: "delete"
+    method: "DELETE"
   })
   .then(response => {
     return response.json();

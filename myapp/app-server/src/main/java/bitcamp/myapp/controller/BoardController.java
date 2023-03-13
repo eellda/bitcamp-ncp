@@ -24,6 +24,12 @@ import java.util.UUID;
 @RequestMapping("/boards")
 public class BoardController {
 
+  // 입력: POST => /boards
+  // 목록: GET => /boards
+  // 조회: GET => /boards/{no}
+  // 변경: PUT => /boards/{no}
+  // 삭제: DELETE => /boards/{no}
+
   Logger log = LogManager.getLogger(getClass());
 
   {
@@ -95,8 +101,9 @@ public class BoardController {
     }
   }
 
-  @PutMapping
+  @PutMapping("{no}")
   public Object update(
+      @PathVariable int no,
       Board board,
       List<MultipartFile> files,
       HttpSession session) throws Exception {
@@ -172,6 +179,7 @@ public class BoardController {
           .setStatus(RestStatus.SUCCESS);
     }
   }
+
 }
 
 

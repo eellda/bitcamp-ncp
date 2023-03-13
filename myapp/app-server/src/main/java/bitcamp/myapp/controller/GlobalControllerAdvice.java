@@ -1,16 +1,14 @@
 package bitcamp.myapp.controller;
 
-import bitcamp.util.ErrorCode;
-import bitcamp.util.RestResult;
-import bitcamp.util.RestStatus;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
+import bitcamp.util.ErrorCode;
+import bitcamp.util.RestResult;
+import bitcamp.util.RestStatus;
 
 // 페이지 컨트롤러의 공통 설정을 수행하는 클래스
 @ControllerAdvice
@@ -24,20 +22,15 @@ public class GlobalControllerAdvice {
 
   @ExceptionHandler
   @ResponseBody
-  public Object handle(Exception e, HttpServletRequest request, Model model) {
+  public Object handle(Exception e, HttpServletRequest request) {
     log.error(request.getRequestURI() + " 요청 처리 중 오류 발생!", e);
-
-    String message = String.format("url:%s\nclass:%s\nmessage:%s\n",
-        request.getRequestURI(),
-        e.getClass().getName(),
-        e.getMessage());
-    model.addAttribute("url", request.getRequestURI());
-    model.addAttribute("class", e.getClass().getName());
-    model.addAttribute("message", e.getMessage());
 
     return new RestResult()
         .setStatus(RestStatus.FAILURE)
         .setErrorCode(ErrorCode.rest.CONTROLLER_EXCEPTION)
-        .setData(message);
+        .setData(String.format("url: %s\nclass: %s\nmessage: %s",
+            request.getRequestURI(),
+            e.getClass().getName(),
+            e.getMessage()));
   }
 }

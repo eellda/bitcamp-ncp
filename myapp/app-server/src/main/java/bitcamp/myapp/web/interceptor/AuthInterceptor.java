@@ -1,18 +1,17 @@
 package bitcamp.myapp.web.interceptor;
 
-import bitcamp.myapp.vo.Member;
-import bitcamp.util.ErrorCode;
-import bitcamp.util.RestResult;
-import bitcamp.util.RestStatus;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import bitcamp.myapp.vo.Member;
+import bitcamp.util.ErrorCode;
+import bitcamp.util.RestResult;
+import bitcamp.util.RestStatus;
 
 public class AuthInterceptor implements HandlerInterceptor {
 

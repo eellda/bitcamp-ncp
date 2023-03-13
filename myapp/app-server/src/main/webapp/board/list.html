@@ -40,7 +40,7 @@ fetch("../app/boards")
     let html = `
   	  <tr>
   	     <td>${board.no}</td> 
-  	     <td><a href='view.html?no=${board.no}'>${board.title == "" ? "제목없음" : board.title}</a></td>
+  	     <td><a href='view.html?no=${board.no}'>${board.title == "" ? "제목없음" : board.title}</a></td> 
   	     <td>${board.writer.name}</td>
   	     <td>${board.createdDate}</td> 
   	     <td>${board.viewCount}</td>

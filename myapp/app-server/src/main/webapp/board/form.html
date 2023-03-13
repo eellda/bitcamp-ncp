@@ -47,11 +47,10 @@ document.querySelector('#btn-insert').onclick = function() {
     return response.json();
   })
   .then(result => {
-
     if (result.status == 'success') {
       location.href = 'list.html';
     } else if (result.errorCode == '401') {
-      location.href = '../auth/form.html';
+    	location.href = '../auth/form.html';
     } else {
       alert('입력 실패!');
     }

@@ -5,8 +5,6 @@ public class RestResult {
   String errorCode;
   Object data;
 
-
-
   public String getStatus() {
     return status;
   }
