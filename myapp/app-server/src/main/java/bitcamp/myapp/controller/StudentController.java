@@ -1,13 +1,20 @@
 package bitcamp.myapp.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.vo.Student;
 import bitcamp.util.RestResult;
 import bitcamp.util.RestStatus;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/students")
@@ -49,8 +56,9 @@ public class StudentController {
 
     log.debug(student);
 
-    //보안을 위해 URL  번호를 게시글 번호로 설정한다
+    // 보안을 위해 URL 번호를 게시글 번호로 설정한다.
     student.setNo(no);
+
     studentService.update(student);
     return new RestResult()
         .setStatus(RestStatus.SUCCESS);
@@ -62,5 +70,4 @@ public class StudentController {
     return new RestResult()
         .setStatus(RestStatus.SUCCESS);
   }
-
 }

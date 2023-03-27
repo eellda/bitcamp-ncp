@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>비트캠프 - NCP 1기</title>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1>학생(Thymeleaf)</h1>
+    <h1>학생</h1>
 
     <aside>
-      <div id="search-form" action="list" method="get">
+      <div>
         <input type="text" name="keyword" value="" />
         <button id="btn-search" type="button">검색</button>
       </div>
@@ -109,30 +109,18 @@
       </form>
     </article>
 
-    <script id="tr-template"  type="text/x-handlebars-template">
+    <script id="tr-template" type="text/x-handlebars-template">
       {{#each this}}
-      <tr data-no="{{no}}" onclick="getStudent(event)">
-        <td>{{no}}</td>
-        <td>{{name}}</td>
-        <td>{{#if working}}예{{else}}아니요{{/if}}</td>
-        <td>{{tel}}</td>
-      </tr>
+        <tr data-no="{{no}}" onclick="getStudent(event)">
+          <td>{{no}}</td>
+          <td>{{name}}</td>
+          <td>{{#if working}}예{{else}}아니오{{/if}}</td>
+          <td>{{tel}}</td>
+        </tr>
       {{/each}}
     </script>
 
-    <script src="./index.js"></script>
     <script src="../node_modules/handlebars/dist/handlebars.js"></script>
-    <script>
-    const html = document.querySelector('#tr-template').innerHTML;
-    const templateEngine = Handlebars.compile(html);
-
-     fetch("../admin/students")
-    .then((response) => {
-      return response.json();
-    })
-    .then((result) => {
-      document.querySelector("#student-table > tbody").innerHTML = templateEngine(result.data);
-    });
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>

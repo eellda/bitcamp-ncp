@@ -1,5 +1,20 @@
 package bitcamp.myapp.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;
@@ -7,27 +22,16 @@ import bitcamp.myapp.vo.Member;
 import bitcamp.util.ErrorCode;
 import bitcamp.util.RestResult;
 import bitcamp.util.RestStatus;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/boards")
 public class BoardController {
 
-  // 입력: POST => /boards
-  // 목록: GET => /boards
-  // 조회: GET => /boards/{no}
-  // 변경: PUT => /boards/{no}
+  // 입력: POST   => /boards
+  // 목록: GET    => /boards
+  // 조회: GET    => /boards/{no}
+  // 변경: PUT    => /boards/{no}
   // 삭제: DELETE => /boards/{no}
 
   Logger log = LogManager.getLogger(getClass());
@@ -36,7 +40,6 @@ public class BoardController {
     log.trace("BoardController 생성됨!");
   }
 
-  @Autowired private ServletContext servletContext;
   @Autowired private BoardService boardService;
 
   @PostMapping
@@ -58,7 +61,7 @@ public class BoardController {
       }
 
       String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
+      file.transferTo(new File(System.getProperty("user.home") + "/webapp-upload/" + filename));
 
       BoardFile boardFile = new BoardFile();
       boardFile.setOriginalFilename(file.getOriginalFilename());
@@ -110,6 +113,10 @@ public class BoardController {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
 
+    // URL 의 번호와 요청 파라미터의 번호가 다를 경우를 방지하기 위해
+    // URL의 번호를 게시글 번호로 설정한다.
+    board.setNo(no);
+
     Board old = boardService.get(board.getNo());
     if (old.getWriter().getNo() != loginUser.getNo()) {
       return new RestResult()
@@ -125,7 +132,7 @@ public class BoardController {
       }
 
       String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
+      file.transferTo(new File(System.getProperty("user.home") + "/webapp-upload/" + filename));
 
       BoardFile boardFile = new BoardFile();
       boardFile.setOriginalFilename(file.getOriginalFilename());
